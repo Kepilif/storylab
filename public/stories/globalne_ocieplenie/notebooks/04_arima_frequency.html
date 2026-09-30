@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Czy ARIMA wykorzystuje informację z miesięcy? – StoryLab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-75e3a9182966834e0e08ebad559894cc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../../assets/storylab.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed temperature-project quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">StoryLab</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Szukaj"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Przełącz nawigację" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../projects.html"> 
+<span class="menu-text">Projekty</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../wizualizacje.html"> 
+<span class="menu-text">Wizualizacje</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">O mnie</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../stories/globalne_ocieplenie/notebooks/04_arima_frequency.html">5. ARIMA i SARIMA</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">O projekcie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Analiza FAOSTAT</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/globalne_ocieplenie_story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Prognoza kontra rzeczywistość</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/02_monthly_seasonal_exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Miesiące i sezony</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Częstotliwość i prognoza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/04_arima_frequency.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">5. ARIMA i SARIMA</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej stronie</h2>
+   
+  <ul>
+  <li><a href="#czy-więcej-szczegółów-pomaga-przewidywać" id="toc-czy-więcej-szczegółów-pomaga-przewidywać" class="nav-link active" data-scroll-target="#czy-więcej-szczegółów-pomaga-przewidywać">Czy więcej szczegółów pomaga przewidywać?</a>
+  <ul class="collapse">
+  <li><a href="#co-właściwie-prognozujemy" id="toc-co-właściwie-prognozujemy" class="nav-link" data-scroll-target="#co-właściwie-prognozujemy">Co właściwie prognozujemy?</a></li>
+  <li><a href="#czy-w-miesięcznych-anomaliach-pozostała-struktura-czasowa" id="toc-czy-w-miesięcznych-anomaliach-pozostała-struktura-czasowa" class="nav-link" data-scroll-target="#czy-w-miesięcznych-anomaliach-pozostała-struktura-czasowa">Czy w miesięcznych anomaliach pozostała struktura czasowa?</a></li>
+  <li><a href="#pierwsza-odpowiedź-ranking-historycznych-błędów" id="toc-pierwsza-odpowiedź-ranking-historycznych-błędów" class="nav-link" data-scroll-target="#pierwsza-odpowiedź-ranking-historycznych-błędów">Pierwsza odpowiedź: ranking historycznych błędów</a></li>
+  </ul></li>
+  <li><a href="#jak-zapobiegamy-doborowi-do-testu" id="toc-jak-zapobiegamy-doborowi-do-testu" class="nav-link" data-scroll-target="#jak-zapobiegamy-doborowi-do-testu">Jak zapobiegamy doborowi do testu?</a></li>
+  <li><a href="#mały-jawny-zestaw-kandydatów" id="toc-mały-jawny-zestaw-kandydatów" class="nav-link" data-scroll-target="#mały-jawny-zestaw-kandydatów">Mały, jawny zestaw kandydatów</a></li>
+  <li><a href="#czy-wynik-zmienia-się-wraz-z-horyzontem-prognozy" id="toc-czy-wynik-zmienia-się-wraz-z-horyzontem-prognozy" class="nav-link" data-scroll-target="#czy-wynik-zmienia-się-wraz-z-horyzontem-prognozy">Czy wynik zmienia się wraz z horyzontem prognozy?</a></li>
+  <li><a href="#jak-stabilny-był-wybór" id="toc-jak-stabilny-był-wybór" class="nav-link" data-scroll-target="#jak-stabilny-był-wybór">Jak stabilny był wybór?</a>
+  <ul class="collapse">
+  <li><a href="#stabilnosc-wynikow" id="toc-stabilnosc-wynikow" class="nav-link" data-scroll-target="#stabilnosc-wynikow">Czy przewaga zależy od daty startowej?</a></li>
+  <li><a href="#jak-bardzo-wynik-zależy-od-badanej-historii" id="toc-jak-bardzo-wynik-zależy-od-badanej-historii" class="nav-link" data-scroll-target="#jak-bardzo-wynik-zależy-od-badanej-historii">Jak bardzo wynik zależy od badanej historii?</a></li>
+  <li><a href="#jakie-konfiguracje-wybierała-procedura" id="toc-jakie-konfiguracje-wybierała-procedura" class="nav-link" data-scroll-target="#jakie-konfiguracje-wybierała-procedura">Jakie konfiguracje wybierała procedura?</a></li>
+  </ul></li>
+  <li><a href="#ocena-późniejszych-lat-20202025" id="toc-ocena-późniejszych-lat-20202025" class="nav-link" data-scroll-target="#ocena-późniejszych-lat-20202025">Ocena późniejszych lat 2020–2025</a>
+  <ul class="collapse">
+  <li><a href="#zamrozona-ocena" id="toc-zamrozona-ocena" class="nav-link" data-scroll-target="#zamrozona-ocena">Zamrożony zapis oceny</a></li>
+  <li><a href="#które-lata-składają-się-na-końcowy-wynik" id="toc-które-lata-składają-się-na-końcowy-wynik" class="nav-link" data-scroll-target="#które-lata-składają-się-na-końcowy-wynik">Które lata składają się na końcowy wynik?</a></li>
+  </ul></li>
+  <li><a href="#czy-dodatkowa-szczegółowość-pomogła-i-gdzie-kończy-się-ten-wniosek" id="toc-czy-dodatkowa-szczegółowość-pomogła-i-gdzie-kończy-się-ten-wniosek" class="nav-link" data-scroll-target="#czy-dodatkowa-szczegółowość-pomogła-i-gdzie-kończy-się-ten-wniosek">Czy dodatkowa szczegółowość pomogła — i gdzie kończy się ten wniosek?</a>
+  <ul class="collapse">
+  <li><a href="#odtworzenie-i-źródła" id="toc-odtworzenie-i-źródła" class="nav-link" data-scroll-target="#odtworzenie-i-źródła">Odtworzenie i źródła</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<nav aria-label="Projekt"><p><a href="../../../projects.html">Projekty</a> · <a href="../index.html">O projekcie</a> · <a href="../globalne_ocieplenie_story.html">Prognoza kontra rzeczywistość</a> · <a href="02_monthly_seasonal_exploration.html">Miesiące i sezony</a></p></nav>
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Czy ARIMA wykorzystuje informację z miesięcy?</h1>
+<p class="subtitle lead">Zagnieżdżony dobór ARIMA i SARIMA przy wspólnym celu rocznym</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Opublikowano</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23 września 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="czy-więcej-szczegółów-pomaga-przewidywać" class="level2">
+<h2 class="anchored" data-anchor-id="czy-więcej-szczegółów-pomaga-przewidywać">Czy więcej szczegółów pomaga przewidywać?</h2>
+<p><a href="../../../stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.html">Poprzedni eksperyment</a> pokazał, że <strong>większa częstotliwość danych nie poprawia automatycznie prognozy rocznej</strong>. Żaden z prostych benchmarków wykorzystujących miesiące lub sezony nie pokonał rocznego trendu liniowego (<code>Trend + period</code>); warianty tego samego trendu osiągnęły po agregacji identyczny wynik.</p>
+<p>To prowadzi do kolejnego pytania: <strong>czy model uwzględniający zależności między kolejnymi obserwacjami potrafi wykorzystać informację, której prosty trend nie wykorzystuje?</strong></p>
+<p>RRoczny szereg sprowadza każdy rok do jednej obserwacji. <strong>Poprzednia analiza pokazała jednak, że taka agregacja ukrywa część różnic wewnątrz roku:</strong> sezony różniły się tempem wzrostu anomalii, a zmiany ich zmienności nie przebiegały w jednym kierunku.</p>
+<p>Dane sezonowe zachowują cztery obserwacje na rok, a miesięczne — dwanaście. Nie oznacza to czterech lub dwunastu niezależnych informacji. Zachowujemy natomiast więcej informacji o <strong>przebiegu anomalii wewnątrz roku</strong> i o zależnościach między kolejnymi obserwacjami.</p>
+<p>To prowadzi do pytania, czy ta dodatkowa struktura ma znaczenie nie tylko opisowe, ale również <strong>prognostyczne</strong>.</p>
+<p>ARIMA opisuje zależności w historii samego szeregu, wykorzystując jego wcześniejsze wartości i wcześniejsze błędy prognoz jednokrokowych. W przypadku niestacjonarnego szeregu różnicowanie może pomóc uzyskać serię o bardziej stabilnych własnościach, której dynamikę łatwiej opisać takim modelem. To inny sposób opisu dynamiki niż przedłużenie jednej prostej trendu. <a href="https://otexts.com/fpp3/arima.html">Wprowadzenie do ARIMA w <em>Forecasting: Principles and Practice</em></a> przedstawia tę rolę zależności czasowych.</p>
+<p>SARIMA może dodatkowo modelować zależności między <strong>tymi samymi częściami kolejnych lat</strong> — na przykład między kolejnymi zimami albo wartościami oddalonymi o dwanaście miesięcy. Technicznie służą do tego składniki sezonowe działające w odstępach pełnego cyklu: czterech sezonów (<code>m=4</code>) lub dwunastu miesięcy (<code>m=12</code>).</p>
+<p><a href="https://otexts.com/fpp3/seasonal-arima.html">Opis modeli sezonowych</a> pokazuje, jak składniki sezonowe uzupełniają zwykłą ARIMA.</p>
+<p>W eksperymencie porównuję trzy procedury:</p>
+<ul>
+<li>ARIMA dla szeregu rocznego,</li>
+<li>ARIMA/SARIMA dla szeregu sezonowego,</li>
+<li>ARIMA/SARIMA dla szeregu miesięcznego.</li>
+</ul>
+<p>Każda korzysta z innej szczegółowości danych, ale <strong>wszystkie prognozują ten sam cel roczny</strong>. Większa elastyczność ma tutaj wartość dopiero wtedy, gdy przekłada się na mniejszy błąd poza treningiem. Pytanie brzmi więc:</p>
+<blockquote class="blockquote">
+<p><strong>Czy informacja zachowana w bardziej szczegółowym szeregu pozwala lepiej przewidzieć tę samą wartość roczną?</strong></p>
+</blockquote>
+<section id="co-właściwie-prognozujemy" class="level3">
+<h3 class="anchored" data-anchor-id="co-właściwie-prognozujemy">Co właściwie prognozujemy?</h3>
+<p>Modelowaną zmienną jest <strong>anomalia temperatury nad lądami względem okresu odniesienia 1951–1980</strong>, a nie bezwzględna temperatura. Anomalia pokazuje, o ile temperatura odbiega od wartości typowej dla danego miesiąca w tym okresie. Nie należy więc oczekiwać takiego samego cyklu „zima–lato” jak w surowych temperaturach. Różnice między częściami roku i zależności czasowe mogą jednak pozostać.</p>
+<p><strong>SARIMA jest zatem hipotezą do sprawdzenia.</strong> Jeśli w anomaliach pozostają stabilne zależności powtarzające się w kolejnych latach, model sezonowy może je wykorzystać. Sama miesięczna częstotliwość nie przesądza o potrzebie sezonowego modelu ani sezonowego różnicowania.</p>
+<p>Cel oceny pozostaje taki sam jak wcześniej: średnia dwunastu miesięcznych anomalii <code>World</code>, od grudnia poprzedniego roku do listopada, z jednakowymi wagami. Roczne i sezonowe dane treningowe powstają z tych samych miesięcy. Nie zastępuję tego celu opublikowanym agregatem <code>Meteorological year</code>.</p>
+<p>Sprawdzam ograniczoną listę konfiguracji, a ich wybór odbywa się osobno dla każdej częstotliwości, wyłącznie na historii dostępnej w danym podziale. Wyniki dotyczą tych procedur i tego celu; nie rozstrzygają, czy dowolny model miesięczny mógłby pokonać dowolny model roczny.</p>
+</section>
+<section id="czy-w-miesięcznych-anomaliach-pozostała-struktura-czasowa" class="level3">
+<h3 class="anchored" data-anchor-id="czy-w-miesięcznych-anomaliach-pozostała-struktura-czasowa">Czy w miesięcznych anomaliach pozostała struktura czasowa?</h3>
+<p>Najpierw warto zobaczyć sam szereg. Poniżej pokazuję <strong>grudzień 1961 – listopad 1990</strong>, czyli 348 miesięcy należących do treningu pierwszego podziału walidacji. Korzystam z zachowanego historycznego wydania FAOSTAT. Jest to ilustracja dodana po przeprowadzeniu eksperymentu; nie służy do zmiany listy kandydatów ani ponownego doboru modeli.</p>
+<p>Górny wykres przedstawia anomalie i dopasowany do tego okresu trend liniowy. Dolny pokazuje autokorelację (ACF): związek wartości z obserwacją sprzed określonej liczby miesięcy. Porównuję ACF oryginalnych anomalii z ACF reszt po odjęciu trendu, ponieważ sam trend może podwyższać autokorelację. Odjęcie prostej jest tu zabiegiem opisowym — nie jest różnicowaniem ARIMA ani gwarancją stacjonarności.</p>
+<div id="cell-fig-monthly-structure" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.stattools <span class="im">import</span> acf</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sys.path.insert(<span class="dv">0</span>, <span class="bu">str</span>(Path.cwd().parent))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> temperature.series <span class="im">import</span> load_world, monthly_series</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> frequency_stability <span class="im">import</span> verify_freeze</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>verify_freeze()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>historical, _ <span class="op">=</span> load_world(<span class="st">'historical'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>diagnostic_series <span class="op">=</span> monthly_series(historical).loc[<span class="st">'1961-12'</span>:<span class="st">'1990-11'</span>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(diagnostic_series) <span class="op">==</span> <span class="dv">348</span> <span class="kw">and</span> diagnostic_series.notna().<span class="bu">all</span>()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="bu">len</span>(diagnostic_series))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>diagnostic_trend <span class="op">=</span> np.polyval(np.polyfit(t, diagnostic_series.to_numpy(), <span class="dv">1</span>), t)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>diagnostic_residuals <span class="op">=</span> diagnostic_series.to_numpy() <span class="op">-</span> diagnostic_trend</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>acf_raw <span class="op">=</span> acf(diagnostic_series.to_numpy(), nlags<span class="op">=</span><span class="dv">24</span>, fft<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>acf_residual <span class="op">=</span> acf(diagnostic_residuals, nlags<span class="op">=</span><span class="dv">24</span>, fft<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({<span class="st">'figure.dpi'</span>:<span class="dv">130</span>, <span class="st">'axes.spines.top'</span>:<span class="va">False</span>, <span class="st">'axes.spines.right'</span>:<span class="va">False</span>})</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>), layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(diagnostic_series.index.to_timestamp(), diagnostic_series, color<span class="op">=</span><span class="st">'#31688e'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'Anomalia miesięczna'</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(diagnostic_series.index.to_timestamp(), diagnostic_trend, color<span class="op">=</span><span class="st">'#555555'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Trend liniowy'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'Rok kalendarzowy'</span>, ylabel<span class="op">=</span><span class="st">'Anomalia (°C vs 1951–1980)'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>lags <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">25</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].bar(lags<span class="op">-</span><span class="fl">0.18</span>, acf_raw[<span class="dv">1</span>:], width<span class="op">=</span><span class="fl">0.36</span>, color<span class="op">=</span><span class="st">'#31688e'</span>, label<span class="op">=</span><span class="st">'Anomalie'</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].bar(lags<span class="op">+</span><span class="fl">0.18</span>, acf_residual[<span class="dv">1</span>:], width<span class="op">=</span><span class="fl">0.36</span>, color<span class="op">=</span><span class="st">'#b8860b'</span>, label<span class="op">=</span><span class="st">'Po odjęciu trendu'</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'#555555'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lag <span class="kw">in</span> [<span class="dv">12</span>, <span class="dv">24</span>]:</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].axvline(lag, color<span class="op">=</span><span class="st">'#777777'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'Opóźnienie (miesiące)'</span>, ylabel<span class="op">=</span><span class="st">'Autokorelacja'</span>, ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), xticks<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">24</span>])</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-monthly-structure" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-monthly-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_arima_frequency_files/figure-html/fig-monthly-structure-output-1.png" width="1185" height="795" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-monthly-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;1: Miesięczne anomalie World i ich ACF w pierwszym okresie treningowym. Zaznaczone opóźnienia 12 i 24 miesięcy odpowiadają jednemu i dwóm latom. ACF bez pasm istotności; diagnostyka opisowa.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="0d98fe87" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f'Po odjęciu trendu ACF wynosi **</span><span class="sc">{</span>acf_residual[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">** dla opóźnienia o miesiąc, **</span><span class="sc">{</span>acf_residual[<span class="dv">12</span>]<span class="sc">:.2f}</span><span class="ss">** dla 12 miesięcy i **</span><span class="sc">{</span>acf_residual[<span class="dv">24</span>]<span class="sc">:.2f}</span><span class="ss">** dla 24 miesięcy. Są to wartości z pierwszego okresu treningowego, nie miary trafności prognoz.'</span>))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>Po odjęciu trendu ACF wynosi <strong>0.43</strong> dla opóźnienia o miesiąc, <strong>-0.12</strong> dla 12 miesięcy i <strong>0.04</strong> dla 24 miesięcy. Są to wartości z pierwszego okresu treningowego, nie miary trafności prognoz.</p>
+</div>
+</div>
+<p>W tym okresie po odjęciu trendu pozostaje dodatnia zależność między sąsiednimi miesiącami. Przy opóźnieniu rocznym ACF jest ujemna, a przy dwuletnim bliska zeru. To powód, aby sprawdzić modelowanie zależności krótkookresowych, ale sam ten obraz nie stanowi mocnego argumentu za SARIMA. Pojedyncza wartość ACF przy 12 miesiącach nie dowodzi odrębnego mechanizmu sezonowego, a wykres nie rozstrzyga, czy zależności będą stabilne w kolejnych latach. <strong>Ich wartość prognostyczną sprawdza dopiero porównanie błędów na wspólnym celu rocznym.</strong></p>
+</section>
+<section id="pierwsza-odpowiedź-ranking-historycznych-błędów" class="level3">
+<h3 class="anchored" data-anchor-id="pierwsza-odpowiedź-ranking-historycznych-błędów">Pierwsza odpowiedź: ranking historycznych błędów</h3>
+<div id="c5e04e3c" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hashlib,json</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display,Markdown</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>root<span class="op">=</span>Path.cwd().parent</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>root<span class="op">/</span><span class="st">'results/frequency_arima'</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>meta<span class="op">=</span>json.loads((out<span class="op">/</span><span class="st">'provenance.json'</span>).read_text(encoding<span class="op">=</span><span class="st">'utf-8'</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> relative,digest <span class="kw">in</span> meta[<span class="st">'code_sha256'</span>].items():</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> hashlib.sha256((root<span class="op">/</span>relative).read_bytes()).hexdigest()<span class="op">==</span>digest, <span class="st">'Kod zmieniony: ponów frequency_arima.py'</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> source <span class="kw">in</span> meta[<span class="st">'sources'</span>]:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> hashlib.sha256((root<span class="op">/</span>source[<span class="st">'path'</span>]).read_bytes()).hexdigest()<span class="op">==</span>source[<span class="st">'sha256'</span>], <span class="st">'Zmienione źródło'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> relative,digest <span class="kw">in</span> meta[<span class="st">'outputs_sha256'</span>].items():</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> hashlib.sha256((out<span class="op">/</span>relative).read_bytes()).hexdigest()<span class="op">==</span>digest, <span class="st">'Zmienione wyniki'</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>scores<span class="op">=</span>pd.read_csv(out<span class="op">/</span><span class="st">'scores.csv'</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>horizons<span class="op">=</span>pd.read_csv(out<span class="op">/</span><span class="st">'by_horizon.csv'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>fits<span class="op">=</span>pd.read_csv(out<span class="op">/</span><span class="st">'fits.csv'</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>selections<span class="op">=</span>pd.read_csv(out<span class="op">/</span><span class="st">'selections.csv'</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>predictions<span class="op">=</span>pd.read_csv(out<span class="op">/</span><span class="st">'predictions.csv'</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({<span class="st">'figure.dpi'</span>:<span class="dv">130</span>,<span class="st">'axes.spines.top'</span>:<span class="va">False</span>,<span class="st">'axes.spines.right'</span>:<span class="va">False</span>})</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>labels<span class="op">=</span>{<span class="st">'annual'</span>:<span class="st">'Roczna'</span>,<span class="st">'seasonal'</span>:<span class="st">'Sezonowa'</span>,<span class="st">'monthly'</span>:<span class="st">'Miesięczna'</span>}</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> table(frame):display(frame.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">3</span>).hide(axis<span class="op">=</span><span class="st">'index'</span>))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>dynamic<span class="op">=</span>scores.query(<span class="st">"stage=='cv' and model=='Selected ARIMA/SARIMA'"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>best<span class="op">=</span>dynamic.sort_values(<span class="st">'MAE'</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>baseline<span class="op">=</span>scores.query(<span class="st">"stage=='cv' and frequency=='annual' and model=='Trend + period'"</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f'W historycznej walidacji najniższe MAE spośród trzech procedur ARIMA/SARIMA osiąga **procedura </span><span class="sc">{</span>labels[best.frequency]<span class="sc">.</span>lower()<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>best<span class="sc">.</span>MAE<span class="sc">:.3f}</span><span class="ss">°C**. Roczny trend liniowy (`Trend + period`) z poprzedniego etapu osiąga **</span><span class="sc">{</span>baseline<span class="sc">.</span>MAE<span class="sc">:.3f}</span><span class="ss">°C**. Porównanie obejmuje te same cele roczne i podziały czasowe.'</span>))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>W historycznej walidacji najniższe MAE spośród trzech procedur ARIMA/SARIMA osiąga <strong>procedura roczna: 0.197°C</strong>. Roczny trend liniowy (<code>Trend + period</code>) z poprzedniego etapu osiąga <strong>0.187°C</strong>. Porównanie obejmuje te same cele roczne i podziały czasowe.</p>
+</div>
+</div>
+<p>Żadna z trzech badanych procedur ARIMA/SARIMA nie osiąga niższego średniego błędu niż roczny trend. <strong>Możliwość modelowania dodatkowych zależności nie przełożyła się tutaj na lepszą prognozę roczną.</strong> Nie oznacza to, że zależności nie istnieją ani że dane miesięczne są bezużyteczne — badane procedury nie potrafiły przełożyć dodatkowej szczegółowości na niższy średni błąd prognozy rocznej w historycznej walidacji.</p>
+<p>Sam ranking średnich błędów nie dowodzi trwałej przewagi. Dalsza część pokazuje, jak oddzielam wybór konfiguracji od jej oceny, a następnie sprawdza, <strong>czy wynik zależy od daty rozpoczęcia prognozy i jej horyzontu</strong>. Osobno przedstawiam retrospektywną ocenę lat 2020–2025, które były już wcześniej oglądane w projekcie.</p>
+</section>
+</section>
+<section id="jak-zapobiegamy-doborowi-do-testu" class="level2">
+<h2 class="anchored" data-anchor-id="jak-zapobiegamy-doborowi-do-testu">Jak zapobiegamy doborowi do testu?</h2>
+<p>Zewnętrzne początki prognozy to 1990–2013, a horyzonty to 1–6 lat. Dla początku zewnętrznego <code>T</code> wewnętrzne początki to <code>T−8</code>, <code>T−7</code> i <code>T−6</code>. Każdy prognozuje sześć lat; najpóźniejszy cel wewnętrzny kończy się w <code>T</code>. Przykładowo dla 1990 r. wybór wykorzystuje początki 1982, 1983 i 1984 oraz obserwacje najwyżej do 1990 r. Dopiero potem model otrzymuje cały trening do 1990 i prognozuje 1991–1996.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decyzja</th>
+<th>Reguła</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Początek treningu</td>
+<td>Rok meteorologiczny 1962</td>
+</tr>
+<tr class="even">
+<td>Kryterium konfiguracji</td>
+<td>MAE roczne z 18 błędów wewnętrznych, równe wagi horyzontów</td>
+</tr>
+<tr class="odd">
+<td>Podział według dat</td>
+<td>Koniec listopada; grudzień należy do kolejnego roku celu</td>
+</tr>
+<tr class="even">
+<td>Dopasowanie ponowne</td>
+<td>Zwycięska konfiguracja dopasowana na pełnym zewnętrznym treningu</td>
+</tr>
+<tr class="odd">
+<td>Brak zbieżności w środku</td>
+<td>Kandydat wykluczony, jeśli zawiedzie choć jeden wymagany wewnętrzny fit</td>
+</tr>
+<tr class="even">
+<td>Brak zbieżności przy ponownym dopasowaniu</td>
+<td>Następny kandydat w rankingu wewnętrznego MAE</td>
+</tr>
+<tr class="odd">
+<td>Brak dopuszczalnego kandydata</td>
+<td>Przerwanie eksperymentu; bez cichej zamiany na benchmark</td>
+</tr>
+</tbody>
+</table>
+<p>Parametry dobieramy względem celu rocznego także dla modeli miesięcznych. Nie wybieramy konfiguracji według dopasowania na całym szeregu ani błędów zewnętrznego testu. Kosztowne dopasowania są współdzielone w pamięci, gdy konfiguracja i koniec treningu są identyczne; pamięć nie zmienia dostępnej informacji.</p>
+</section>
+<section id="mały-jawny-zestaw-kandydatów" class="level2">
+<h2 class="anchored" data-anchor-id="mały-jawny-zestaw-kandydatów">Mały, jawny zestaw kandydatów</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Identyfikator</th>
+<th>Specyfikacja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ar1_trend</code></td>
+<td>ARIMA(1,0,0), stała i trend liniowy</td>
+</tr>
+<tr class="even">
+<td><code>arima011</code></td>
+<td>ARIMA(0,1,1), bez drift</td>
+</tr>
+<tr class="odd">
+<td><code>arima011_drift</code></td>
+<td>ARIMA(0,1,1), z drift</td>
+</tr>
+<tr class="even">
+<td><code>arima110_drift</code></td>
+<td>ARIMA(1,1,0), z drift</td>
+</tr>
+<tr class="odd">
+<td><code>arima212_original</code></td>
+<td>ARIMA(2,1,2), bez drift — odniesienie do pierwotnej specyfikacji</td>
+</tr>
+<tr class="even">
+<td><code>sarima011_100</code></td>
+<td>SARIMA(0,1,1)(1,0,0)[m], z drift</td>
+</tr>
+<tr class="odd">
+<td><code>sarima010_011</code></td>
+<td>SARIMA(0,1,0)(0,1,1)[m], bez drift</td>
+</tr>
+</tbody>
+</table>
+<p>Dwa ostatnie modele dotyczą tylko sezonów (<code>m=4</code>) i miesięcy (<code>m=12</code>). Uwzględniamy wariant bez różnicowania, różnicowanie zwykłe oraz wariant z różnicowaniem sezonowym. Nie zakładamy, że anomalie wymagają sezonowego różnicowania. To ograniczona lista hipotez, nie pełne poszukiwanie optymalnego modelu.</p>
+<p>Roczna częstotliwość ma pięciu kandydatów, pozostałe po siedmiu. Eksperyment porównuje zatem <strong>procedury modelowania dla częstotliwości</strong>, nie izolowany efekt liczby obserwacji przy identycznej klasie modeli. Prognozy punktowe agregujemy równymi wagami. Nie tworzymy przedziałów rocznych ze średniej granic przedziałów miesięcznych.</p>
+</section>
+<section id="czy-wynik-zmienia-się-wraz-z-horyzontem-prognozy" class="level2">
+<h2 class="anchored" data-anchor-id="czy-wynik-zmienia-się-wraz-z-horyzontem-prognozy">Czy wynik zmienia się wraz z horyzontem prognozy?</h2>
+<div class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="fl">4.5</span>),layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> freq,style <span class="kw">in</span> <span class="bu">zip</span>(labels,[<span class="st">'-'</span>,<span class="st">'--'</span>,<span class="st">':'</span>]):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    g<span class="op">=</span>horizons.query(<span class="st">"stage=='cv' and frequency==@freq and model=='Selected ARIMA/SARIMA'"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(g.horizon,g.MAE,style,marker<span class="op">=</span><span class="st">'o'</span>,label<span class="op">=</span>labels[freq]<span class="op">+</span><span class="st">' — dobór ARIMA/SARIMA'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>g<span class="op">=</span>horizons.query(<span class="st">"stage=='cv' and frequency=='annual' and model=='Trend + period'"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ax.plot(g.horizon,g.MAE,<span class="st">'k-.'</span>,label<span class="op">=</span><span class="st">'Roczny trend liniowy'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'Horyzont (lata)'</span>,ylabel<span class="op">=</span><span class="st">'MAE (°C)'</span>,ylim<span class="op">=</span>(<span class="dv">0</span>,<span class="va">None</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>table(scores.query(<span class="st">"stage=='cv'"</span>).sort_values(<span class="st">'MAE'</span>)[[<span class="st">'frequency'</span>,<span class="st">'model'</span>,<span class="st">'n'</span>,<span class="st">'MAE'</span>,<span class="st">'RMSE'</span>,<span class="st">'bias'</span>]])</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-arima-horizons" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-arima-horizons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<div id="fig-arima-horizons-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-arima-horizons-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_arima_frequency_files/figure-html/fig-arima-horizons-output-1.png" data-ref-parent="fig-arima-horizons" width="1185" height="600" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-arima-horizons-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) MAE na wspólnym celu rocznym; 24 zewnętrzne początki 1990–2013. Wybór ARIMA/SARIMA odbywa się osobno wewnątrz każdego treningu.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="fig-arima-horizons-2" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-arima-horizons-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<style type="text/css">
+</style>
+
+<table id="T_b1455" class="do-not-create-environment caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_b1455_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">frequency</th>
+<th id="T_b1455_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">model</th>
+<th id="T_b1455_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">n</th>
+<th id="T_b1455_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_b1455_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_b1455_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_b1455_row0_col0" class="data row0 col0">annual</td>
+<td id="T_b1455_row0_col1" class="data row0 col1">Trend + period</td>
+<td id="T_b1455_row0_col2" class="data row0 col2">144</td>
+<td id="T_b1455_row0_col3" class="data row0 col3">0.187</td>
+<td id="T_b1455_row0_col4" class="data row0 col4">0.225</td>
+<td id="T_b1455_row0_col5" class="data row0 col5">-0.138</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row1_col0" class="data row1 col0">seasonal</td>
+<td id="T_b1455_row1_col1" class="data row1 col1">Trend + period</td>
+<td id="T_b1455_row1_col2" class="data row1 col2">144</td>
+<td id="T_b1455_row1_col3" class="data row1 col3">0.187</td>
+<td id="T_b1455_row1_col4" class="data row1 col4">0.225</td>
+<td id="T_b1455_row1_col5" class="data row1 col5">-0.138</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row2_col0" class="data row2 col0">monthly</td>
+<td id="T_b1455_row2_col1" class="data row2 col1">Trend + period</td>
+<td id="T_b1455_row2_col2" class="data row2 col2">144</td>
+<td id="T_b1455_row2_col3" class="data row2 col3">0.187</td>
+<td id="T_b1455_row2_col4" class="data row2 col4">0.225</td>
+<td id="T_b1455_row2_col5" class="data row2 col5">-0.138</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row3_col0" class="data row3 col0">annual</td>
+<td id="T_b1455_row3_col1" class="data row3 col1">Selected ARIMA/SARIMA</td>
+<td id="T_b1455_row3_col2" class="data row3 col2">144</td>
+<td id="T_b1455_row3_col3" class="data row3 col3">0.197</td>
+<td id="T_b1455_row3_col4" class="data row3 col4">0.233</td>
+<td id="T_b1455_row3_col5" class="data row3 col5">-0.106</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row4_col0" class="data row4 col0">annual</td>
+<td id="T_b1455_row4_col1" class="data row4 col1">Drift</td>
+<td id="T_b1455_row4_col2" class="data row4 col2">144</td>
+<td id="T_b1455_row4_col3" class="data row4 col3">0.206</td>
+<td id="T_b1455_row4_col4" class="data row4 col4">0.261</td>
+<td id="T_b1455_row4_col5" class="data row4 col5">-0.063</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row5_col0" class="data row5 col0">monthly</td>
+<td id="T_b1455_row5_col1" class="data row5 col1">Selected ARIMA/SARIMA</td>
+<td id="T_b1455_row5_col2" class="data row5 col2">144</td>
+<td id="T_b1455_row5_col3" class="data row5 col3">0.207</td>
+<td id="T_b1455_row5_col4" class="data row5 col4">0.253</td>
+<td id="T_b1455_row5_col5" class="data row5 col5">-0.118</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row6_col0" class="data row6 col0">annual</td>
+<td id="T_b1455_row6_col1" class="data row6 col1">Seasonal naive</td>
+<td id="T_b1455_row6_col2" class="data row6 col2">144</td>
+<td id="T_b1455_row6_col3" class="data row6 col3">0.224</td>
+<td id="T_b1455_row6_col4" class="data row6 col4">0.281</td>
+<td id="T_b1455_row6_col5" class="data row6 col5">-0.130</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row7_col0" class="data row7 col0">annual</td>
+<td id="T_b1455_row7_col1" class="data row7 col1">Naive</td>
+<td id="T_b1455_row7_col2" class="data row7 col2">144</td>
+<td id="T_b1455_row7_col3" class="data row7 col3">0.224</td>
+<td id="T_b1455_row7_col4" class="data row7 col4">0.281</td>
+<td id="T_b1455_row7_col5" class="data row7 col5">-0.130</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row8_col0" class="data row8 col0">seasonal</td>
+<td id="T_b1455_row8_col1" class="data row8 col1">Seasonal naive</td>
+<td id="T_b1455_row8_col2" class="data row8 col2">144</td>
+<td id="T_b1455_row8_col3" class="data row8 col3">0.224</td>
+<td id="T_b1455_row8_col4" class="data row8 col4">0.281</td>
+<td id="T_b1455_row8_col5" class="data row8 col5">-0.130</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row9_col0" class="data row9 col0">monthly</td>
+<td id="T_b1455_row9_col1" class="data row9 col1">Seasonal naive</td>
+<td id="T_b1455_row9_col2" class="data row9 col2">144</td>
+<td id="T_b1455_row9_col3" class="data row9 col3">0.224</td>
+<td id="T_b1455_row9_col4" class="data row9 col4">0.281</td>
+<td id="T_b1455_row9_col5" class="data row9 col5">-0.130</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row10_col0" class="data row10 col0">seasonal</td>
+<td id="T_b1455_row10_col1" class="data row10 col1">Selected ARIMA/SARIMA</td>
+<td id="T_b1455_row10_col2" class="data row10 col2">144</td>
+<td id="T_b1455_row10_col3" class="data row10 col3">0.229</td>
+<td id="T_b1455_row10_col4" class="data row10 col4">0.288</td>
+<td id="T_b1455_row10_col5" class="data row10 col5">-0.091</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row11_col0" class="data row11 col0">seasonal</td>
+<td id="T_b1455_row11_col1" class="data row11 col1">Drift</td>
+<td id="T_b1455_row11_col2" class="data row11 col2">144</td>
+<td id="T_b1455_row11_col3" class="data row11 col3">0.266</td>
+<td id="T_b1455_row11_col4" class="data row11 col4">0.364</td>
+<td id="T_b1455_row11_col5" class="data row11 col5">-0.126</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row12_col0" class="data row12 col0">seasonal</td>
+<td id="T_b1455_row12_col1" class="data row12 col1">Naive</td>
+<td id="T_b1455_row12_col2" class="data row12 col2">144</td>
+<td id="T_b1455_row12_col3" class="data row12 col3">0.274</td>
+<td id="T_b1455_row12_col4" class="data row12 col4">0.370</td>
+<td id="T_b1455_row12_col5" class="data row12 col5">-0.180</td>
+</tr>
+<tr class="even">
+<td id="T_b1455_row13_col0" class="data row13 col0">monthly</td>
+<td id="T_b1455_row13_col1" class="data row13 col1">Naive</td>
+<td id="T_b1455_row13_col2" class="data row13 col2">144</td>
+<td id="T_b1455_row13_col3" class="data row13 col3">0.369</td>
+<td id="T_b1455_row13_col4" class="data row13 col4">0.473</td>
+<td id="T_b1455_row13_col5" class="data row13 col5">-0.124</td>
+</tr>
+<tr class="odd">
+<td id="T_b1455_row14_col0" class="data row14 col0">monthly</td>
+<td id="T_b1455_row14_col1" class="data row14 col1">Drift</td>
+<td id="T_b1455_row14_col2" class="data row14 col2">144</td>
+<td id="T_b1455_row14_col3" class="data row14 col3">0.388</td>
+<td id="T_b1455_row14_col4" class="data row14 col4">0.488</td>
+<td id="T_b1455_row14_col5" class="data row14 col5">-0.049</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-arima-horizons-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-arima-horizons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;2
+</figcaption>
+</figure>
+</div>
+</div>
+<p>Każdą procedurę oceniamy dla <strong>24 początków prognozy i sześciu horyzontów</strong>, co daje łącznie <strong>144 porównania prognozy z obserwacją (24 × 6)</strong>. Nie są to 144 niezależne przypadki: kolejne okresy treningowe i prognozowane lata częściowo się pokrywają. MAE jest główną miarą oceny, a RMSE i bias ją uzupełniają. Bias oznacza <code>prognoza − obserwacja</code>.</p>
+</section>
+<section id="jak-stabilny-był-wybór" class="level2">
+<h2 class="anchored" data-anchor-id="jak-stabilny-był-wybór">Jak stabilny był wybór?</h2>
+<section id="stabilnosc-wynikow" class="level3">
+<h3 class="anchored" data-anchor-id="stabilnosc-wynikow">Czy przewaga zależy od daty startowej?</h3>
+<p>Porównujemy <strong>te same cele z tych samych początków prognozy</strong>. Różnica to błąd bezwzględny danej procedury minus błąd rocznego trendu: poniżej zera wygrywa ARIMA/SARIMA, powyżej — trend. Każdy punkt na górnym wykresie jest średnią z sześciu horyzontów; każdy punkt na dolnym — z 24 początków. Trend jest odniesieniem wybranym po obejrzeniu historycznego rankingu, dlatego porównanie ma charakter opisowy.</p>
+<div id="cell-fig-paired-stability" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sys.path.insert(<span class="dv">0</span>, <span class="bu">str</span>(root))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> frequency_stability <span class="im">import</span> verify_freeze</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>lock <span class="op">=</span> verify_freeze()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>stability_dir <span class="op">=</span> root<span class="op">/</span><span class="st">'results/frequency_stability'</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>origin_delta <span class="op">=</span> pd.read_csv(stability_dir<span class="op">/</span><span class="st">'by_origin.csv'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>horizon_delta <span class="op">=</span> pd.read_csv(stability_dir<span class="op">/</span><span class="st">'by_horizon.csv'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>stability <span class="op">=</span> pd.read_csv(stability_dir<span class="op">/</span><span class="st">'stability.csv'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>), sharey<span class="op">=</span><span class="va">True</span>, layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> freq, style, color <span class="kw">in</span> <span class="bu">zip</span>(labels, [<span class="st">'-'</span>, <span class="st">'--'</span>, <span class="st">':'</span>], [<span class="st">'#31688e'</span>, <span class="st">'#b8860b'</span>, <span class="st">'#9a5071'</span>]):</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ax, frame, x <span class="kw">in</span> [(axes[<span class="dv">0</span>], origin_delta, <span class="st">'origin'</span>), (axes[<span class="dv">1</span>], horizon_delta, <span class="st">'horizon'</span>)]:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        g <span class="op">=</span> frame.query(<span class="st">"frequency==@freq and model=='Selected ARIMA/SARIMA'"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        ax.plot(g[x], g.delta_abs_error, style, color<span class="op">=</span>color, marker<span class="op">=</span><span class="st">'o'</span>, markersize<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span>labels[freq])</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Różnica MAE (°C)'</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'Ostatni rok treningu'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xticks([<span class="dv">1990</span>, <span class="dv">1995</span>, <span class="dv">2000</span>, <span class="dv">2005</span>, <span class="dv">2010</span>, <span class="dv">2013</span>])</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'Horyzont (lata)'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(ncol<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-paired-stability" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-paired-stability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_arima_frequency_files/figure-html/fig-paired-stability-output-1.png" width="1185" height="795" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-paired-stability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;3: Sparowane różnice MAE względem rocznego trendu. Zmiany znaku pokazują, że ranking zależy od początku i horyzontu prognozy.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="f86a7eab" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> stability.query(<span class="st">"block==6 and model=='Selected ARIMA/SARIMA'"</span>).copy()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>summary[<span class="st">'frequency'</span>] <span class="op">=</span> summary.frequency.<span class="bu">map</span>(labels)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>table(summary[[<span class="st">'frequency'</span>,<span class="st">'delta_MAE'</span>,<span class="st">'wins'</span>,<span class="st">'origins'</span>,<span class="st">'low'</span>,<span class="st">'high'</span>]].rename(columns<span class="op">=</span>{</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'frequency'</span>:<span class="st">'Seria'</span>,<span class="st">'delta_MAE'</span>:<span class="st">'Δ MAE (°C)'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'wins'</span>:<span class="st">'Wygrane'</span>,<span class="st">'origins'</span>:<span class="st">'Początki'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'low'</span>:<span class="st">'2,5% (°C)'</span>,<span class="st">'high'</span>:<span class="st">'97,5% (°C)'</span>}))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_54ca7" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_54ca7_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Seria</th>
+<th id="T_54ca7_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Δ MAE (°C)</th>
+<th id="T_54ca7_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Wygrane</th>
+<th id="T_54ca7_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Początki</th>
+<th id="T_54ca7_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">2,5% (°C)</th>
+<th id="T_54ca7_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">97,5% (°C)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_54ca7_row0_col0" class="data row0 col0">Roczna</td>
+<td id="T_54ca7_row0_col1" class="data row0 col1">0.010</td>
+<td id="T_54ca7_row0_col2" class="data row0 col2">6</td>
+<td id="T_54ca7_row0_col3" class="data row0 col3">24</td>
+<td id="T_54ca7_row0_col4" class="data row0 col4">-0.014</td>
+<td id="T_54ca7_row0_col5" class="data row0 col5">0.027</td>
+</tr>
+<tr class="even">
+<td id="T_54ca7_row1_col0" class="data row1 col0">Miesięczna</td>
+<td id="T_54ca7_row1_col1" class="data row1 col1">0.020</td>
+<td id="T_54ca7_row1_col2" class="data row1 col2">10</td>
+<td id="T_54ca7_row1_col3" class="data row1 col3">24</td>
+<td id="T_54ca7_row1_col4" class="data row1 col4">-0.004</td>
+<td id="T_54ca7_row1_col5" class="data row1 col5">0.036</td>
+</tr>
+<tr class="odd">
+<td id="T_54ca7_row2_col0" class="data row2 col0">Sezonowa</td>
+<td id="T_54ca7_row2_col1" class="data row2 col1">0.043</td>
+<td id="T_54ca7_row2_col2" class="data row2 col2">8</td>
+<td id="T_54ca7_row2_col3" class="data row2 col3">24</td>
+<td id="T_54ca7_row2_col4" class="data row2 col4">-0.003</td>
+<td id="T_54ca7_row2_col5" class="data row2 col5">0.079</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Roczna ARIMA wygrywa z trendem w 6 z 24 początków, miesięczna w 10, a sezonowa w 8. Dodatnia średnia różnica błędów nie oznacza więc przegranej w każdym okresie. Wygrana dotyczy MAE z całych sześciu lat prognozy, nie liczby pojedynczych trafionych lat.</p>
+</section>
+<section id="jak-bardzo-wynik-zależy-od-badanej-historii" class="level3">
+<h3 class="anchored" data-anchor-id="jak-bardzo-wynik-zależy-od-badanej-historii">Jak bardzo wynik zależy od badanej historii?</h3>
+<p>Losujemy z powtórzeniami <strong>bloki sześciu kolejnych początków</strong>, zachowując razem wszystkie horyzonty i pary model–trend. Z możliwych bloków mieszczących się w latach 1990–2013 składamy 24 początki; ostatni blok przycinamy do wymaganej długości. Powtarzamy to 10 000 razy ze stałym ziarnem 20260924. Tabela pokazuje środkowe 95% otrzymanych średnich różnic. W dodatkowej kontroli stosujemy bloki długości 3 i 8.</p>
+<div id="e968108c" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>table(stability.query(<span class="st">"model=='Selected ARIMA/SARIMA'"</span>).assign(frequency<span class="op">=</span><span class="kw">lambda</span> df: df.frequency.<span class="bu">map</span>(labels))[[<span class="st">'frequency'</span>,<span class="st">'block'</span>,<span class="st">'low'</span>,<span class="st">'high'</span>]].rename(columns<span class="op">=</span>{</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'frequency'</span>:<span class="st">'Częstotliwość'</span>,<span class="st">'block'</span>:<span class="st">'Długość bloku'</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'low'</span>:<span class="st">'Kwantyl 2,5% (°C)'</span>,<span class="st">'high'</span>:<span class="st">'Kwantyl 97,5% (°C)'</span>}))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_c7cf6" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_c7cf6_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Częstotliwość</th>
+<th id="T_c7cf6_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Długość bloku</th>
+<th id="T_c7cf6_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Kwantyl 2,5% (°C)</th>
+<th id="T_c7cf6_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Kwantyl 97,5% (°C)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_c7cf6_row0_col0" class="data row0 col0">Roczna</td>
+<td id="T_c7cf6_row0_col1" class="data row0 col1">3</td>
+<td id="T_c7cf6_row0_col2" class="data row0 col2">-0.012</td>
+<td id="T_c7cf6_row0_col3" class="data row0 col3">0.026</td>
+</tr>
+<tr class="even">
+<td id="T_c7cf6_row1_col0" class="data row1 col0">Roczna</td>
+<td id="T_c7cf6_row1_col1" class="data row1 col1">6</td>
+<td id="T_c7cf6_row1_col2" class="data row1 col2">-0.014</td>
+<td id="T_c7cf6_row1_col3" class="data row1 col3">0.027</td>
+</tr>
+<tr class="odd">
+<td id="T_c7cf6_row2_col0" class="data row2 col0">Roczna</td>
+<td id="T_c7cf6_row2_col1" class="data row2 col1">8</td>
+<td id="T_c7cf6_row2_col2" class="data row2 col2">-0.013</td>
+<td id="T_c7cf6_row2_col3" class="data row2 col3">0.025</td>
+</tr>
+<tr class="even">
+<td id="T_c7cf6_row3_col0" class="data row3 col0">Miesięczna</td>
+<td id="T_c7cf6_row3_col1" class="data row3 col1">3</td>
+<td id="T_c7cf6_row3_col2" class="data row3 col2">-0.007</td>
+<td id="T_c7cf6_row3_col3" class="data row3 col3">0.043</td>
+</tr>
+<tr class="odd">
+<td id="T_c7cf6_row4_col0" class="data row4 col0">Miesięczna</td>
+<td id="T_c7cf6_row4_col1" class="data row4 col1">6</td>
+<td id="T_c7cf6_row4_col2" class="data row4 col2">-0.004</td>
+<td id="T_c7cf6_row4_col3" class="data row4 col3">0.036</td>
+</tr>
+<tr class="even">
+<td id="T_c7cf6_row5_col0" class="data row5 col0">Miesięczna</td>
+<td id="T_c7cf6_row5_col1" class="data row5 col1">8</td>
+<td id="T_c7cf6_row5_col2" class="data row5 col2">-0.004</td>
+<td id="T_c7cf6_row5_col3" class="data row5 col3">0.038</td>
+</tr>
+<tr class="odd">
+<td id="T_c7cf6_row6_col0" class="data row6 col0">Sezonowa</td>
+<td id="T_c7cf6_row6_col1" class="data row6 col1">3</td>
+<td id="T_c7cf6_row6_col2" class="data row6 col2">-0.004</td>
+<td id="T_c7cf6_row6_col3" class="data row6 col3">0.093</td>
+</tr>
+<tr class="even">
+<td id="T_c7cf6_row7_col0" class="data row7 col0">Sezonowa</td>
+<td id="T_c7cf6_row7_col1" class="data row7 col1">6</td>
+<td id="T_c7cf6_row7_col2" class="data row7 col2">-0.003</td>
+<td id="T_c7cf6_row7_col3" class="data row7 col3">0.079</td>
+</tr>
+<tr class="odd">
+<td id="T_c7cf6_row8_col0" class="data row8 col0">Sezonowa</td>
+<td id="T_c7cf6_row8_col1" class="data row8 col1">8</td>
+<td id="T_c7cf6_row8_col2" class="data row8 col2">-0.001</td>
+<td id="T_c7cf6_row8_col3" class="data row8 col3">0.073</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Dla bloku sześciu początków wszystkie trzy zakresy obejmują zero.</strong> Dane nie uzasadniają mocnego wniosku o trwałej przewadze na podstawie samego średniego MAE. To orientacyjna analiza niepewności i wrażliwości na badaną historię, nie test istotności: mamy tylko 24 początki, nakładające się cele, wspólne treningi i możliwe zmiany procesu w czasie. Bloki ograniczają problem zależności, lecz go nie usuwają; długość bloku nie była estymowana. Zakresy nie są przedziałami predykcji przyszłej temperatury ani gwarancją pokrycia 95%.</p>
+</section>
+<section id="jakie-konfiguracje-wybierała-procedura" class="level3">
+<h3 class="anchored" data-anchor-id="jakie-konfiguracje-wybierała-procedura">Jakie konfiguracje wybierała procedura?</h3>
+<div id="4e9bda3c" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>chosen<span class="op">=</span>selections.query(<span class="st">'selected == True and origin &lt; 2019'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>table(chosen.groupby([<span class="st">'frequency'</span>,<span class="st">'candidate'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Wybrane podziały'</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>summary<span class="op">=</span>fits.groupby(<span class="st">'frequency'</span>).agg(dopasowania<span class="op">=</span>(<span class="st">'success'</span>,<span class="st">'size'</span>),udane<span class="op">=</span>(<span class="st">'success'</span>,<span class="st">'sum'</span>),sekundy<span class="op">=</span>(<span class="st">'seconds'</span>,<span class="st">'sum'</span>)).reset_index()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>summary[<span class="st">'nieudane'</span>]<span class="op">=</span>summary.dopasowania<span class="op">-</span>summary.udane</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>table(summary)</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_f3fbe" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_f3fbe_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">frequency</th>
+<th id="T_f3fbe_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">candidate</th>
+<th id="T_f3fbe_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Wybrane podziały</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_f3fbe_row0_col0" class="data row0 col0">annual</td>
+<td id="T_f3fbe_row0_col1" class="data row0 col1">ar1_trend</td>
+<td id="T_f3fbe_row0_col2" class="data row0 col2">4</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row1_col0" class="data row1 col0">annual</td>
+<td id="T_f3fbe_row1_col1" class="data row1 col1">arima011</td>
+<td id="T_f3fbe_row1_col2" class="data row1 col2">1</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row2_col0" class="data row2 col0">annual</td>
+<td id="T_f3fbe_row2_col1" class="data row2 col1">arima011_drift</td>
+<td id="T_f3fbe_row2_col2" class="data row2 col2">9</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row3_col0" class="data row3 col0">annual</td>
+<td id="T_f3fbe_row3_col1" class="data row3 col1">arima110_drift</td>
+<td id="T_f3fbe_row3_col2" class="data row3 col2">10</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row4_col0" class="data row4 col0">monthly</td>
+<td id="T_f3fbe_row4_col1" class="data row4 col1">ar1_trend</td>
+<td id="T_f3fbe_row4_col2" class="data row4 col2">10</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row5_col0" class="data row5 col0">monthly</td>
+<td id="T_f3fbe_row5_col1" class="data row5 col1">arima011_drift</td>
+<td id="T_f3fbe_row5_col2" class="data row5 col2">3</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row6_col0" class="data row6 col0">monthly</td>
+<td id="T_f3fbe_row6_col1" class="data row6 col1">arima212_original</td>
+<td id="T_f3fbe_row6_col2" class="data row6 col2">8</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row7_col0" class="data row7 col0">monthly</td>
+<td id="T_f3fbe_row7_col1" class="data row7 col1">sarima010_011</td>
+<td id="T_f3fbe_row7_col2" class="data row7 col2">1</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row8_col0" class="data row8 col0">monthly</td>
+<td id="T_f3fbe_row8_col1" class="data row8 col1">sarima011_100</td>
+<td id="T_f3fbe_row8_col2" class="data row8 col2">2</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row9_col0" class="data row9 col0">seasonal</td>
+<td id="T_f3fbe_row9_col1" class="data row9 col1">ar1_trend</td>
+<td id="T_f3fbe_row9_col2" class="data row9 col2">4</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row10_col0" class="data row10 col0">seasonal</td>
+<td id="T_f3fbe_row10_col1" class="data row10 col1">arima011_drift</td>
+<td id="T_f3fbe_row10_col2" class="data row10 col2">4</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row11_col0" class="data row11 col0">seasonal</td>
+<td id="T_f3fbe_row11_col1" class="data row11 col1">arima110_drift</td>
+<td id="T_f3fbe_row11_col2" class="data row11 col2">1</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row12_col0" class="data row12 col0">seasonal</td>
+<td id="T_f3fbe_row12_col1" class="data row12 col1">arima212_original</td>
+<td id="T_f3fbe_row12_col2" class="data row12 col2">3</td>
+</tr>
+<tr class="even">
+<td id="T_f3fbe_row13_col0" class="data row13 col0">seasonal</td>
+<td id="T_f3fbe_row13_col1" class="data row13 col1">sarima010_011</td>
+<td id="T_f3fbe_row13_col2" class="data row13 col2">1</td>
+</tr>
+<tr class="odd">
+<td id="T_f3fbe_row14_col0" class="data row14 col0">seasonal</td>
+<td id="T_f3fbe_row14_col1" class="data row14 col1">sarima011_100</td>
+<td id="T_f3fbe_row14_col2" class="data row14 col2">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_27e6d" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_27e6d_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">frequency</th>
+<th id="T_27e6d_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">dopasowania</th>
+<th id="T_27e6d_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">udane</th>
+<th id="T_27e6d_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">sekundy</th>
+<th id="T_27e6d_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">nieudane</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_27e6d_row0_col0" class="data row0 col0">annual</td>
+<td id="T_27e6d_row0_col1" class="data row0 col1">149</td>
+<td id="T_27e6d_row0_col2" class="data row0 col2">147</td>
+<td id="T_27e6d_row0_col3" class="data row0 col3">11.720</td>
+<td id="T_27e6d_row0_col4" class="data row0 col4">2</td>
+</tr>
+<tr class="even">
+<td id="T_27e6d_row1_col0" class="data row1 col0">monthly</td>
+<td id="T_27e6d_row1_col1" class="data row1 col1">204</td>
+<td id="T_27e6d_row1_col2" class="data row1 col2">199</td>
+<td id="T_27e6d_row1_col3" class="data row1 col3">53.663</td>
+<td id="T_27e6d_row1_col4" class="data row1 col4">5</td>
+</tr>
+<tr class="odd">
+<td id="T_27e6d_row2_col0" class="data row2 col0">seasonal</td>
+<td id="T_27e6d_row2_col1" class="data row2 col1">206</td>
+<td id="T_27e6d_row2_col2" class="data row2 col2">195</td>
+<td id="T_27e6d_row2_col3" class="data row2 col3">21.686</td>
+<td id="T_27e6d_row2_col4" class="data row2 col4">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Liczby dotyczą unikalnych dopasowań wewnętrznych i ponownych dopasowań zewnętrznych, łącznie z oceną 2019. Wczesne odrzucenie kandydata po błędzie może zmniejszyć liczbę wykonanych dopasowań. Czas jest pomiarem tej maszyny, nie ogólną miarą wydajności. Ostrzeżenia i przyczyny niepowodzeń znajdują się w pełnym rejestrze.</p>
+</section>
+</section>
+<section id="ocena-późniejszych-lat-20202025" class="level2">
+<h2 class="anchored" data-anchor-id="ocena-późniejszych-lat-20202025">Ocena późniejszych lat 2020–2025</h2>
+<section id="zamrozona-ocena" class="level3">
+<h3 class="anchored" data-anchor-id="zamrozona-ocena">Zamrożony zapis oceny</h3>
+<p>Zapis zamroziliśmy <strong>24 września 2026 r., po obejrzeniu wyników</strong>. Jest to utrwalenie retrospektywnego eksperymentu, nie prerejestracja ani dowód wykonania prognoz w 2019 r. Kontrola SHA-256 obejmuje źródła, kod obliczeń, konfiguracje i wybory modeli oraz zapisane prognozy. Zmiana któregokolwiek z tych plików przerywa kontrolę; dalsze eksperymenty wymagają osobnej wersji, bez nadpisywania tej oceny.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>Utrwalona reguła</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trening</td>
+<td>Historyczne wydanie, lata meteorologiczne 1962–2019; koniec 2019-11-30</td>
+</tr>
+<tr class="even">
+<td>Cel</td>
+<td>Średnia miesięcznych anomalii World, równe wagi, grudzień–listopad</td>
+</tr>
+<tr class="odd">
+<td>Okres oceny</td>
+<td>Sześć rocznych celów 2020–2025 z zapisanego nowego wydania</td>
+</tr>
+<tr class="even">
+<td>Wybór benchmarku</td>
+<td>Historyczne CV wskazuje roczny trend; nie zastępujemy go zwycięzcą późniejszej oceny</td>
+</tr>
+<tr class="odd">
+<td>Wybór ARIMA/SARIMA</td>
+<td>Osobno dla częstotliwości, wewnętrzne początki 2011–2013; cele do 2019</td>
+</tr>
+<tr class="even">
+<td>Aktualizacja</td>
+<td>Jedna prognoza sześciu lat; bez douczania na obserwacjach testowych</td>
+</tr>
+<tr class="odd">
+<td>Rewizje</td>
+<td>Cel 2020 zawiera grudzień 2019 z nowego wydania; nie korygujemy nim treningu</td>
+</tr>
+</tbody>
+</table>
+<p><strong>To inna ocena niż audyt dawnej prognozy ARIMA(2,1,2).</strong> Tam celem jest opublikowany <code>Meteorological year</code>; tutaj rekonstruowana średnia miesięcy. Ich błędów nie łączymy w jeden ranking. Sześć lat pochodzi z jednej ścieżki prognozy, nie z sześciu niezależnych eksperymentów.</p>
+<p>Dla końca treningu 2019 dobór konfiguracji korzysta z wewnętrznych początków 2011–2013 i celów najpóźniej z 2019. Trening pozostaje ze starego wydania FAOSTAT; cel roczny tworzymy z miesięcy nowego wydania. Nie aktualizujemy modelu kolejnymi obserwacjami testowymi.</p>
+<div id="9509572b" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>table(selections.query(<span class="st">'selected == True and origin == 2019'</span>)[[<span class="st">'frequency'</span>,<span class="st">'candidate'</span>,<span class="st">'inner_MAE'</span>]])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>table(scores.query(<span class="st">"stage=='retrospective'"</span>).sort_values(<span class="st">'MAE'</span>)[[<span class="st">'frequency'</span>,<span class="st">'model'</span>,<span class="st">'n'</span>,<span class="st">'MAE'</span>,<span class="st">'RMSE'</span>,<span class="st">'bias'</span>]])</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_bb85a" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_bb85a_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">frequency</th>
+<th id="T_bb85a_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">candidate</th>
+<th id="T_bb85a_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">inner_MAE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_bb85a_row0_col0" class="data row0 col0">annual</td>
+<td id="T_bb85a_row0_col1" class="data row0 col1">arima011_drift</td>
+<td id="T_bb85a_row0_col2" class="data row0 col2">0.202</td>
+</tr>
+<tr class="even">
+<td id="T_bb85a_row1_col0" class="data row1 col0">seasonal</td>
+<td id="T_bb85a_row1_col1" class="data row1 col1">arima011_drift</td>
+<td id="T_bb85a_row1_col2" class="data row1 col2">0.217</td>
+</tr>
+<tr class="odd">
+<td id="T_bb85a_row2_col0" class="data row2 col0">monthly</td>
+<td id="T_bb85a_row2_col1" class="data row2 col1">sarima011_100</td>
+<td id="T_bb85a_row2_col2" class="data row2 col2">0.215</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_9abab" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_9abab_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">frequency</th>
+<th id="T_9abab_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">model</th>
+<th id="T_9abab_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">n</th>
+<th id="T_9abab_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_9abab_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_9abab_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_9abab_row0_col0" class="data row0 col0">annual</td>
+<td id="T_9abab_row0_col1" class="data row0 col1">Drift</td>
+<td id="T_9abab_row0_col2" class="data row0 col2">6</td>
+<td id="T_9abab_row0_col3" class="data row0 col3">0.224</td>
+<td id="T_9abab_row0_col4" class="data row0 col4">0.264</td>
+<td id="T_9abab_row0_col5" class="data row0 col5">-0.151</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row1_col0" class="data row1 col0">seasonal</td>
+<td id="T_9abab_row1_col1" class="data row1 col1">Drift</td>
+<td id="T_9abab_row1_col2" class="data row1 col2">6</td>
+<td id="T_9abab_row1_col3" class="data row1 col3">0.236</td>
+<td id="T_9abab_row1_col4" class="data row1 col4">0.286</td>
+<td id="T_9abab_row1_col5" class="data row1 col5">-0.186</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row2_col0" class="data row2 col0">seasonal</td>
+<td id="T_9abab_row2_col1" class="data row2 col1">Selected ARIMA/SARIMA</td>
+<td id="T_9abab_row2_col2" class="data row2 col2">6</td>
+<td id="T_9abab_row2_col3" class="data row2 col3">0.238</td>
+<td id="T_9abab_row2_col4" class="data row2 col4">0.291</td>
+<td id="T_9abab_row2_col5" class="data row2 col5">-0.195</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row3_col0" class="data row3 col0">monthly</td>
+<td id="T_9abab_row3_col1" class="data row3 col1">Selected ARIMA/SARIMA</td>
+<td id="T_9abab_row3_col2" class="data row3 col2">6</td>
+<td id="T_9abab_row3_col3" class="data row3 col3">0.249</td>
+<td id="T_9abab_row3_col4" class="data row3 col4">0.305</td>
+<td id="T_9abab_row3_col5" class="data row3 col5">-0.213</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row4_col0" class="data row4 col0">annual</td>
+<td id="T_9abab_row4_col1" class="data row4 col1">Selected ARIMA/SARIMA</td>
+<td id="T_9abab_row4_col2" class="data row4 col2">6</td>
+<td id="T_9abab_row4_col3" class="data row4 col3">0.249</td>
+<td id="T_9abab_row4_col4" class="data row4 col4">0.304</td>
+<td id="T_9abab_row4_col5" class="data row4 col5">-0.215</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row5_col0" class="data row5 col0">monthly</td>
+<td id="T_9abab_row5_col1" class="data row5 col1">Drift</td>
+<td id="T_9abab_row5_col2" class="data row5 col2">6</td>
+<td id="T_9abab_row5_col3" class="data row5 col3">0.263</td>
+<td id="T_9abab_row5_col4" class="data row5 col4">0.319</td>
+<td id="T_9abab_row5_col5" class="data row5 col5">-0.236</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row6_col0" class="data row6 col0">seasonal</td>
+<td id="T_9abab_row6_col1" class="data row6 col1">Seasonal naive</td>
+<td id="T_9abab_row6_col2" class="data row6 col2">6</td>
+<td id="T_9abab_row6_col3" class="data row6 col3">0.270</td>
+<td id="T_9abab_row6_col4" class="data row6 col4">0.342</td>
+<td id="T_9abab_row6_col5" class="data row6 col5">-0.240</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row7_col0" class="data row7 col0">annual</td>
+<td id="T_9abab_row7_col1" class="data row7 col1">Naive</td>
+<td id="T_9abab_row7_col2" class="data row7 col2">6</td>
+<td id="T_9abab_row7_col3" class="data row7 col3">0.270</td>
+<td id="T_9abab_row7_col4" class="data row7 col4">0.342</td>
+<td id="T_9abab_row7_col5" class="data row7 col5">-0.240</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row8_col0" class="data row8 col0">monthly</td>
+<td id="T_9abab_row8_col1" class="data row8 col1">Seasonal naive</td>
+<td id="T_9abab_row8_col2" class="data row8 col2">6</td>
+<td id="T_9abab_row8_col3" class="data row8 col3">0.270</td>
+<td id="T_9abab_row8_col4" class="data row8 col4">0.342</td>
+<td id="T_9abab_row8_col5" class="data row8 col5">-0.240</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row9_col0" class="data row9 col0">annual</td>
+<td id="T_9abab_row9_col1" class="data row9 col1">Seasonal naive</td>
+<td id="T_9abab_row9_col2" class="data row9 col2">6</td>
+<td id="T_9abab_row9_col3" class="data row9 col3">0.270</td>
+<td id="T_9abab_row9_col4" class="data row9 col4">0.342</td>
+<td id="T_9abab_row9_col5" class="data row9 col5">-0.240</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row10_col0" class="data row10 col0">seasonal</td>
+<td id="T_9abab_row10_col1" class="data row10 col1">Naive</td>
+<td id="T_9abab_row10_col2" class="data row10 col2">6</td>
+<td id="T_9abab_row10_col3" class="data row10 col3">0.285</td>
+<td id="T_9abab_row10_col4" class="data row10 col4">0.358</td>
+<td id="T_9abab_row10_col5" class="data row10 col5">-0.262</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row11_col0" class="data row11 col0">seasonal</td>
+<td id="T_9abab_row11_col1" class="data row11 col1">Trend + period</td>
+<td id="T_9abab_row11_col2" class="data row11 col2">6</td>
+<td id="T_9abab_row11_col3" class="data row11 col3">0.290</td>
+<td id="T_9abab_row11_col4" class="data row11 col4">0.350</td>
+<td id="T_9abab_row11_col5" class="data row11 col5">-0.277</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row12_col0" class="data row12 col0">monthly</td>
+<td id="T_9abab_row12_col1" class="data row12 col1">Trend + period</td>
+<td id="T_9abab_row12_col2" class="data row12 col2">6</td>
+<td id="T_9abab_row12_col3" class="data row12 col3">0.290</td>
+<td id="T_9abab_row12_col4" class="data row12 col4">0.350</td>
+<td id="T_9abab_row12_col5" class="data row12 col5">-0.277</td>
+</tr>
+<tr class="even">
+<td id="T_9abab_row13_col0" class="data row13 col0">annual</td>
+<td id="T_9abab_row13_col1" class="data row13 col1">Trend + period</td>
+<td id="T_9abab_row13_col2" class="data row13 col2">6</td>
+<td id="T_9abab_row13_col3" class="data row13 col3">0.290</td>
+<td id="T_9abab_row13_col4" class="data row13 col4">0.350</td>
+<td id="T_9abab_row13_col5" class="data row13 col5">-0.277</td>
+</tr>
+<tr class="odd">
+<td id="T_9abab_row14_col0" class="data row14 col0">monthly</td>
+<td id="T_9abab_row14_col1" class="data row14 col1">Naive</td>
+<td id="T_9abab_row14_col2" class="data row14 col2">6</td>
+<td id="T_9abab_row14_col3" class="data row14 col3">0.324</td>
+<td id="T_9abab_row14_col4" class="data row14 col4">0.403</td>
+<td id="T_9abab_row14_col5" class="data row14 col5">-0.321</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="cell-fig-arima-final" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig,ax<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="fl">4.5</span>),layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> freq,style <span class="kw">in</span> <span class="bu">zip</span>(labels,[<span class="st">'-'</span>,<span class="st">'--'</span>,<span class="st">':'</span>]):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    g<span class="op">=</span>predictions.query(<span class="st">"stage=='retrospective' and frequency==@freq"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(g.year,g.forecast,style,label<span class="op">=</span>labels[freq])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax.plot(g.year,g.actual,<span class="st">'o-'</span>,color<span class="op">=</span><span class="st">'#b23a48'</span>,label<span class="op">=</span><span class="st">'Obserwacje'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">'Rok meteorologiczny'</span>,ylabel<span class="op">=</span><span class="st">'Anomalia (°C vs 1951–1980)'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-arima-final" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-arima-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_arima_frequency_files/figure-html/fig-arima-final-output-1.png" width="1185" height="600" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-arima-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;4: Prognozy dobrane wyłącznie na danych do 2019 r. oraz cel roczny z miesięcy FAOSTAT 2020–2025. Eksperyment wykonany retrospektywnie.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To retrospektywne rozszerzenie: lata 2020–2025 były już oglądane w projekcie, a stare wartości mogą podlegać rewizjom. Zagnieżdżony dobór chroni obliczenia przed wykorzystaniem przyszłych celów, ale nie usuwa wcześniejszej wiedzy autora o danych ani nie odtwarza archiwalnych wydań dla każdego punktu startowego.</p>
+</section>
+<section id="które-lata-składają-się-na-końcowy-wynik" class="level3">
+<h3 class="anchored" data-anchor-id="które-lata-składają-się-na-końcowy-wynik">Które lata składają się na końcowy wynik?</h3>
+<div id="1bbf5959" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>frozen <span class="op">=</span> pd.read_csv(stability_dir<span class="op">/</span><span class="st">'evaluation_2020_2025.csv'</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>focus <span class="op">=</span> frozen.query(<span class="st">"model=='Selected ARIMA/SARIMA' or (frequency=='annual' and model in ['Trend + period','Drift'])"</span>).copy()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>focus[<span class="st">'Procedura'</span>] <span class="op">=</span> focus.frequency.<span class="bu">map</span>(labels) <span class="op">+</span> <span class="st">' / '</span> <span class="op">+</span> focus.model.<span class="bu">map</span>({<span class="st">'Selected ARIMA/SARIMA'</span>:<span class="st">'ARIMA/SARIMA'</span>,<span class="st">'Trend + period'</span>:<span class="st">'Trend'</span>,<span class="st">'Drift'</span>:<span class="st">'Drift'</span>})</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>focus[<span class="st">'Błąd bezwzględny (°C)'</span>] <span class="op">=</span> focus.error.<span class="bu">abs</span>()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>table(focus.pivot(index<span class="op">=</span><span class="st">'year'</span>, columns<span class="op">=</span><span class="st">'Procedura'</span>, values<span class="op">=</span><span class="st">'Błąd bezwzględny (°C)'</span>).reset_index().rename(columns<span class="op">=</span>{<span class="st">'year'</span>:<span class="st">'Rok'</span>}))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_7d81b" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_7d81b_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Rok</th>
+<th id="T_7d81b_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Miesięczna / ARIMA/SARIMA</th>
+<th id="T_7d81b_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Roczna / ARIMA/SARIMA</th>
+<th id="T_7d81b_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Roczna / Drift</th>
+<th id="T_7d81b_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Roczna / Trend</th>
+<th id="T_7d81b_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Sezonowa / ARIMA/SARIMA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_7d81b_row0_col0" class="data row0 col0">2020</td>
+<td id="T_7d81b_row0_col1" class="data row0 col1">0.225</td>
+<td id="T_7d81b_row0_col2" class="data row0 col2">0.234</td>
+<td id="T_7d81b_row0_col3" class="data row0 col3">0.165</td>
+<td id="T_7d81b_row0_col4" class="data row0 col4">0.298</td>
+<td id="T_7d81b_row0_col5" class="data row0 col5">0.209</td>
+</tr>
+<tr class="even">
+<td id="T_7d81b_row1_col0" class="data row1 col0">2021</td>
+<td id="T_7d81b_row1_col1" class="data row1 col1">0.012</td>
+<td id="T_7d81b_row1_col2" class="data row1 col2">0.017</td>
+<td id="T_7d81b_row1_col3" class="data row1 col3">0.050</td>
+<td id="T_7d81b_row1_col4" class="data row1 col4">0.080</td>
+<td id="T_7d81b_row1_col5" class="data row1 col5">0.006</td>
+</tr>
+<tr class="odd">
+<td id="T_7d81b_row2_col0" class="data row2 col0">2022</td>
+<td id="T_7d81b_row2_col1" class="data row2 col1">0.106</td>
+<td id="T_7d81b_row2_col2" class="data row2 col2">0.103</td>
+<td id="T_7d81b_row2_col3" class="data row2 col3">0.168</td>
+<td id="T_7d81b_row2_col4" class="data row2 col4">0.041</td>
+<td id="T_7d81b_row2_col5" class="data row2 col5">0.124</td>
+</tr>
+<tr class="even">
+<td id="T_7d81b_row3_col0" class="data row3 col0">2023</td>
+<td id="T_7d81b_row3_col1" class="data row3 col1">0.258</td>
+<td id="T_7d81b_row3_col2" class="data row3 col2">0.258</td>
+<td id="T_7d81b_row3_col3" class="data row3 col3">0.195</td>
+<td id="T_7d81b_row3_col4" class="data row3 col4">0.319</td>
+<td id="T_7d81b_row3_col5" class="data row3 col5">0.239</td>
+</tr>
+<tr class="odd">
+<td id="T_7d81b_row4_col0" class="data row4 col0">2024</td>
+<td id="T_7d81b_row4_col1" class="data row4 col1">0.571</td>
+<td id="T_7d81b_row4_col2" class="data row4 col2">0.569</td>
+<td id="T_7d81b_row4_col3" class="data row4 col3">0.508</td>
+<td id="T_7d81b_row4_col4" class="data row4 col4">0.629</td>
+<td id="T_7d81b_row4_col5" class="data row4 col5">0.551</td>
+</tr>
+<tr class="even">
+<td id="T_7d81b_row5_col0" class="data row5 col0">2025</td>
+<td id="T_7d81b_row5_col1" class="data row5 col1">0.320</td>
+<td id="T_7d81b_row5_col2" class="data row5 col2">0.315</td>
+<td id="T_7d81b_row5_col3" class="data row5 col3">0.256</td>
+<td id="T_7d81b_row5_col4" class="data row5 col4">0.374</td>
+<td id="T_7d81b_row5_col5" class="data row5 col5">0.299</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Tabela ujawnia wkład każdego roku w MAE, lecz nie służy do wyboru nowego zwycięzcy. Najniższy późniejszy błąd driftu pozostaje wynikiem opisowym; procedurą wskazaną przez historyczne CV nadal jest trend.</p>
+<p><a href="../results/frequency_stability/evaluation_lock.json">Zamrożony protokół i SHA-256</a> · <a href="../results/frequency_stability/evaluation_2020_2025.csv">Ocena każdego roku i wszystkich procedur</a> · <a href="../results/frequency_stability/paired_errors.csv">Sparowane błędy</a> · <a href="../results/frequency_stability/stability.csv">Zakresy wrażliwości</a>.</p>
+</section>
+</section>
+<section id="czy-dodatkowa-szczegółowość-pomogła-i-gdzie-kończy-się-ten-wniosek" class="level2">
+<h2 class="anchored" data-anchor-id="czy-dodatkowa-szczegółowość-pomogła-i-gdzie-kończy-się-ten-wniosek">Czy dodatkowa szczegółowość pomogła — i gdzie kończy się ten wniosek?</h2>
+<p><strong>W historycznej walidacji tego eksperymentu większa szczegółowość szeregu nie przełożyła się na lepszą prognozę wspólnego celu rocznego.</strong> Roczna procedura ARIMA osiągnęła niższy średni błąd niż procedury sezonowa i miesięczna, ale wszystkie trzy ustąpiły prostemu trendowi liniowemu. Nie oznacza to, że miesięczne anomalie nie zawierają dodatkowej struktury. Badane procedury nie wykazały korzyści z jej wykorzystania mierzonej niższym średnim MAE względem rocznego benchmarku.</p>
+<p>Ta odpowiedź zależy od okresu i sposobu oceny. ARIMA/SARIMA wygrywały z trendem w części dat startowych, a blokowa analiza niepewności nie uzasadnia mocnego wniosku o trwałej przewadze. W latach 2020–2025 najniższy błąd spośród procedur ARIMA/SARIMA ma wariant sezonowy, ale nadal nie pokonuje rocznego driftu. Zmiana rankingu między okresami przemawia za ostrożnością przy wyborze jednej częstotliwości.</p>
+<p>Wyniki dotyczą jednej zmiennej, jednej listy kandydatów, określonych horyzontów i dwóch zapisanych wydań źródła. Ranking częstotliwości pozostaje opisowy; wybór najlepszej częstotliwości na podstawie zewnętrznego CV i raportowanie jej wyniku jako niezależnego sukcesu byłoby kolejną selekcją. Raport pokazuje wszystkie trzy procedury i benchmarki. Rozszerzenie na inne źródła wymaga osobnej kontroli definicji i agregacji.</p>
+<section id="odtworzenie-i-źródła" class="level3">
+<h3 class="anchored" data-anchor-id="odtworzenie-i-źródła">Odtworzenie i źródła</h3>
+<p>Diagnostyka szeregu i ACF jest obliczana bezpośrednio w notebooku. Odczyt danych zapewnia <a href="../temperature/series.py">temperature/series.py</a>, a zgodność zamrożonych plików sprawdza <a href="../frequency_stability.py">frequency_stability.py</a>. Wykres nie zmienia obliczeń prognoz ani listy kandydatów.</p>
+<p>Eksperyment: <code>python stories/globalne_ocieplenie/frequency_arima.py</code>. Renderowanie notebooka odczytuje zapisane wyniki i sprawdza SHA-256 kodu, danych i tabel; nie uruchamia ponownie setek dopasowań. Po zmianie któregokolwiek wejścia należy ponowić eksperyment.</p>
+<p>Stabilność i kontrola zamrożenia: <code>python stories/globalne_ocieplenie/frequency_stability.py</code>. Istniejący manifest nie jest nadpisywany. Dla zmienionych wejść należy zachować obecną wersję i utworzyć osobny eksperyment.</p>
+<p><a href="../results/frequency_arima/provenance.json">Protokół i sumy kontrolne</a> · <a href="../results/frequency_arima/predictions.csv">Prognozy</a> · <a href="../results/frequency_arima/selections.csv">Wewnętrzny dobór</a> · <a href="../results/frequency_arima/fits.csv">Diagnostyka dopasowań</a>.</p>
+<p>Źródła: lokalne FAOSTAT opisane w metadanych; <a href="https://otexts.com/fpp3/tscv.html">walidacja czasowa</a> i <a href="https://otexts.com/fpp3/seasonal-arima.html">modele SARIMA</a>. <a href="../../../stories/globalne_ocieplenie/index.html">Powrót do projektu</a>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kepilif\.github\.io\/storylab\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>StoryLab · Historie oparte na danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:jacek.filipek@gmail.com">
+<p>E-mail</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/Kepilif/">
+<p>GitHub</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/kepilif/">
+<p>LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://public.tableau.com/app/profile/jacek.filipek/">
+<p>Tableau Public</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://gitlab.com/kepilif/">
+<p>GitLab</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

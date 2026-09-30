@@ -1,0 +1,27 @@
+---
+title: "Blog"
+subtitle: "Jedno pytanie. Jedna historia oparta na danych."
+description: "Pełne raporty i narracje o sporcie, gospodarce i klimacie."
+lang: pl
+body-classes: portfolio-page portfolio-list
+page-layout: full
+toc: false
+number-sections: false
+listing:
+  id: blog-gallery
+  contents: portfolio/posts.yml
+  type: grid
+  grid-columns: 2
+  categories: true
+  sort: false
+  fields: [image, title, subtitle, description, categories]
+  image-height: 220px
+  max-description-length: 300
+  filter-ui: true
+  sort-ui: false
+---
+
+Samodzielne raporty i opowieści analityczne, zachowane w pełnej wersji. Historia NBA prowadzi również do [rozbudowanego projektu](stories/nba_scouting_patterns/index.qmd). Ostatnio aktualizowane historie znajdziesz na początku.
+
+::: {#blog-gallery}
+:::

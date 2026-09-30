@@ -1,0 +1,55 @@
+---
+title: "Reproducibility"
+subtitle: "Jak odtworzyć pełne artefakty raportu"
+---
+
+## Pełne dane
+
+::: {.callout-note}
+Generowanie danych i uruchamianie Streamlit odbywa się w repozytorium
+`marketing_data_app_gitea`. Wersję publikacyjną raportu edytujemy teraz w
+`stories/ecommerce_segmentation`; gotowe artefakty kopiujemy po
+przeliczeniu ze źródłowego `analysis`. Notatnik publikacyjny wykorzystuje
+zapisane wyniki, więc render StoryLab nie przelicza pełnego zbioru e-commerce.
+:::
+
+Pełne dane kosmetyczne są przechowywane lokalnie poza repozytorium. Domyślna ścieżka jest zapisana w skrypcie `scripts/build_full_analysis_artifacts.py`, a alternatywnie można użyć zmiennej środowiskowej `MARKETING_FULL_DATA_DIR`.
+
+## Generowanie artefaktów
+
+```powershell
+.\.venv\Scripts\python.exe scripts\build_full_analysis_artifacts.py
+```
+
+Wyniki trafiają do:
+
+```text
+analysis/full_tables/
+analysis/full_figures/
+```
+
+W trakcie generowania artefaktów kontrolowane są też podstawowe ograniczenia jakości: 131 cen ujemnych jest wykluczanych z metryk wartości, a 104 157 cen równych zero wymaga ostrożności przy interpretacji cech pieniężnych.
+
+## Render Quarto
+
+Poniższe polecenia wykonujemy z katalogu głównego **StoryLab**:
+
+```powershell
+.\scripts\build.ps1
+```
+
+Podgląd lokalny:
+
+```powershell
+quarto preview
+```
+
+## Demo Streamlit
+
+Streamlit pracuje na wyselekcjonowanych danych demonstracyjnych:
+
+```text
+data/demo/sample_sales.csv
+```
+
+Ten plik nie zastępuje pełnej analizy. Służy do pokazania przepływu aplikacji.

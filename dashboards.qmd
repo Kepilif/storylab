@@ -1,0 +1,14 @@
+---
+title: "Wizualizacje — nowy adres"
+lang: pl
+search: false
+toc: false
+number-sections: false
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta http-equiv="refresh" content="0; url=wizualizacje.html">
+---
+
+Galeria jest dostępna pod nowym adresem: [Wizualizacje](wizualizacje.qmd).

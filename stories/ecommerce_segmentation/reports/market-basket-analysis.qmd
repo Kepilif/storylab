@@ -1,0 +1,40 @@
+---
+title: "Market Basket Analysis"
+subtitle: "Jak wykorzystać współwystępowanie marek do cross-sellu"
+---
+
+## Najpierw biznes: co można sprzedawać razem?
+
+Analiza koszykowa wskazuje marki, które pojawiają się razem w zakupach. Jej celem nie jest sama tabela reguł, tylko pomysł na pakiety, rekomendacje i kampanie cross-sell.
+
+Koszyk jest tutaj zdefiniowany jako zestaw unikalnych marek kupionych w ramach jednej `user_session`. To praktyczne przybliżenie sesji zakupowej, nie pełny identyfikator zamówienia.
+
+{{< include ../full_tables/full_basket_rules.md >}}
+
+W pełnych wynikach `runail` jest zarówno liderem zakupów i przychodu, jak i częstym elementem reguł po innych markach. To czyni go dobrym kandydatem do testów merchandisingowych, ale nie dowodzi samoistnie efektu przyczynowego cross-sellu.
+
+## Jak czytać reguły
+
+- **Wsparcie** mówi, jak często dana para pojawia się w koszykach.
+- **Pewność** mówi, jak często zakup produktu bazowego prowadzi do produktu rekomendowanego.
+- **Lift** mówi, czy relacja jest silniejsza niż przypadkowe współwystępowanie.
+
+## Decyzja marketingowa
+
+Reguły o wysokim lift i wystarczającej liczbie koszyków są kandydatami do:
+
+1. pakietów produktowych,
+2. rekomendacji „kupowane razem”,
+3. promocji marek komplementarnych,
+4. testów A/B w koszyku i komunikacji po zakupie.
+
+::: {.callout-tip collapse="true"}
+### Technical details
+
+- Do analizy używane są zdarzenia `purchase`.
+- Jednostką analizy jest `user_session`, nie cała historia użytkownika.
+- W obecnych artefaktach reguły liczone są po `brand`, bo `product_id` jest bardzo rozdrobniony.
+- `brand` ma 42,32% braków, więc reguły marek obejmują tylko rozpoznaną część katalogu.
+- Reguły rzadkie są filtrowane minimalną liczbą koszyków, żeby nie promować przypadkowych par.
+- Przy pracy z pełną platformą warto dodać opisowe nazwy kategorii i porównać reguły po marce, produkcie i kategorii.
+:::

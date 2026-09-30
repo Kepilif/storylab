@@ -1,0 +1,41 @@
+---
+title: "Analiza koszykowa"
+---
+
+## Cel
+
+Analiza koszykowa służy do wykrywania produktów, marek lub kategorii, które często występują razem w zakupach klientów. To moduł szczególnie przydatny dla cross-sellu, merchandisingu i budowania pakietów produktów.
+
+## Metryki reguł
+
+Jednostką analizy jest **sesja zakupowa**: zestaw unikalnych produktów, marek lub kategorii oznaczonych zdarzeniem `purchase` w ramach jednej `user_session`. Nie jest to pełny identyfikator zamówienia, bo taki identyfikator nie występuje w danych. To ograniczenie trzeba mieć w pamięci przy interpretacji reguł.
+
+| Metryka | Znaczenie |
+|---|---|
+| Support | Odsetek sesji zakupowych zawierających oba elementy reguły. |
+| Confidence | Odsetek sesji z elementem bazowym, w których pojawia się element rekomendowany. |
+| Lift | Czy współwystępowanie jest silniejsze niż przypadek. |
+
+## Wyniki z pełnych danych
+
+Poniższe reguły zostały policzone na pełnym zbiorze kosmetycznym po ograniczeniu do sesji zakupowych z rozpoznaną marką. Dla stabilności raport pomija bardzo rzadkie pary marek i pokazuje reguły z największym liftem oraz wystarczającą liczbą koszyków.
+
+{{< include full_tables/full_basket_rules.md >}}
+
+Wyniki z `analiza.py` wskazują, że `runail` jest częstym elementem reguł po zakupach marek takich jak `irisk`, `grattol`, `ingarden` i `bpw_style`; przykładowa reguła `irisk -> runail` ma lift 1,6097. Taki wynik nie mówi jeszcze, że rekomendacja zwiększy sprzedaż, ale daje konkretną parę marek do testu cross-sell.
+
+Wysoki lift przy niskim wsparciu może być ciekawym sygnałem, ale nie wystarcza samodzielnie do decyzji kampanijnej. Dlatego interpretację należy łączyć z liczbą koszyków i pewnością reguły.
+
+Warto też zestawić reguły z rankingiem marek. `runail`, `irisk`, `masura`, `grattol` i `bpw_style` są markami wolumenowymi, natomiast `runail`, `grattol`, `irisk`, `uno` i `strong` dominują po wartości sprzedaży. `strong` jest tu przykładem marki wysokowartościowej: ma tylko **850 zakupów**, ale **151 941,80** wartości sprzedaży, więc wymaga innego testu niż marki czysto wolumenowe.
+
+## Interpretacja
+
+Przykładowa interpretacja reguły:
+
+> Jeśli para marek ma support 0,8%, confidence 14% i lift 2,3, oznacza to, że
+> pojawia się razem w 0,8% sesji zakupowych, a marka rekomendowana występuje
+> ponad dwa razy częściej niż wynikałoby z jej bazowej popularności.
+
+Reguły koszykowe nie są celem samym w sobie, tylko źródłem pomysłów na cross-sell, pakiety i układ kampanii produktowych.
+
+Ograniczeniem tej części jest niepełność pola `brand`: brak marki dla 42,32% rekordów oznacza, że reguły marek opisują tylko rozpoznaną część katalogu.

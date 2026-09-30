@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="StoryLab">
+
+<title>Prognoza kontra rzeczywistość: czy ARIMA pokonała prosty trend? – StoryLab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b77ad8b8fd8f04bd21044df5c5bf7d25.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<style>
+.cell-output-display img { max-width: 100% !important; height: auto !important; }
+.cell-output-display { max-width: 100%; overflow-x: auto; }
+.cell-output-display table { width: 100%; font-variant-numeric: tabular-nums; }
+</style>
+
+
+<link rel="stylesheet" href="../../assets/storylab.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed temperature-project quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">StoryLab</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Szukaj"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Przełącz nawigację" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projekty</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../wizualizacje.html"> 
+<span class="menu-text">Wizualizacje</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">O mnie</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../stories/globalne_ocieplenie/globalne_ocieplenie_story.html">2. Prognoza kontra rzeczywistość</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/globalne_ocieplenie/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">O projekcie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Analiza FAOSTAT</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/globalne_ocieplenie/globalne_ocieplenie_story.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">2. Prognoza kontra rzeczywistość</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/globalne_ocieplenie/notebooks/02_monthly_seasonal_exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Miesiące i sezony</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Częstotliwość i prognoza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/globalne_ocieplenie/notebooks/04_arima_frequency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. ARIMA i SARIMA</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej stronie</h2>
+   
+  <ul>
+  <li><a href="#punkt-wyjścia-roczna-seria-faostat-world" id="toc-punkt-wyjścia-roczna-seria-faostat-world" class="nav-link active" data-scroll-target="#punkt-wyjścia-roczna-seria-faostat-world">Punkt wyjścia: roczna seria FAOSTAT World</a></li>
+  <li><a href="#sześć-nowych-lat-faostat-prognoza-spotyka-obserwacje" id="toc-sześć-nowych-lat-faostat-prognoza-spotyka-obserwacje" class="nav-link" data-scroll-target="#sześć-nowych-lat-faostat-prognoza-spotyka-obserwacje">Sześć nowych lat FAOSTAT: prognoza spotyka obserwacje</a>
+  <ul class="collapse">
+  <li><a href="#co-przenosimy-z-notebooka-do-testu-era5" id="toc-co-przenosimy-z-notebooka-do-testu-era5" class="nav-link" data-scroll-target="#co-przenosimy-z-notebooka-do-testu-era5">Co przenosimy z notebooka do testu ERA5?</a></li>
+  </ul></li>
+  <li><a href="#pięć-lat-których-model-nie-dostaje" id="toc-pięć-lat-których-model-nie-dostaje" class="nav-link" data-scroll-target="#pięć-lat-których-model-nie-dostaje">Pięć lat, których model nie dostaje</a></li>
+  <li><a href="#czy-bardziej-złożony-model-wniósł-wartość" id="toc-czy-bardziej-złożony-model-wniósł-wartość" class="nav-link" data-scroll-target="#czy-bardziej-złożony-model-wniósł-wartość">Czy bardziej złożony model wniósł wartość?</a></li>
+  <li><a href="#gdzie-model-pomylił-się-najbardziej" id="toc-gdzie-model-pomylił-się-najbardziej" class="nav-link" data-scroll-target="#gdzie-model-pomylił-się-najbardziej">Gdzie model pomylił się najbardziej?</a></li>
+  <li><a href="#czego-uczy-powrót-do-analizy" id="toc-czego-uczy-powrót-do-analizy" class="nav-link" data-scroll-target="#czego-uczy-powrót-do-analizy">Czego uczy powrót do analizy?</a></li>
+  <li><a href="#kontekst-jedna-liczba-globalna-nie-opisuje-regionów" id="toc-kontekst-jedna-liczba-globalna-nie-opisuje-regionów" class="nav-link" data-scroll-target="#kontekst-jedna-liczba-globalna-nie-opisuje-regionów">Kontekst: jedna liczba globalna nie opisuje regionów</a></li>
+  <li><a href="#metoda-ograniczenia-i-odtwarzalność" id="toc-metoda-ograniczenia-i-odtwarzalność" class="nav-link" data-scroll-target="#metoda-ograniczenia-i-odtwarzalność">Metoda, ograniczenia i odtwarzalność</a>
+  <ul class="collapse">
+  <li><a href="#źródła" id="toc-źródła" class="nav-link" data-scroll-target="#źródła">Źródła</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<nav aria-label="Projekt"><p><a href="../../projects.html">Projekty</a> · <a href="index.html">O projekcie</a> · <a href="notebooks/01_temperature_change_analysis.html">Analiza FAOSTAT</a> · <a href="globalne_ocieplenie_story.html">Prognoza kontra rzeczywistość</a></p></nav>
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Prognoza kontra rzeczywistość: czy ARIMA pokonała prosty trend?</h1>
+<p class="subtitle lead">Prognoza FAOSTAT wobec obserwacji 2020–2025 i osobny test modeli na ERA5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>StoryLab </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Opublikowano</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">21 września 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Zmodyfikowano</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">22 września 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Punktem wyjścia jest <a href="../../stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.html">analiza temperatury nad lądami w FAOSTAT</a>. Notebook konstruuje kompletny roczny szereg <code>World / Temperature change / Meteorological year</code> z lat 1961–2019, bez imputacji, i wyznacza prognozę ARIMA(2,1,2) na lata 2020–2029.</p>
+<p>Ten raport prowadzi dwa eksperymenty. Najpierw zestawiamy prognozę z poprawnej serii FAOSTAT z obserwacjami 2020–2025 z nowego wydania tego samego źródła, kontrolując rewizje historii. Następnie pytamy, czy ARIMA daje przewagę nad prostymi metodami w osobnym teście ERA5 2020–2024. Ocena na ERA5 dotyczy ponownie dopasowanego modelu.</p>
+<div id="b1d7c64c" class="cell" data-results="asis" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><strong>Wynik w skrócie.</strong> W teście ERA5 na latach 2020–2024 ARIMA nie pokonała prostych metod: jej średni błąd bezwzględny wyniósł <strong>0.160°C</strong>, wobec <strong>0.141°C</strong> dla modelu drift. W 2024 r. zaniżyła anomalię o <strong>0.368°C</strong>. To wynik jednego pięcioletniego testu, a nie dowód, że ARIMA zawsze przegrywa.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>2019 to koniec treningu, nie potwierdzona data prognozy.</strong> Notebook ma datę 29 września 2024 r., a jego konstrukcję szeregu poprawiono później. Odtwarzamy prognozę z zachowanego pliku kończącego się w 2019 r.; nie jest to udokumentowana prognoza opublikowana w 2019 r.</p>
+</div>
+</div>
+</div>
+<section id="punkt-wyjścia-roczna-seria-faostat-world" class="level2">
+<h2 class="anchored" data-anchor-id="punkt-wyjścia-roczna-seria-faostat-world">Punkt wyjścia: roczna seria FAOSTAT World</h2>
+<p><a href="../../stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.html#poprawna-konstrukcja-szeregu">Notebook bazowy</a> wykorzystuje jeden gotowy agregat źródłowy. Każdy rok ma jedną obserwację; nie uśredniamy krajów, regionów, miesięcy ani sezonów. Ten sam szereg służy w notebooku do opisu historii i estymacji ARIMA. Poniżej odtwarzamy tę specyfikację na tym samym lokalnym pliku.</p>
+<div id="dedcf17c" class="cell" data-results="asis" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>Prognoza FAOSTAT na <strong>2020 r. wynosi 1.447°C</strong>, a na <strong>2029 r. 1.431°C</strong>. Po krótkich wahaniach model zbliża się do stałego poziomu. Poprawnie zdefiniowany szereg nie nadaje ARIMA bez drift mechanizmu trwałego wzrostu.</p>
+</div>
+</div>
+<div id="cell-fig-faostat" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div id="fig-faostat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-faostat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="globalne_ocieplenie_story_files/figure-html/fig-faostat-output-1.png" width="1315" height="535" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-faostat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;1: Prognoza z analizy bazowej: roczny agregat World w skali FAOSTAT, z modelowym przedziałem predykcji 95%.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sześć-nowych-lat-faostat-prognoza-spotyka-obserwacje" class="level2">
+<h2 class="anchored" data-anchor-id="sześć-nowych-lat-faostat-prognoza-spotyka-obserwacje">Sześć nowych lat FAOSTAT: prognoza spotyka obserwacje</h2>
+<p><a href="https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2025.-global--regional-and-country-trends/">FAO opublikowało dane 1961–2025</a> 1 kwietnia 2026 r. Pobraliśmy pełny pakiet 22 września 2026 r. W obu plikach wybieramy <code>World / Meteorological year / Temperature change</code>: zgadzają się kody obszaru (5000), okresu (7020) i elementu (7271). Nowy szereg zawiera 65 kolejnych lat, bez braków ani powtórzeń; jednostką jest °C.</p>
+<p>Publikacje FAO opisują tę samą zmienną: anomalię temperatury powietrza nad lądami względem 1951–1980, opartą na GISTEMP. Zgodność definicji i kodów pozwala na porównanie między wydaniami, lecz <strong>nie dowodzi identyczności wszystkich szczegółów algorytmu</strong>. Nie dysponujemy pełnym rejestrem zmian metodologii między tymi wydaniami. Wyniki oceniamy względem najnowszych oszacowań, z jawnym zastrzeżeniem rewizji.</p>
+<div id="ffe2245c" class="cell" data-results="asis" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>W historii 1961–2019 zmieniło się <strong>58 z 59 wartości</strong>. Średnia rewizja wynosi -0.002°C, a największa bezwzględna zmiana 0.069°C. Rok 2019 zmienił się z 1,473°C na 1,430°C. Zachowujemy trening ze starego pliku; nie przeliczamy prognozy na zrewidowanej historii.</p>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div id="tbl-faostat-validation" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-faostat-validation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: Prognoza z zachowanego pliku i obserwacje z aktualizacji FAOSTAT; błąd = prognoza − obserwacja, °C.
+</figcaption>
+<div aria-describedby="tbl-faostat-validation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_9d9c7" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_9d9c7_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Rok</th>
+<th id="T_9d9c7_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Prognoza</th>
+<th id="T_9d9c7_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Obserwacja</th>
+<th id="T_9d9c7_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Błąd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_9d9c7_row0_col0" class="data row0 col0">2020</td>
+<td id="T_9d9c7_row0_col1" class="data row0 col1">1.447</td>
+<td id="T_9d9c7_row0_col2" class="data row0 col2">1.664</td>
+<td id="T_9d9c7_row0_col3" class="data row0 col3">-0.217</td>
+</tr>
+<tr class="even">
+<td id="T_9d9c7_row1_col0" class="data row1 col0">2021</td>
+<td id="T_9d9c7_row1_col1" class="data row1 col1">1.423</td>
+<td id="T_9d9c7_row1_col2" class="data row1 col2">1.474</td>
+<td id="T_9d9c7_row1_col3" class="data row1 col3">-0.051</td>
+</tr>
+<tr class="odd">
+<td id="T_9d9c7_row2_col0" class="data row2 col0">2022</td>
+<td id="T_9d9c7_row2_col1" class="data row2 col1">1.429</td>
+<td id="T_9d9c7_row2_col2" class="data row2 col2">1.381</td>
+<td id="T_9d9c7_row2_col3" class="data row2 col3">0.048</td>
+</tr>
+<tr class="even">
+<td id="T_9d9c7_row3_col0" class="data row3 col0">2023</td>
+<td id="T_9d9c7_row3_col1" class="data row3 col1">1.433</td>
+<td id="T_9d9c7_row3_col2" class="data row3 col2">1.770</td>
+<td id="T_9d9c7_row3_col3" class="data row3 col3">-0.337</td>
+</tr>
+<tr class="odd">
+<td id="T_9d9c7_row4_col0" class="data row4 col0">2024</td>
+<td id="T_9d9c7_row4_col1" class="data row4 col1">1.432</td>
+<td id="T_9d9c7_row4_col2" class="data row4 col2">2.107</td>
+<td id="T_9d9c7_row4_col3" class="data row4 col3">-0.675</td>
+</tr>
+<tr class="even">
+<td id="T_9d9c7_row5_col0" class="data row5 col0">2025</td>
+<td id="T_9d9c7_row5_col1" class="data row5 col1">1.431</td>
+<td id="T_9d9c7_row5_col2" class="data row5 col2">1.879</td>
+<td id="T_9d9c7_row5_col3" class="data row5 col3">-0.448</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div id="cbd00902" class="cell" data-results="asis" data-execution_count="7">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><strong>MAE wynosi 0.296°C, RMSE 0.370°C, a bias -0.280°C.</strong> Model zaniża pięć z sześciu obserwacji. Największy błąd przypada na 2024 r.: prognoza 1,432°C wobec 2,107°C. Przedział predykcji 95% obejmuje 5 z 6 obserwacji; poza nim znajduje się 2024 r. Sześć lat nie wystarcza do oceny długookresowej kalibracji.</p>
+</div>
+</div>
+<p>To ocena odtworzonej, poprawionej prognozy FAOSTAT. Nie dowodzi jeszcze przewagi nad benchmarkami na FAOSTAT. Osobny eksperyment poniżej porównuje metody na ERA5.</p>
+<p>Audyt można odtworzyć za pomocą <a href="faostat_vintage_audit.py">faostat_vintage_audit.py</a>. Udostępniamy <a href="results/faostat_revisions.csv">rewizje rok po roku</a>, <a href="results/faostat_validation.csv">prognozy i obserwacje</a> oraz <a href="results/faostat_audit.json">adres pobrania, sumy kontrolne i wyniki kontroli</a>.</p>
+<section id="co-przenosimy-z-notebooka-do-testu-era5" class="level3">
+<h3 class="anchored" data-anchor-id="co-przenosimy-z-notebooka-do-testu-era5">Co przenosimy z notebooka do testu ERA5?</h3>
+<p>Przenosimy <strong>specyfikację ARIMA(2,1,2) bez drift i koniec treningu w 2019 r.</strong>, a nie wyestymowane parametry ani wartości prognozy. Model uczymy ponownie na szeregu ERA5 1940–2019. To dłuższa historia i inna zmienna niż FAOSTAT 1961–2019, dlatego wynik nie izoluje wpływu zmiany źródła.</p>
+<p>FAOSTAT opisuje temperaturę powietrza nad lądami, a użyty szereg ERA5 — globalną średnią nad lądami i oceanami względem 1850–1900. Różnią się również definicje okresu rocznego i skali odniesienia. Nie odejmujemy prognozy FAOSTAT od obserwacji ERA5 i nie nazywamy takiej różnicy błędem prognozy.</p>
+<p>Test ERA5 odpowiada na odrębne pytanie o użyteczność tej samej klasy modelu. Nie zastępuje powyższego porównania prognozy z nowymi obserwacjami FAOSTAT.</p>
+</section>
+</section>
+<section id="pięć-lat-których-model-nie-dostaje" class="level2">
+<h2 class="anchored" data-anchor-id="pięć-lat-których-model-nie-dostaje">Pięć lat, których model nie dostaje</h2>
+<p>W poprawionym eksperymencie wszystkie metody korzystają wyłącznie z rocznych wartości ERA5 z lat <strong>1940–2019</strong>. Jednorazowo prognozują lata <strong>2020–2024</strong>, bez aktualizacji po każdym kolejnym roku. Poniższa ARIMA jest ponownie dopasowana do ERA5; nie jest prognozą FAOSTAT z notebooka.</p>
+<div id="cell-fig-backtest" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div id="fig-backtest" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-backtest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="globalne_ocieplenie_story_files/figure-html/fig-backtest-output-1.png" width="1185" height="1055" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-backtest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;2: Retrospektywny test na tej samej serii ERA5. Zacieniowanie oznacza modelowy przedział predykcji 95%, warunkowy względem założeń ARIMA.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="czy-bardziej-złożony-model-wniósł-wartość" class="level2">
+<h2 class="anchored" data-anchor-id="czy-bardziej-złożony-model-wniósł-wartość">Czy bardziej złożony model wniósł wartość?</h2>
+<p>Wszystkie modele korzystają wyłącznie z danych do 2019 r. Lata 2020–2024 służą tylko do oceny prognoz. Dla ARIMA zachowujemy konfigurację (2,1,2) zastosowaną w notebooku bazowym, zamiast wybierać jej parametry na podstawie wyników z okresu testowego.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metoda</th>
+<th>Co przedłuża poza 2019 r.?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Naive</td>
+<td>Ostatnią zaobserwowaną wartość: każdy kolejny rok równy 2019.</td>
+</tr>
+<tr class="even">
+<td>Drift</td>
+<td>Ostatnią wartość plus średni roczny przyrost między pierwszym i ostatnim rokiem treningu.</td>
+</tr>
+<tr class="odd">
+<td>Trend liniowy</td>
+<td>Prostą dopasowaną metodą najmniejszych kwadratów do wszystkich 80 lat treningu.</td>
+</tr>
+<tr class="even">
+<td>ARIMA(2,1,2)</td>
+<td>Dynamikę szeregu po jednokrotnym różnicowaniu, bez deterministycznego trendu.</td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-execution_count="9">
+<div id="tbl-scores" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="9">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2: Błędy na pięciu latach testowych; wszystkie miary w °C.
+</figcaption>
+<div aria-describedby="tbl-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_44662" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_44662_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Model</th>
+<th id="T_44662_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_44662_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_44662_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_44662_row0_col0" class="data row0 col0">Drift</td>
+<td id="T_44662_row0_col1" class="data row0 col1">0.141</td>
+<td id="T_44662_row0_col2" class="data row0 col2">0.160</td>
+<td id="T_44662_row0_col3" class="data row0 col3">-0.024</td>
+</tr>
+<tr class="even">
+<td id="T_44662_row1_col0" class="data row1 col0">Naive</td>
+<td id="T_44662_row1_col1" class="data row1 col1">0.155</td>
+<td id="T_44662_row1_col2" class="data row1 col2">0.184</td>
+<td id="T_44662_row1_col3" class="data row1 col3">-0.065</td>
+</tr>
+<tr class="odd">
+<td id="T_44662_row2_col0" class="data row2 col0">ARIMA(2,1,2)</td>
+<td id="T_44662_row2_col1" class="data row2 col1">0.160</td>
+<td id="T_44662_row2_col2" class="data row2 col2">0.205</td>
+<td id="T_44662_row2_col3" class="data row2 col3">-0.113</td>
+</tr>
+<tr class="even">
+<td id="T_44662_row3_col0" class="data row3 col0">Trend liniowy</td>
+<td id="T_44662_row3_col1" class="data row3 col1">0.298</td>
+<td id="T_44662_row3_col2" class="data row3 col2">0.338</td>
+<td id="T_44662_row3_col3" class="data row3 col3">-0.298</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><strong>MAE</strong> opisuje przeciętną wielkość pomyłki; <strong>RMSE</strong> mocniej uwzględnia duże błędy. <strong>Bias</strong> to średnia z <code>prognoza − obserwacja</code>: wynik ujemny oznacza zaniżanie. Błędy przeciwnych znaków mogą się w bias znosić, dlatego nie zastępuje on MAE.</p>
+<p>Drift wygrywa zarówno według MAE, jak i RMSE. ARIMA przegrywa też z utrzymaniem ostatniej wartości. Regresja liniowa na całym okresie 1940–2019 wypada najsłabiej. Nie oznacza to, że każdy model trendu jest zły: wynik dotyczy właśnie takiego okna treningowego i takiej definicji trendu. Pięć obserwacji nie wystarcza do ustalenia trwałej przewagi ani jej istotności statystycznej.</p>
+</section>
+<section id="gdzie-model-pomylił-się-najbardziej" class="level2">
+<h2 class="anchored" data-anchor-id="gdzie-model-pomylił-się-najbardziej">Gdzie model pomylił się najbardziej?</h2>
+<div class="cell" data-execution_count="10">
+<div id="tbl-errors" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="10">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;3: ARIMA na ERA5: prognozy, obserwacje i błędy w °C.
+</figcaption>
+<div aria-describedby="tbl-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_f8289" class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_f8289_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Rok</th>
+<th id="T_f8289_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Prognoza</th>
+<th id="T_f8289_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Obserwacja</th>
+<th id="T_f8289_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Błąd</th>
+<th id="T_f8289_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">|Błąd|</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_f8289_row0_col0" class="data row0 col0">2020</td>
+<td id="T_f8289_row0_col1" class="data row0 col1">1.247</td>
+<td id="T_f8289_row0_col2" class="data row0 col2">1.310</td>
+<td id="T_f8289_row0_col3" class="data row0 col3">-0.063</td>
+<td id="T_f8289_row0_col4" class="data row0 col4">0.063</td>
+</tr>
+<tr class="even">
+<td id="T_f8289_row1_col0" class="data row1 col0">2021</td>
+<td id="T_f8289_row1_col1" class="data row1 col1">1.225</td>
+<td id="T_f8289_row1_col2" class="data row1 col2">1.155</td>
+<td id="T_f8289_row1_col3" class="data row1 col3">0.070</td>
+<td id="T_f8289_row1_col4" class="data row1 col4">0.070</td>
+</tr>
+<tr class="odd">
+<td id="T_f8289_row2_col0" class="data row2 col0">2022</td>
+<td id="T_f8289_row2_col1" class="data row2 col1">1.229</td>
+<td id="T_f8289_row2_col2" class="data row2 col2">1.181</td>
+<td id="T_f8289_row2_col3" class="data row2 col3">0.048</td>
+<td id="T_f8289_row2_col4" class="data row2 col4">0.048</td>
+</tr>
+<tr class="even">
+<td id="T_f8289_row3_col0" class="data row3 col0">2023</td>
+<td id="T_f8289_row3_col1" class="data row3 col1">1.231</td>
+<td id="T_f8289_row3_col2" class="data row3 col2">1.482</td>
+<td id="T_f8289_row3_col3" class="data row3 col3">-0.251</td>
+<td id="T_f8289_row3_col4" class="data row3 col4">0.251</td>
+</tr>
+<tr class="odd">
+<td id="T_f8289_row4_col0" class="data row4 col0">2024</td>
+<td id="T_f8289_row4_col1" class="data row4 col1">1.231</td>
+<td id="T_f8289_row4_col2" class="data row4 col2">1.599</td>
+<td id="T_f8289_row4_col3" class="data row4 col3">-0.368</td>
+<td id="T_f8289_row4_col4" class="data row4 col4">0.368</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Największe niedoszacowania przypadają na 2023 i 2024 r. W 2021 i 2022 r. model nieco zawyżał wartości, więc średni błąd ze znakiem łagodzi obraz pomyłek. Szczególnie wyraźnie widać to przy porównaniu bias z RMSE.</p>
+<div id="4473374e" class="cell" data-results="asis" data-execution_count="11">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>Modelowy przedział predykcji 95% objął <strong>4 z 5</strong> obserwacji. Wartość z 2024 r. (1.599°C) przekroczyła jego górną granicę (1.557°C). Pokrycie 4/5 w tak małej próbie nie jest wiarygodną oceną długookresowej kalibracji przedziałów.</p>
+</div>
+</div>
+<p>Ten test pokazuje <strong>kiedy i o ile</strong> model się pomylił. Nie identyfikuje przyczyn fizycznych tych błędów. ARIMA jest klasycznym modelem statystycznym: korzysta z przeszłości jednego szeregu, a nie z emisji, wymuszeń radiacyjnych czy stanu oceanów. Nie zastępuje modelu klimatu ani analizy przyczynowej.</p>
+</section>
+<section id="czego-uczy-powrót-do-analizy" class="level2">
+<h2 class="anchored" data-anchor-id="czego-uczy-powrót-do-analizy">Czego uczy powrót do analizy?</h2>
+<p>Notebook bazowy definiuje spójny szereg rocznej temperatury nad lądami. Porównanie z nowym FAOSTAT pokazuje niedoszacowanie późniejszego wzrostu przez odtworzoną ARIMA bez drift. W osobnym eksperymencie <strong>ARIMA(2,1,2), nauczona na ERA5 do 2019 r., nie przewidziała lat 2020–2024 lepiej od naive ani drift.</strong> To dwa wyniki dotyczące różnych szeregów. Poprawna definicja danych jest warunkiem sensownej analizy; przewagę modelu trzeba jeszcze wykazać względem prostych metod.</p>
+<p>Kolejnym uzasadnionym krokiem byłby test z wieloma historycznymi punktami startowymi, dobranymi przed 2020 r., oraz osobne porównanie błędów dla horyzontów od roku do pięciu lat. Pozwoliłby sprawdzić, czy wynik zależy od wyjątkowo trudnego końca badanego okresu. Nie wybieramy teraz nowego modelu na podstawie tych samych pięciu lat i nie przedstawiamy tego jako niezależnej walidacji.</p>
+</section>
+<section id="kontekst-jedna-liczba-globalna-nie-opisuje-regionów" class="level2">
+<h2 class="anchored" data-anchor-id="kontekst-jedna-liczba-globalna-nie-opisuje-regionów">Kontekst: jedna liczba globalna nie opisuje regionów</h2>
+<p>W pakiecie Copernicus za 2024 r. globalna anomalia ERA5 wynosi około 1,60°C względem 1850–1900. To rekord w tym zbiorze, zgodny z <a href="https://climate.copernicus.eu/global-climate-highlights-2024">raportem Copernicus Global Climate Highlights 2024</a>. Zakres niniejszego testu pozostaje zamknięty na 2024 r.</p>
+<p>FAOSTAT pozwala uzupełnić obraz regionalny. Poniżej wykorzystujemy wyłącznie gotowe agregaty i kategorię <code>Meteorological year</code>, bez imputacji. Te linie nie są obserwacjami do oceny powyższej prognozy ERA5.</p>
+<div id="cell-fig-regions" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div id="fig-regions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-regions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="globalne_ocieplenie_story_files/figure-html/fig-regions-output-1.png" width="1315" height="639" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;3: Regionalny kontekst FAOSTAT, 1961–2019. Wartości w oryginalnej skali anomalii FAOSTAT; nie porównujemy ich poziomów z ERA5.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Rozkład średnich obszarów i porównania grup krajów zawiera <a href="../../stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.html">notebook bazowy</a>. Nie są potrzebne do rozstrzygnięcia testu prognostycznego.</p>
+</section>
+<section id="metoda-ograniczenia-i-odtwarzalność" class="level2">
+<h2 class="anchored" data-anchor-id="metoda-ograniczenia-i-odtwarzalność">Metoda, ograniczenia i odtwarzalność</h2>
+<ul>
+<li><strong>Jedna wersja danych.</strong> Trening i test ERA5 pochodzą z tego samego lokalnego pakietu opublikowanego po 2024 r. Nie odtwarzamy wersji danych dostępnej w 2019 r.; możliwe rewizje historyczne nie są tu badane. Jest to retrospektywny holdout, nie test real-time.</li>
+<li><strong>Jednostka analizy.</strong> Jedna roczna globalna anomalia ERA5, 85 kolejnych obserwacji 1940–2024. Braki oznaczone <code>-999</code> są odrzucane; ciągłość lat jest sprawdzana. Nazwa pliku zawiera <code>wrt_1991-2020</code>, ale jego nagłówek określa wartości względem 1850–1900 i normalizację zbiorów do wspólnej średniej 1991–2020. Nie dodajemy ponownie przesunięcia bazowego.</li>
+<li><strong>Brak dostrajania do testu.</strong> Wszystkie cztery metody uczą się na latach 1940–2019. ARIMA używa rzędu z notebooka bazowego. Raport przerywa obliczenia przy braku zbieżności zamiast po cichu zastępować model regresją.</li>
+<li><strong>Niepewność.</strong> Przedziały pochodzą z <code>get_forecast</code>, a nie ze stałego pasma reszt regresji. Nie obejmują wszystkich źródeł niepewności klimatycznej ani niepewności wyboru modelu.</li>
+<li><strong>Powiązanie z notebookiem.</strong> Prognoza FAOSTAT korzysta z tej samej rocznej serii World, bez imputacji, i tej samej specyfikacji ARIMA co notebook bazowy. Miary błędów FAOSTAT i ERA5 podajemy osobno, dla różnych zmiennych i okresów testowych.</li>
+</ul>
+<p>Obliczenia znajdują się w <a href="temperature_backtest.py">temperature_backtest.py</a>. Uruchomienie skryptu zapisuje <a href="results/scores.csv">wyniki modeli</a>, <a href="results/comparison.csv">prognozy i błędy</a>, <a href="results/arima.csv">przedziały ARIMA</a>, <a href="results/faostat_forecast.csv">prognozę FAOSTAT z analizy bazowej</a> oraz <a href="results/provenance.json">wersję biblioteki, diagnostykę i sumy kontrolne źródeł</a>. Renderowanie raportu ponownie wylicza wyniki z tych samych plików wejściowych.</p>
+<section id="źródła" class="level3">
+<h3 class="anchored" data-anchor-id="źródła">Źródła</h3>
+<ul>
+<li><a href="https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2025.-global--regional-and-country-trends/">FAO: wydanie 1961–2025</a> — data aktualizacji, zakres i baza 1951–1980. <a href="https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2023.-global--regional-and-country-trends/">Opis wydania 1961–2023</a> potwierdza definicję anomalii i źródło GISTEMP. Pełny pakiet pobrany 2026-09-22 zachowano jako <code>data/faostat_latest.zip</code>; pobrany plik może zawierać rewizje wprowadzone po dacie publikacji komunikatu.</li>
+<li><a href="https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-%281961-2019%29/">FAO: Temperature change statistics 1961–2019</a> — zakres danych i zmienna dotycząca temperatury powietrza nad lądami. Lokalny plik: <code>data/Environment_Temperature_change_E_All_Data_NOFLAG.csv</code>, używany w oryginalnym notebooku.</li>
+<li><a href="https://climate.copernicus.eu/global-climate-highlights-2024">Copernicus: Global Climate Highlights 2024</a> oraz <a href="https://climate.copernicus.eu/gch-2024-press-resources">pakiet materiałów źródłowych</a>. Lokalny plik roczny: <code>data/copernicus/annual/GCH_time_series_of_annual_global_temperatures_1850-2024_wrt_1991-2020.csv</code>.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kepilif\.github\.io\/storylab\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>StoryLab · Historie oparte na danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:jacek.filipek@gmail.com">
+<p>E-mail</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/Kepilif/">
+<p>GitHub</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/kepilif/">
+<p>LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://public.tableau.com/app/profile/jacek.filipek/">
+<p>Tableau Public</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://gitlab.com/kepilif/">
+<p>GitLab</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

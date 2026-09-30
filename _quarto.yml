@@ -1,0 +1,137 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+  - index.qmd
+  - stories/public_debt_storytelling/article/polski_dlug_publiczny_story.qmd
+  - projects.qmd
+  - dashboards.qmd
+  - methods.qmd
+  - stories/ecommerce_segmentation/**/*.qmd
+  - blog.qmd
+  - about.qmd
+  - stories/nba_scouting_patterns/*.qmd
+  - wizualizacje.qmd
+  - stories/globalne_ocieplenie/index.qmd
+  - stories/globalne_ocieplenie/globalne_ocieplenie_story.qmd
+  - stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.qmd
+  - stories/globalne_ocieplenie/notebooks/02_monthly_seasonal_exploration.qmd
+  - stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.qmd
+  - stories/globalne_ocieplenie/notebooks/04_arima_frequency.qmd
+  resources:
+  - stories/globalne_ocieplenie/results/**
+  - stories/globalne_ocieplenie/*.py
+  - '!index.html'
+  - stories/ecommerce_segmentation/tables/**
+  - stories/ecommerce_segmentation/full_tables/**
+  - stories/ecommerce_segmentation/notebooks/*.csv
+  - stories/ecommerce_segmentation/ecommerce_customer_segmentation.html
+  - assets/portfolio/*.png
+  - stories/nba_scouting_patterns/archive/**
+website:
+  site-url: https://kepilif.github.io/storylab/
+  title: StoryLab
+  description: Historie oparte na danych — klienci, sport, gospodarka i klimat.
+  navbar:
+    left:
+    - text: Start
+      href: index.qmd
+    - text: Projekty
+      href: projects.qmd
+    - text: Blog
+      href: blog.qmd
+    - text: Wizualizacje
+      href: wizualizacje.qmd
+    - text: O mnie
+      href: about.qmd
+  page-footer:
+    left: StoryLab · Historie oparte na danych
+    right:
+    - text: E-mail
+      href: mailto:jacek.filipek@gmail.com
+    - text: GitHub
+      href: https://github.com/Kepilif/
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/kepilif/
+    - text: Tableau Public
+      href: https://public.tableau.com/app/profile/jacek.filipek/
+    - text: GitLab
+      href: https://gitlab.com/kepilif/
+  sidebar:
+  - style: docked
+    contents:
+    - stories/ecommerce_segmentation/index.qmd
+    - section: Podsumowanie i decyzje
+      contents:
+      - stories/ecommerce_segmentation/business/executive-report.qmd
+      - stories/ecommerce_segmentation/10-rekomendacje.qmd
+      - stories/ecommerce_segmentation/slides.qmd
+    - section: Wyniki analizy
+      contents:
+      - stories/ecommerce_segmentation/01-wprowadzenie.qmd
+      - stories/ecommerce_segmentation/02-dane.qmd
+      - stories/ecommerce_segmentation/03-eda-dashboard.qmd
+      - stories/ecommerce_segmentation/04-zachowania-w-czasie.qmd
+      - stories/ecommerce_segmentation/reports/customer-segmentation.qmd
+      - stories/ecommerce_segmentation/reports/market-basket-analysis.qmd
+    - section: Metody i przebieg analizy
+      contents:
+      - stories/ecommerce_segmentation/05-analiza-koszykowa.qmd
+      - stories/ecommerce_segmentation/06-rfm.qmd
+      - stories/ecommerce_segmentation/07-kmeans.qmd
+      - stories/ecommerce_segmentation/08-segmentacja-zachowan.qmd
+      - stories/ecommerce_segmentation/09-profile-segmentow.qmd
+    - section: Dokumentacja techniczna
+      contents:
+      - stories/ecommerce_segmentation/technical/appendix.qmd
+      - stories/ecommerce_segmentation/technical/reproducibility.qmd
+      - stories/ecommerce_segmentation/technical/dalszy-rozwoj.qmd
+      - stories/ecommerce_segmentation/notebooks/interactive-notebook.qmd
+      - stories/ecommerce_segmentation/12-ograniczenia.qmd
+    - section: Aplikacja
+      contents:
+      - stories/ecommerce_segmentation/11-aplikacja-streamlit.qmd
+    id: ecommerce
+    title: Segmentacja klientów e-commerce
+    collapse-level: 2
+  - id: temperatura
+    title: Temperatura — prognoza i rzeczywistość
+    style: docked
+    contents:
+    - text: O projekcie
+      href: stories/globalne_ocieplenie/index.qmd
+    - text: 1. Analiza FAOSTAT
+      href: stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.qmd
+    - text: 2. Prognoza kontra rzeczywistość
+      href: stories/globalne_ocieplenie/globalne_ocieplenie_story.qmd
+    - text: 3. Miesiące i sezony
+      href: stories/globalne_ocieplenie/notebooks/02_monthly_seasonal_exploration.qmd
+    - text: 4. Częstotliwość i prognoza
+      href: stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.qmd
+    - text: 5. ARIMA i SARIMA
+      href: stories/globalne_ocieplenie/notebooks/04_arima_frequency.qmd
+  - id: nba
+    title: NBA Scouting Patterns
+    style: docked
+    contents:
+    - text: O projekcie
+      href: stories/nba_scouting_patterns/index.qmd
+    - text: Historia
+      href: stories/nba_scouting_patterns/story.qmd
+    - text: Metodologia
+      href: stories/nba_scouting_patterns/methodology.qmd
+    - text: Warsztat
+      href: stories/nba_scouting_patterns/portfolio.qmd
+    - text: Dalszy rozwój
+      href: stories/nba_scouting_patterns/roadmap.qmd
+format:
+  html:
+    css: assets/storylab.css
+    toc: true
+    number-sections: true
+    code-fold: show
+jupyter: storylab
+execute:
+  echo: true
+  warning: false
+  message: false

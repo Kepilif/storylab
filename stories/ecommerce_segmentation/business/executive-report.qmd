@@ -1,0 +1,45 @@
+---
+title: "Executive Report"
+subtitle: "Co wynika z 20,7 mln zdarzeń e-commerce"
+---
+
+## Executive Summary
+
+- **Pozycje zakupowe są małą częścią aktywności.** Z 20,7 mln zdarzeń po czyszczeniu mamy 1,29 mln rekordów `purchase`, czyli 6,22% wszystkich zdarzeń.
+- **Kupuje niewielka część bazy.** W danych pojawia się 1,64 mln użytkowników, ale zakup wykonało 110,5 tys. klientów, czyli 6,74% użytkowników.
+- **Przychód jest skoncentrowany.** Top 10% klientów kupujących odpowiada za 43,0% przychodu, a top 20% za 59,3%.
+- **Najbardziej sensowne działania to retencja, onboarding i cross-sell.** Segmentacja pozwala rozdzielić budżet między klientów wartościowych, nowych, zagrożonych odpływem i okazjonalnych.
+
+## Od ruchu do wartości
+
+Punktem wyjścia nie jest sprzedaż, tylko ruch użytkowników. Dopiero filtrowanie zdarzeń do `purchase` pokazuje, gdzie powstaje wartość. Jeden rekord `purchase` oznacza pozycję zakupową, więc raport nie utożsamia tej liczby z liczbą zamówień.
+
+{{< include ../full_tables/full_dashboard_metrics.md >}}
+
+![Przychód dzienny w pełnych danych](../full_figures/full_revenue_by_day.png){fig-alt="Wykres przychodu dziennego w pełnych danych."}
+
+## Wartość skupia się w małej grupie
+
+Najważniejsza decyzja marketingowa dotyczy priorytetów. Jeżeli 11,1 tys. klientów odpowiada za 43,0% przychodu, to szeroka komunikacja do całej bazy nie powinna być jedyną strategią. Ten wynik bezpośrednio wspiera priorytetyzację testów dla klientów wysokowartościowych, ale nie przesądza jeszcze, jaki rabat lub kanał będzie opłacalny.
+
+{{< include ../full_tables/full_revenue_concentration.md >}}
+
+## Segmenty wskazują, gdzie inwestować
+
+RFM dzieli klientów według świeżości zakupu, częstotliwości i wartości. `Recency` jest liczone w dniach od ostatniego zakupu do końca obserwowanego okresu, `Frequency` jako liczba pozycji zakupowych, a `Monetary` jako suma wartości `price`. Segmenty lojalne i wysokowartościowe mają relatywnie mały udział w bazie, ale dużą rolę w przychodzie. Nazwy segmentów należy traktować jako interpretację profili RFM, a nie stałe etykiety modelu.
+
+{{< include ../full_tables/full_rfm_segment_share.md >}}
+
+## Rekomendowane działania
+
+1. Chronić top klientów: program VIP, wcześniejszy dostęp, oferty premium.
+2. Rozwijać klientów lojalnych przez cross-sell i pakiety marek.
+3. Nowych klientów prowadzić do kolejnego zakupu możliwie szybko po pierwszej pozycji zakupowej lub pierwszej sesji zakupowej.
+4. Kampanie win-back kierować tylko do segmentów, których historyczna wartość uzasadnia koszt kontaktu.
+5. Mierzyć efekt nie po kliknięciach, ale po zakupach, przychodzie i retencji.
+
+::: {.callout-warning}
+### Ważne ograniczenie
+
+Dane zawierają ceny pozycji zakupowych, ale nie zawierają kosztów ani marży. Dlatego raport mówi o wartości sprzedaży, nie o zysku.
+:::

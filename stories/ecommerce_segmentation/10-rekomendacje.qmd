@@ -1,0 +1,41 @@
+---
+title: "Rekomendacje marketingowe"
+---
+
+## Od segmentów do działań
+
+Najważniejszy etap portfolio to przełożenie analizy na decyzje. Segmentacja ma wartość wtedy, gdy pomaga dobrać komunikację, budżet i ofertę. Tutaj decyzja wynika bezpośrednio z koncentracji przychodu: **110,5 tys. klientów kupujących generuje 6,35 mln przychodu, a top 10% tej grupy odpowiada za 43,0% przychodu**.
+
+Punktem wyjścia są profile segmentów policzone na pełnym zbiorze kosmetycznym:
+
+{{< include full_tables/full_segment_profiles.md >}}
+
+Tabela profili jest źródłem hipotez, a nie automatyczną instrukcją kampanii. Jej rola polega na pokazaniu, które segmenty różnią się świeżością, liczbą pozycji zakupowych i wartością sprzedaży; dopiero te różnice pozwalają zaproponować osobne testy retencyjne, cross-sellowe lub automatyzacyjne.
+
+Koncentracja wartości:
+
+{{< include full_tables/full_revenue_concentration.md >}}
+
+## Decyzje segmentowe
+
+Na tej podstawie rekomendacje można uporządkować następująco:
+
+| Segment | Cel | Kanał | Oferta | KPI | Ryzyko |
+|---|---|---|---|---|---|
+| Profil wysokiej wartości | Retencja | E-mail, push, CRM | Early access, rekomendacje premium | Repeat purchase rate | Zbyt wysoki rabat dla klientów, którzy i tak kupią |
+| Profil wartościowy mniej intensywny | Kolejny zakup | E-mail, remarketing | Cross-sell na bazie poprzednich marek | Second/next purchase rate | Zbyt ogólna rekomendacja |
+| Profil średniej wartości | Rozwój koszyka | Automatyzacja po zakupie | Pakiety i produkty komplementarne | Revenue per buyer | Nadmierna częstotliwość kontaktu |
+| Profile okazjonalne | Tania obsługa | E-mail automatyczny | Proste rekomendacje organiczne | Incremental revenue | Przepalenie budżetu płatnego |
+| Reguły koszykowe | Cross-sell | Rekomendacje onsite/e-mail | Marki o wysokim lift | Attach rate | Reguła statystyczna bez efektu przyczynowego |
+
+Analiza koszykowa wskazuje, które produkty lub marki łączyć w kampaniach. RFM pokazuje, do kogo kierować komunikację, a KMeans upraszcza wybór grup docelowych, jeśli segmenty mają czytelne profile. Ponieważ dane nie zawierają efektów kampanii, kosztów ani marży, każda rekomendacja w tej tabeli powinna być traktowana jako plan eksperymentu z KPI, a nie jako potwierdzona decyzja inwestycyjna.
+
+## Co testować
+
+Dane pokazują koncentrację przychodu, ale nie pokazują, która kampania będzie przyczynowo skuteczna. Dlatego rekomendacją nie jest automatyczne rozdawanie rabatów, tylko testy:
+
+- najpierw chronić i rozwijać klientów o największym udziale w przychodzie,
+- osobno testować aktywizację klientów nowych i niedawnych,
+- ostrożnie finansować reaktywację grup o niskiej wartości,
+- wykorzystać analizę koszykową do ofert pakietowych,
+- monitorować, czy kampanie zwiększają nie tylko aktywność, ale też zakupy i przychód.

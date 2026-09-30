@@ -1,0 +1,7 @@
+| Metryka | Wartość |
+| --- | --- |
+| Liczba plików | 5 |
+| Liczba rekordów | 20 692 840 |
+| Liczba klientów | 1 639 358 |
+| Liczba produktów | 54 571 |
+| Liczba marek | 273 |

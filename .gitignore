@@ -1,0 +1,33 @@
+.venv/
+venv/
+yt_venv/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+_site/
+**/_site/
+.quarto/
+**/.quarto/
+**/*_files/
+**/*.quarto_ipynb
+__pycache__/
+*.py[cod]
+**/.ipynb_checkpoints/
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+output/
+# Required data, results, figures and reviewed public/ are versioned.
+!public/
+!public/**
+
+/.quarto/
+
+# Local documentation
+/docs/

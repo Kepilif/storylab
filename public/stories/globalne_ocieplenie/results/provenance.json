@@ -1,0 +1,24 @@
+{
+  "training": [
+    1940,
+    2019
+  ],
+  "test": [
+    2020,
+    2024
+  ],
+  "statsmodels": "0.14.6",
+  "arima_order": [
+    2,
+    1,
+    2
+  ],
+  "arima_trend": "none (default for d=1)",
+  "warnings": [],
+  "faostat_warnings": [],
+  "faostat_definition": "World / Temperature change / Meteorological year; no imputation",
+  "sources": {
+    "data\\Environment_Temperature_change_E_All_Data_NOFLAG.csv": "0e3016bb5cca6c1e7700d59df024b526845cdd05c166e4453e0fecf77c3ed4e7",
+    "data\\copernicus\\annual\\GCH_time_series_of_annual_global_temperatures_1850-2024_wrt_1991-2020.csv": "0c5e102a8c7c61bdaf5a0f4292f41d18516234575b13e71c7927165305bc66ee"
+  }
+}

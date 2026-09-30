@@ -1,0 +1,33 @@
+- title: Globalne ocieplenie — trend i regionalne różnice
+  subtitle: Copernicus do 2024 r. i FAOSTAT 1961–2019
+  description: Globalny trend temperatury, porównania regionów i krajów oraz eksperyment prognostyczny. Dwie serie danych pokazują różne skale i okresy obserwacji.
+  path: stories/globalne_ocieplenie/globalne_ocieplenie_story.html
+  image: assets/portfolio/climate.png
+  image-alt: Globalne anomalie temperatury Copernicus ERA5 w latach 1940–2024 wraz z trendem liniowym.
+  categories: [Klimat, Szeregi czasowe]
+  updated: '2026-09-17'
+  latest: true
+- title: Co dane mówią o zawodnikach NBA?
+  subtitle: NBA Scouting Patterns · analiza eksploracyjna
+  description: Profile zawodników, wiek i ścieżki pochodzenia w perspektywie scoutingu. Historia, metodologia i plan rozwoju
+    oddzielają obserwacje sezonowe od pytań o całą karierę.
+  path: stories/nba_scouting_patterns/story.html
+  image: stories/nba_scouting_patterns/archive/wiek_wydajnosc.png
+  image-alt: Wiek a średnie statystyki zawodników NBA.
+  categories:
+  - Sport
+  - Scouting
+  updated: '2026-07-15'
+  latest: true
+- title: Jeden dług, kilka definicji
+  subtitle: Polski dług publiczny
+  description: Dwie oficjalne miary długu i zmienna luka między nimi. Jak definicja wskaźnika i okres analizy zmieniają
+    obraz finansów publicznych?
+  path: stories/public_debt_storytelling/article/polski_dlug_publiczny_story.html
+  image: assets/portfolio/debt.png
+  image-alt: Porównanie miar długu EDP i PDP z raportu o długu publicznym.
+  categories:
+  - Makroekonomia
+  - Finanse publiczne
+  updated: '2026-03-08'
+  latest: true

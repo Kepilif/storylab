@@ -1,0 +1,53 @@
+---
+title: "RFM"
+---
+
+## Cel
+
+RFM porządkuje klientów według trzech wymiarów: świeżości zakupu, częstotliwości zakupów i wartości wydatków. To prosty, czytelny most między surową historią pozycji zakupowych a segmentacją marketingową.
+
+## Definicje
+
+| Metryka | Znaczenie |
+|---|---|
+| Recency | Liczba dni między końcem okresu obserwacji a ostatnim zakupem klienta. |
+| Frequency | Liczba rekordów `purchase`, czyli liczba pozycji zakupowych, nie liczba zamówień. |
+| Monetary | Suma wartości `price` dla pozycji zakupowych klienta. |
+
+Datą referencyjną jest ostatni zakup widoczny w oczyszczonym zbiorze, czyli koniec obserwowanego okresu. Jeden rekord `purchase` oznacza pozycję zakupową, dlatego Frequency nie powinno być interpretowane jako liczba zamówień.
+
+## Wyniki z pełnych danych
+
+Podstawowe statystyki RFM:
+
+{{< include full_tables/full_rfm_summary.md >}}
+
+Te statystyki trzeba czytać jako opis klientów kupujących, nie całej bazy użytkowników. W pełnym zbiorze zakup wykonało 110,5 tys. z 1,64 mln użytkowników, więc RFM świadomie zawęża analizę do tej części populacji, w której można mierzyć świeżość, częstotliwość i wartość zakupową.
+
+Rozkład wartości i częstotliwości jest nierówny także wewnątrz kupujących: mediana wydatków klienta wynosi **33,18**, a P99 **415,07**; mediana liczby pozycji zakupowych to **6**, a P90 to **26**. Segment wysokiej wartości powinien być więc oceniany przez ogon rozkładu, nie przez średniego kupującego.
+
+## Koncentracja wartości klientów
+
+RFM jest potrzebne, ponieważ użytkownicy nie wnoszą wartości równomiernie. Po odfiltrowaniu zakupów widzimy 110,5 tys. klientów kupujących. W tej grupie top 10% klientów odpowiada za 43,0% przychodu, a top 20% za 59,3%.
+
+{{< include full_tables/full_revenue_concentration.md >}}
+
+To jest praktyczny argument za segmentacją: komunikacja i budżet nie powinny być rozkładane równomiernie po całej bazie, bo wartość jest skupiona w mniejszej części klientów.
+
+Kategorie RFM policzone na pełnym zbiorze:
+
+{{< include full_tables/full_rfm_category_summary.md >}}
+
+Udział segmentów w przychodzie:
+
+{{< include full_tables/full_rfm_segment_share.md >}}
+
+![Liczba klientów według kategorii RFM](full_figures/full_rfm_segment_counts.png){fig-alt="Wykres słupkowy przedstawiający liczebność kategorii RFM w pełnych danych."}
+
+Rozkład kategorii RFM pokazuje, czy koncentracja przychodu wynika tylko z małej grupy ekstremalnych kupujących, czy także z szerszych segmentów o ponadprzeciętnej częstotliwości i wartości. To właśnie ten krok łączy kod liczący RFM z późniejszą decyzją, które grupy traktować jako hipotezy retencyjne, a które jako grupy do tańszej automatyzacji.
+
+## Rola w dalszym przepływie
+
+RFM jest wejściem do modułu KMeans. Dzięki temu model segmentacyjny nie pracuje na surowych zdarzeniach, tylko na cechach opisujących zachowanie klienta.
+
+To ważna granica odpowiedzialności w projekcie: RFM tworzy zrozumiałe cechy biznesowe, a KMeans grupuje klientów na podstawie tych cech.

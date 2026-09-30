@@ -1,0 +1,8 @@
+| Kolumna | Liczba unikalnych wartości |
+| --- | --- |
+| event_type | 4 |
+| product_id | 54571 |
+| category_id | 525 |
+| brand | 273 |
+| user_id | 1639358 |
+| user_session | 4535941 |

@@ -1,0 +1,49 @@
+---
+title: "Segmentacja zachowań użytkowników"
+---
+
+## Cel
+
+Notebook zawiera drugi przepływ segmentacyjny niezależny od klasycznego RFM. W tym wariancie analizowane są wszystkie typy zdarzeń, a nie tylko zakupy. Celem jest rozróżnienie użytkowników aktywnych, nieaktywnych niskowartościowych oraz nieaktywnych wysokowartościowych.
+
+## Cechy
+
+Dla każdego użytkownika wyznaczono:
+
+- `avg_purchase_price` - historycznie nazwaną cechę oznaczającą średnią wartość `price` obserwowaną przy aktywnościach
+  użytkownika,
+- `user_total_actions` - liczbę wszystkich zdarzeń,
+- `user_total_session` - liczbę sesji,
+- `user_avg_actions_per_session` - średnią liczbę akcji na sesję.
+
+Cechy są liczone na pełnych danych kosmetycznych. Przed KMeans stosowane jest `log1p` oraz `StandardScaler`, ponieważ rozkłady aktywności i wartości zakupów są silnie skośne.
+
+Wartość `avg_purchase_price` w tym przepływie nie jest klasycznym koszykiem zakupowym ani średnią ceną zakupu dla każdego użytkownika. Model obejmuje także użytkowników bez zakupu, więc cecha opisuje średnią cenę produktów, z którymi użytkownik wchodził w interakcję. To jest sygnał zainteresowania poziomem cenowym, a nie potwierdzona wartość klienta.
+
+## Dobór liczby klastrów
+
+W notebooku metoda łokcia wskazywała, że praktyczny podział behawioralny można oprzeć o 3 klastry.
+
+{{< include full_tables/full_behavior_kmeans_scores.md >}}
+
+![Metoda łokcia dla segmentacji zachowań](full_figures/full_behavior_kmeans_elbow.png){fig-alt="Wykres metody łokcia dla segmentacji zachowań użytkowników."}
+
+## Wyniki
+
+Podsumowanie klastrów:
+
+{{< include full_tables/full_behavior_kmeans_summary.md >}}
+
+![Segmenty zachowań użytkowników](full_figures/full_behavior_kmeans_scatter.png){fig-alt="Wykres punktowy segmentów zachowań użytkowników według liczby akcji i średniej ceny zakupu."}
+
+W pełnych danych segmentacja behawioralna jest zdominowana przez jeden segment obejmujący 58,55% użytkowników, a dwa pozostałe segmenty są wyraźnie mniejsze. To oznacza, że interpretacja powinna zaczynać się od skali segmentu i aktywności, a dopiero potem przechodzić do hipotez ofertowych.
+
+Wykresy pokazują separację użytkowników według liczby akcji, liczby sesji i poziomu cenowego interakcji. Separacja ta jest sygnałem struktury zachowań, ale nie zastępuje profilu zakupowego RFM, bo obejmuje również użytkowników bez transakcji.
+
+## Interpretacja
+
+- **Active Customer** - użytkownicy o wysokiej liczbie akcji i sesji. To grupa, przy której warto testować działania angażujące oraz komunikację w okresach wysokiej konwersji.
+- **Inactive High-End User** - użytkownicy mniej aktywni, ale z wyższą średnią ceną produktów, z którymi wchodzili w interakcję. Mogą być kandydatem do ofert premium lub reaktywacji, ale skuteczność i opłacalność wymagają testu.
+- **Inactive Low-End User** - użytkownicy o niskiej aktywności i niższym poziomie cenowym interakcji. W ich przypadku rekomendowane są tanie kanały automatyczne i ostrożność w wydatkach płatnych.
+
+Ten przepływ uzupełnia RFM: RFM opisuje wartość zakupową klienta, a segmentacja behawioralna pokazuje, jak intensywnie użytkownik korzysta z platformy.

@@ -1,0 +1,38 @@
+---
+title: "Ograniczenia"
+---
+
+## Ograniczenia danych
+
+Wnioski z danych e-commerce mogą być obciążone przez:
+
+- braki w marce lub kategorii,
+- brak identyfikatora zamówienia,
+- niepewną interpretację `user_session` jako koszyka,
+- Frequency jako liczbę pozycji zakupowych, a nie zamówień,
+- brak informacji o zwrotach i anulacjach,
+- zdarzenia niezakupowe z ceną,
+- brak marży i kosztów marketingowych,
+- brak identyfikacji kampanii,
+- krótki pięciomiesięczny okres obserwacji,
+- sezonowość i promocje,
+- wpływ Black Friday i okresu świątecznego,
+- dominację najpopularniejszych produktów, która przy progach support i rankingach top-N może przesłaniać rzadsze pary koszykowe,
+- różnice między pełnym zbiorem a próbką demonstracyjną.
+
+## Ograniczenia modelowania
+
+RFM i KMeans są czytelne, ale upraszczają zachowanie klienta. Nie uwzględniają pełnej ścieżki użytkownika, kontekstu kampanii ani marży produktów. Zapisany model Streamlit jest samym KMeans, więc aplikacja wykonuje demonstracyjne grupowanie aktualnie wgranych danych. Pełna spójność predykcji wymagałaby zapisania kompletnego pipeline'u z transformacjami.
+
+## Co warto sprawdzić przed wdrożeniem
+
+Przed użyciem rekomendacji w kampanii warto sprawdzić:
+
+- stabilność segmentów w czasie,
+- stabilność i interpretowalność profili klastrów po ponownym treningu KMeans,
+- udział segmentów w przychodzie i marży,
+- koszt dotarcia,
+- efekt kampanii w teście A/B,
+- wpływ sezonowości.
+
+Osobno warto sprawdzić, czy segment VIP pozostaje stabilny, gdy zamiast średniej wartości używa się miar odpornych na ogon rozkładu, np. mediany, percentyli albo ograniczenia wpływu skrajnie drogich pozycji.

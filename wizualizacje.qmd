@@ -1,0 +1,35 @@
+---
+title: "Wizualizacje"
+subtitle: "Zobacz wzorzec. Zadaj pytanie. Sprawdź dane."
+description: "Galeria wizualizacji: Tableau, Plotly i Python. Sport, gry wideo, demografia, edukacja, gospodarka i e-commerce."
+lang: pl
+body-classes: portfolio-page portfolio-list
+page-layout: full
+format:
+  html:
+    css: [assets/storylab.css, assets/visualizations.css]
+toc: false
+number-sections: false
+listing:
+  id: visualization-gallery
+  contents: portfolio/visualizations.yml
+  template: portfolio/visualizations.ejs.md
+  categories: true
+  filter-ui: true
+  sort: false
+  sort-ui: false
+  page-size: 12
+  fields: [title, description, categories, tool, chart, mode]
+  field-required: [title, description, categories, tool, chart, mode, url, thumbnail, alt]
+---
+
+Wybrane prace pokazują różne sposoby opowiadania o danych: od pojedynczego porównania po interaktywną historię. Wybierz temat albo wyszukaj narzędzie czy typ wykresu. Odnośniki do Tableau otwierają pełne wizualizacje w nowej karcie.
+
+::: {#visualization-gallery}
+:::
+
+::: {.sl-note}
+**Więcej prac:** [pełny profil Jacek Filipek w Tableau Public](https://public.tableau.com/app/profile/jacek.filipek/vizzes){target="_blank" rel="noopener noreferrer"}. Galeria prezentuje wybrane publikacje; pozostałe materiały są dostępne na profilu.
+
+**E-commerce:** [opis aplikacji Streamlit](stories/ecommerce_segmentation/11-aplikacja-streamlit.qmd) zawiera zrzuty ekranów i instrukcję uruchomienia lokalnego.
+:::

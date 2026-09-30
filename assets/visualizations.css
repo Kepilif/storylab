@@ -1,0 +1,14 @@
+.sl-viz-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }
+.sl-viz-card { border: 1px solid var(--sl-line); min-width: 0; display: flex; flex-direction: column; }
+.sl-viz-preview { display: block; background: white; }
+.sl-viz-preview img { display: block; width: 100%; height: 240px; object-fit: contain; padding: 1rem; }
+.sl-viz-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.sl-viz-body .sl-eyebrow { margin-bottom: .7rem; }
+.sl-viz-body h2 { font-size: 1.7rem; line-height: 1.2; margin: 0 0 1rem; }
+.sl-viz-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.sl-viz-tags span { font-size: .7rem; padding: .2rem .5rem; background: var(--sl-sage); }
+.sl-viz-chart { font-size: .75rem; color: var(--sl-muted); margin: .6rem 0 1rem; }
+.sl-viz-body .listing-description { font-size: .9rem; line-height: 1.75; color: var(--sl-muted); }
+.sl-viz-actions { display: flex; flex-direction: column; align-items: start; gap: .9rem; padding-top: 1rem; margin-top: auto; }
+.sl-viz-card a:focus-visible { outline: 3px solid var(--sl-accent); outline-offset: 4px; }
+@media(max-width:650px) { .sl-viz-grid { grid-template-columns: 1fr; } .sl-viz-preview img { height: 210px; } .sl-viz-body { padding: 1.2rem; } }

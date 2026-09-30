@@ -1,0 +1,56 @@
+---
+title: "Segmentacja klientów e-commerce"
+subtitle: "Portfolio Data Science w Quarto i Streamlit"
+---
+
+## Problem
+
+Surowe dane e-commerce zawierają miliony zdarzeń, ale decyzje marketingowe wymagają prostszej odpowiedzi: którzy klienci tworzą wartość, kiedy kupują i co można im zaproponować.
+
+## Najważniejsze liczby
+
+- **20,7 mln zdarzeń** w pełnym zbiorze kosmetycznym.
+- **1,64 mln użytkowników**, ale tylko **110,5 tys. klientów kupujących**.
+- **1,29 mln pozycji zakupowych** po czyszczeniu technicznym.
+- **6,35 mln wartości sprzedaży** liczonej jako suma `price` dla zdarzeń `purchase`.
+- **Top 10% klientów kupujących generuje 43,0% przychodu**.
+
+![Przychód dzienny w pełnych danych](full_figures/full_revenue_by_day.png){fig-alt="Wykres liniowy przychodu dziennego w pełnym zbiorze kosmetycznym."}
+
+## Wejdź na właściwy poziom szczegółowości
+
+| Poziom | Pytanie czytelnika | Dla kogo | Przykład |
+|---|---|---|---|
+| Decyzyjny | **Co powinienem wiedzieć/zrobić?** | manager, rekruter biznesowy, osoba oglądająca prezentację | [Executive Report](business/executive-report.qmd), [rekomendacje](10-rekomendacje.qmd), [prezentacja](slides.qmd) |
+| Analityczny | **Co wynika z analizy?** | analityk, rekruter Data Science, marketing, e-commerce | [Customer Segmentation](reports/customer-segmentation.qmd), [Market Basket Analysis](reports/market-basket-analysis.qmd) |
+| Metodyczny | **Jak uzyskano ten wynik?** | analityk, rekruter techniczny | [RFM](06-rfm.qmd), [KMeans](07-kmeans.qmd), [segmentacja zachowań](08-segmentacja-zachowan.qmd), [profile segmentów](09-profile-segmentow.qmd) |
+| Techniczny | **Jak to wykonano i czy mogę to odtworzyć?** | rekruter techniczny, osoba audytująca analizę | [Technical Appendix](technical/appendix.qmd), [Reproducibility](technical/reproducibility.qmd), [notebook analityczny](notebooks/interactive-notebook.qmd), [ograniczenia](12-ograniczenia.qmd) |
+| Aplikacyjny | **Jak wygląda interaktywny przepływ?** | użytkownik aplikacji, osoba sprawdzająca demo | [Aplikacja Streamlit](11-aplikacja-streamlit.qmd) |
+
+## Metoda
+
+```{mermaid}
+flowchart LR
+  A["20,7 mln zdarzeń"] --> B["Czyszczenie danych"]
+  B --> C["EDA i konwersja"]
+  C --> D["RFM"]
+  D --> E["KMeans RFM"]
+  C --> F["Segmentacja zachowań"]
+  C --> G["Analiza koszykowa"]
+  E --> H["Rekomendacje"]
+  F --> H
+  G --> H
+  H --> I["Streamlit demo"]
+```
+
+## Business Impact
+
+Raport prowadzi od skali danych do decyzji: zamiast komunikować się tak samo z całą bazą, warto priorytetyzować klientów o najwyższej wartości, osobno testować aktywizację nowych użytkowników i wykorzystywać reguły koszykowe do pakietów cross-sell. Wszystkie metryki sprzedażowe są liczone wyłącznie na zdarzeniach `purchase`, a jeden rekord `purchase` jest traktowany jako pozycja zakupowa.
+
+To są rekomendacje do walidacji, nie gotowa polityka rabatowa. Dane pokazują koncentrację wartości, tarcie między koszykiem a zakupem oraz współwystępowanie marek, ale nie zawierają marży, kosztów kampanii ani efektów eksperymentów.
+
+::: {.callout-note}
+### Jak czytać projekt
+
+Quarto jest tutaj systemem publikacji, nie tylko ładniejszym notebookiem. Strona startowa prowadzi do różnych formatów: raportu biznesowego, raportów analitycznych, appendixu technicznego, notebooka, opisu aplikacji Streamlit i prezentacji.
+:::

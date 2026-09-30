@@ -1,0 +1,9 @@
+theme: cosmo
+toc: true
+toc-depth: 3
+execute:
+  echo: false
+  warning: false
+  message: false
+lang: pl
+number-sections: false

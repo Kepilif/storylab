@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Zachowania zakupowe w czasie – StoryLab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b77ad8b8fd8f04bd21044df5c5bf7d25.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/storylab.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">StoryLab</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Szukaj"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Przełącz nawigację" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projekty</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../wizualizacje.html"> 
+<span class="menu-text">Wizualizacje</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">O mnie</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../stories/ecommerce_segmentation/01-wprowadzenie.html">Wyniki analizy</a></li><li class="breadcrumb-item"><a href="../../stories/ecommerce_segmentation/04-zachowania-w-czasie.html">Zachowania zakupowe w czasie</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Segmentacja klientów e-commerce</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Podsumowanie i decyzje</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/business/executive-report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Executive Report</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/10-rekomendacje.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rekomendacje marketingowe</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">prezentacja</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Wyniki analizy</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/01-wprowadzenie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wprowadzenie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/02-dane.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dane</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/03-eda-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA i dashboard opisowy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/04-zachowania-w-czasie.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Zachowania zakupowe w czasie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/reports/customer-segmentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customer Segmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/reports/market-basket-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Market Basket Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Metody i przebieg analizy</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/05-analiza-koszykowa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analiza koszykowa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/06-rfm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RFM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/07-kmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KMeans i dobór liczby klastrów</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/08-segmentacja-zachowan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Segmentacja zachowań użytkowników</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/09-profile-segmentow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Profile segmentów</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Dokumentacja techniczna</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/technical/appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technical Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/technical/reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/technical/dalszy-rozwoj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dalszy rozwój analizy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/notebooks/interactive-notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notatnik analityczny</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/12-ograniczenia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ograniczenia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Aplikacja</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/ecommerce_segmentation/11-aplikacja-streamlit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aplikacja Streamlit</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej stronie</h2>
+   
+  <ul>
+  <li><a href="#cel" id="toc-cel" class="nav-link active" data-scroll-target="#cel">Cel</a></li>
+  <li><a href="#pytania-analityczne" id="toc-pytania-analityczne" class="nav-link" data-scroll-target="#pytania-analityczne">Pytania analityczne</a></li>
+  <li><a href="#wyniki-z-pełnych-danych" id="toc-wyniki-z-pełnych-danych" class="nav-link" data-scroll-target="#wyniki-z-pełnych-danych">Wyniki z pełnych danych</a></li>
+  <li><a href="#konwersja-cart---purchase" id="toc-konwersja-cart---purchase" class="nav-link" data-scroll-target="#konwersja-cart---purchase">Konwersja cart -&gt; purchase</a></li>
+  <li><a href="#interpretacja-biznesowa" id="toc-interpretacja-biznesowa" class="nav-link" data-scroll-target="#interpretacja-biznesowa">Interpretacja biznesowa</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../stories/ecommerce_segmentation/01-wprowadzenie.html">Wyniki analizy</a></li><li class="breadcrumb-item"><a href="../../stories/ecommerce_segmentation/04-zachowania-w-czasie.html">Zachowania zakupowe w czasie</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Zachowania zakupowe w czasie</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cel" class="level2">
+<h2 class="anchored" data-anchor-id="cel">Cel</h2>
+<p>Notebook referencyjny zwraca uwagę na wzorce zakupowe w czasie, w tym okresy promocyjne i świąteczne. W tym projekcie ta część oddziela ogólny dashboard od analizy sezonowości i rytmu zakupów.</p>
+</section>
+<section id="pytania-analityczne" class="level2">
+<h2 class="anchored" data-anchor-id="pytania-analityczne">Pytania analityczne</h2>
+<p>W pełnej analizie sprawdzamy:</p>
+<ul>
+<li>w których miesiącach rośnie aktywność zakupowa,</li>
+<li>czy występują skoki wokół świąt, promocji lub końców miesiąca,</li>
+<li>w jakich godzinach użytkownicy najczęściej kupują,</li>
+<li>jak zmienia się konwersja z koszyka do zakupu,</li>
+<li>czy zachowania różnią się między kategoriami lub markami.</li>
+</ul>
+</section>
+<section id="wyniki-z-pełnych-danych" class="level2">
+<h2 class="anchored" data-anchor-id="wyniki-z-pełnych-danych">Wyniki z pełnych danych</h2>
+<p>Liczba zdarzeń według miesiąca i typu:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Miesiąc</th>
+<th>Typ zdarzenia</th>
+<th>Liczba</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2019-10</td>
+<td>cart</td>
+<td>1232385</td>
+</tr>
+<tr class="even">
+<td>2019-10</td>
+<td>purchase</td>
+<td>245624</td>
+</tr>
+<tr class="odd">
+<td>2019-10</td>
+<td>remove_from_cart</td>
+<td>762110</td>
+</tr>
+<tr class="even">
+<td>2019-10</td>
+<td>view</td>
+<td>1862164</td>
+</tr>
+<tr class="odd">
+<td>2019-11</td>
+<td>cart</td>
+<td>1311807</td>
+</tr>
+<tr class="even">
+<td>2019-11</td>
+<td>purchase</td>
+<td>322417</td>
+</tr>
+<tr class="odd">
+<td>2019-11</td>
+<td>remove_from_cart</td>
+<td>925481</td>
+</tr>
+<tr class="even">
+<td>2019-11</td>
+<td>view</td>
+<td>2076132</td>
+</tr>
+<tr class="odd">
+<td>2019-12</td>
+<td>cart</td>
+<td>927124</td>
+</tr>
+<tr class="even">
+<td>2019-12</td>
+<td>purchase</td>
+<td>213176</td>
+</tr>
+<tr class="odd">
+<td>2019-12</td>
+<td>remove_from_cart</td>
+<td>664655</td>
+</tr>
+<tr class="even">
+<td>2019-12</td>
+<td>view</td>
+<td>1728331</td>
+</tr>
+<tr class="odd">
+<td>2020-01</td>
+<td>cart</td>
+<td>1148323</td>
+</tr>
+<tr class="even">
+<td>2020-01</td>
+<td>purchase</td>
+<td>263797</td>
+</tr>
+<tr class="odd">
+<td>2020-01</td>
+<td>remove_from_cart</td>
+<td>815024</td>
+</tr>
+<tr class="even">
+<td>2020-01</td>
+<td>view</td>
+<td>2037608</td>
+</tr>
+<tr class="odd">
+<td>2020-02</td>
+<td>cart</td>
+<td>1148694</td>
+</tr>
+<tr class="even">
+<td>2020-02</td>
+<td>purchase</td>
+<td>241993</td>
+</tr>
+<tr class="odd">
+<td>2020-02</td>
+<td>remove_from_cart</td>
+<td>812409</td>
+</tr>
+<tr class="even">
+<td>2020-02</td>
+<td>view</td>
+<td>1953586</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="full_figures/full_event_type_by_month.png" class="img-fluid figure-img" alt="Skumulowany wykres słupkowy pokazujący typy zdarzeń według miesiąca."></p>
+<figcaption>Typy zdarzeń według miesiąca</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="full_figures/full_revenue_by_hour.png" class="img-fluid figure-img" alt="Wykres słupkowy pokazujący przychód według godziny dnia."></p>
+<figcaption>Przychód według godziny dnia</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="full_figures/full_revenue_by_weekday.png" class="img-fluid figure-img" alt="Wykres słupkowy pokazujący przychód według dnia tygodnia."></p>
+<figcaption>Przychód według dnia tygodnia</figcaption>
+</figure>
+</div>
+<p>W pełnych danych rytm aktywności i rytm zakupów nie są identyczne: zdarzenia ogółem mają szczyt około 19:00, a zakupy około 11:00. Zakupy są też relatywnie silne w czwartek (<strong>16,02% zakupów</strong>), natomiast weekend ma łącznie <strong>24,89% zakupów</strong> i nie dominuje całego tygodnia. To wspiera ostrożną hipotezę, że komunikację zakupową warto testować osobno dla godzin przeglądania i godzin finalizacji transakcji.</p>
+</section>
+<section id="konwersja-cart---purchase" class="level2">
+<h2 class="anchored" data-anchor-id="konwersja-cart---purchase">Konwersja cart -&gt; purchase</h2>
+<p>Notebook źródłowy zwracał uwagę, że promocje mogą podnosić konwersję, a zakupy impulsywne mogą występować w godzinach nocnych. W tym raporcie traktuję to jako hipotezę do zestawienia z kalendarzem kampanii, a nie jako wynik przyczynowy. Dlatego oprócz liczby zdarzeń warto obserwować relację między dodaniem do koszyka i zakupem.</p>
+<p>W tym raporcie wskaźnik <code>cart -&gt; purchase</code> jest prostym wskaźnikiem zdarzeniowym:</p>
+<p><span class="math display">\[
+\frac{\text{liczba zdarzeń purchase w okresie}}{\text{liczba zdarzeń cart w okresie}}
+\]</span></p>
+<p>Nie jest to pełna konwersja sesji ani zamówień, ponieważ dane nie zawierają jednoznacznego identyfikatora zamówienia. Wersja produkcyjna powinna liczyć dodatkowo konwersję na poziomie <code>user_session</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="full_figures/full_conversion_by_date.png" class="img-fluid figure-img" alt="Wykres liniowy pokazujący konwersję z koszyka do zakupu według daty."></p>
+<figcaption>Konwersja cart -&gt; purchase według daty</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="full_figures/full_conversion_by_hour.png" class="img-fluid figure-img" alt="Wykres słupkowy pokazujący konwersję z koszyka do zakupu według godziny dnia."></p>
+<figcaption>Konwersja cart -&gt; purchase według godziny</figcaption>
+</figure>
+</div>
+<p>Podsumowanie godzinowe:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Godzina</th>
+<th>Wyświetlenia</th>
+<th>Dodania do koszyka</th>
+<th>Zakupy</th>
+<th>Konwersja cart -&gt; purchase</th>
+<th>Konwersja view -&gt; purchase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.0</td>
+<td>89823.0</td>
+<td>63127.0</td>
+<td>11857.0</td>
+<td>18.78</td>
+<td>13.2</td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>76937.0</td>
+<td>58649.0</td>
+<td>11941.0</td>
+<td>20.36</td>
+<td>15.52</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>84941.0</td>
+<td>64488.0</td>
+<td>12306.0</td>
+<td>19.08</td>
+<td>14.49</td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td>122096.0</td>
+<td>84542.0</td>
+<td>15500.0</td>
+<td>18.33</td>
+<td>12.69</td>
+</tr>
+<tr class="odd">
+<td>4.0</td>
+<td>181733.0</td>
+<td>114876.0</td>
+<td>22022.0</td>
+<td>19.17</td>
+<td>12.12</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>273928.0</td>
+<td>174375.0</td>
+<td>35310.0</td>
+<td>20.25</td>
+<td>12.89</td>
+</tr>
+<tr class="odd">
+<td>6.0</td>
+<td>377012.0</td>
+<td>227851.0</td>
+<td>50801.0</td>
+<td>22.3</td>
+<td>13.47</td>
+</tr>
+<tr class="even">
+<td>7.0</td>
+<td>455206.0</td>
+<td>268062.0</td>
+<td>62327.0</td>
+<td>23.25</td>
+<td>13.69</td>
+</tr>
+<tr class="odd">
+<td>8.0</td>
+<td>502936.0</td>
+<td>295857.0</td>
+<td>70313.0</td>
+<td>23.77</td>
+<td>13.98</td>
+</tr>
+<tr class="even">
+<td>9.0</td>
+<td>529162.0</td>
+<td>313178.0</td>
+<td>76502.0</td>
+<td>24.43</td>
+<td>14.46</td>
+</tr>
+<tr class="odd">
+<td>10.0</td>
+<td>558184.0</td>
+<td>327766.0</td>
+<td>79373.0</td>
+<td>24.22</td>
+<td>14.22</td>
+</tr>
+<tr class="even">
+<td>11.0</td>
+<td>574715.0</td>
+<td>335876.0</td>
+<td>85595.0</td>
+<td>25.48</td>
+<td>14.89</td>
+</tr>
+<tr class="odd">
+<td>12.0</td>
+<td>583202.0</td>
+<td>339259.0</td>
+<td>83746.0</td>
+<td>24.68</td>
+<td>14.36</td>
+</tr>
+<tr class="even">
+<td>13.0</td>
+<td>559653.0</td>
+<td>319036.0</td>
+<td>77477.0</td>
+<td>24.28</td>
+<td>13.84</td>
+</tr>
+<tr class="odd">
+<td>14.0</td>
+<td>525131.0</td>
+<td>301754.0</td>
+<td>71407.0</td>
+<td>23.66</td>
+<td>13.6</td>
+</tr>
+<tr class="even">
+<td>15.0</td>
+<td>503031.0</td>
+<td>293174.0</td>
+<td>66823.0</td>
+<td>22.79</td>
+<td>13.28</td>
+</tr>
+<tr class="odd">
+<td>16.0</td>
+<td>516846.0</td>
+<td>308720.0</td>
+<td>65709.0</td>
+<td>21.28</td>
+<td>12.71</td>
+</tr>
+<tr class="even">
+<td>17.0</td>
+<td>561015.0</td>
+<td>324171.0</td>
+<td>67880.0</td>
+<td>20.94</td>
+<td>12.1</td>
+</tr>
+<tr class="odd">
+<td>18.0</td>
+<td>606853.0</td>
+<td>361419.0</td>
+<td>73626.0</td>
+<td>20.37</td>
+<td>12.13</td>
+</tr>
+<tr class="even">
+<td>19.0</td>
+<td>641355.0</td>
+<td>381307.0</td>
+<td>76554.0</td>
+<td>20.08</td>
+<td>11.94</td>
+</tr>
+<tr class="odd">
+<td>20.0</td>
+<td>574704.0</td>
+<td>344729.0</td>
+<td>72885.0</td>
+<td>21.14</td>
+<td>12.68</td>
+</tr>
+<tr class="even">
+<td>21.0</td>
+<td>389034.0</td>
+<td>238956.0</td>
+<td>49828.0</td>
+<td>20.85</td>
+<td>12.81</td>
+</tr>
+<tr class="odd">
+<td>22.0</td>
+<td>234253.0</td>
+<td>143988.0</td>
+<td>29862.0</td>
+<td>20.74</td>
+<td>12.75</td>
+</tr>
+<tr class="even">
+<td>23.0</td>
+<td>136069.0</td>
+<td>83173.0</td>
+<td>17237.0</td>
+<td>20.72</td>
+<td>12.67</td>
+</tr>
+</tbody>
+</table>
+<p>Na poziomie całego zbioru relacja <code>purchase</code> do <code>cart</code> wynosi 22,31%, a <code>remove_from_cart</code> odpowiada za 68,99% liczby dodań do koszyka. To wskazuje na tarcie lub częste korekty koszyka, ale ponieważ wskaźnik jest ilorazem zdarzeń, nie dowodzi, że konkretna sesja przeszła od koszyka do zakupu.</p>
+<p>Podobnie ostrożnie trzeba czytać sesje: mediana sesji ma tylko <strong>1 event</strong>, ale P99 ma <strong>57 eventów</strong>, a tylko <strong>3,43% sesji</strong> zawiera zakup. Większość sesji nie kończy się transakcją, więc analiza czasu powinna rozdzielać ogólną aktywność, korekty koszyka i realne zakupy.</p>
+</section>
+<section id="interpretacja-biznesowa" class="level2">
+<h2 class="anchored" data-anchor-id="interpretacja-biznesowa">Interpretacja biznesowa</h2>
+<p>Analiza czasu pomaga planować:</p>
+<ul>
+<li>kalendarz kampanii,</li>
+<li>moment wysyłki komunikacji,</li>
+<li>promocje sezonowe,</li>
+<li>retencję po pierwszym zakupie, jeśli zostanie sprawdzona w osobnej analizie kohortowej.</li>
+</ul>
+<p>Warto czytać te wykresy razem z kalendarzem kampanii. Skoki aktywności mogą wynikać z sezonowości, promocji, zmian w katalogu produktów albo różnej intensywności ruchu w sklepie.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kepilif\.github\.io\/storylab\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>StoryLab · Historie oparte na danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:jacek.filipek@gmail.com">
+<p>E-mail</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/Kepilif/">
+<p>GitHub</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/kepilif/">
+<p>LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://public.tableau.com/app/profile/jacek.filipek/">
+<p>Tableau Public</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://gitlab.com/kepilif/">
+<p>GitLab</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

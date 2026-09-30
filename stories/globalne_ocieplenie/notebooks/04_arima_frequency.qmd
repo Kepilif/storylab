@@ -1,0 +1,333 @@
+---
+title: "Czy ARIMA wykorzystuje informację z miesięcy?"
+subtitle: "Zagnieżdżony dobór ARIMA i SARIMA przy wspólnym celu rocznym"
+lang: pl
+date: 2026-09-23
+jupyter: storylab
+format:
+  html:
+    toc: true
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+---
+
+## Czy więcej szczegółów pomaga przewidywać?
+
+[Poprzedni eksperyment](03_frequency_forecasting.qmd) pokazał, że **większa częstotliwość danych nie poprawia automatycznie prognozy rocznej**. Żaden z prostych benchmarków wykorzystujących miesiące lub sezony nie pokonał rocznego trendu liniowego (`Trend + period`); warianty tego samego trendu osiągnęły po agregacji identyczny wynik.
+
+To prowadzi do kolejnego pytania: **czy model uwzględniający zależności między kolejnymi obserwacjami potrafi wykorzystać informację, której prosty trend nie wykorzystuje?**
+
+RRoczny szereg sprowadza każdy rok do jednej obserwacji. **Poprzednia analiza pokazała jednak, że taka agregacja ukrywa część różnic wewnątrz roku:** sezony różniły się tempem wzrostu anomalii, a zmiany ich zmienności nie przebiegały w jednym kierunku.
+
+Dane sezonowe zachowują cztery obserwacje na rok, a miesięczne — dwanaście. Nie oznacza to czterech lub dwunastu niezależnych informacji. Zachowujemy natomiast więcej informacji o **przebiegu anomalii wewnątrz roku** i o zależnościach między kolejnymi obserwacjami.
+
+To prowadzi do pytania, czy ta dodatkowa struktura ma znaczenie nie tylko opisowe, ale również **prognostyczne**.
+
+
+ARIMA opisuje zależności w historii samego szeregu, wykorzystując jego wcześniejsze wartości i wcześniejsze błędy prognoz jednokrokowych. W przypadku niestacjonarnego szeregu różnicowanie może pomóc uzyskać serię o bardziej stabilnych własnościach, której dynamikę łatwiej opisać takim modelem. To inny sposób opisu dynamiki niż przedłużenie jednej prostej trendu. [Wprowadzenie do ARIMA w *Forecasting: Principles and Practice*](https://otexts.com/fpp3/arima.html) przedstawia tę rolę zależności czasowych.
+
+SARIMA może dodatkowo modelować zależności między **tymi samymi częściami kolejnych lat** — na przykład między kolejnymi zimami albo wartościami oddalonymi o dwanaście miesięcy. Technicznie służą do tego składniki sezonowe działające w odstępach pełnego cyklu: czterech sezonów (`m=4`) lub dwunastu miesięcy (`m=12`).
+
+[Opis modeli sezonowych](https://otexts.com/fpp3/seasonal-arima.html) pokazuje, jak składniki sezonowe uzupełniają zwykłą ARIMA.
+
+W eksperymencie porównuję trzy procedury:
+
+- ARIMA dla szeregu rocznego,
+- ARIMA/SARIMA dla szeregu sezonowego,
+- ARIMA/SARIMA dla szeregu miesięcznego.
+
+Każda korzysta z innej szczegółowości danych, ale **wszystkie prognozują ten sam cel roczny**. Większa elastyczność ma tutaj wartość dopiero wtedy, gdy przekłada się na mniejszy błąd poza treningiem. Pytanie brzmi więc:
+
+> **Czy informacja zachowana w bardziej szczegółowym szeregu pozwala lepiej przewidzieć tę samą wartość roczną?**
+
+### Co właściwie prognozujemy?
+
+Modelowaną zmienną jest **anomalia temperatury nad lądami względem okresu odniesienia 1951–1980**, a nie bezwzględna temperatura. Anomalia pokazuje, o ile temperatura odbiega od wartości typowej dla danego miesiąca w tym okresie. Nie należy więc oczekiwać takiego samego cyklu „zima–lato” jak w surowych temperaturach. Różnice między częściami roku i zależności czasowe mogą jednak pozostać.
+
+
+**SARIMA jest zatem hipotezą do sprawdzenia.** Jeśli w anomaliach pozostają stabilne zależności powtarzające się w kolejnych latach, model sezonowy może je wykorzystać. Sama miesięczna częstotliwość nie przesądza o potrzebie sezonowego modelu ani sezonowego różnicowania.
+
+Cel oceny pozostaje taki sam jak wcześniej: średnia dwunastu miesięcznych anomalii `World`, od grudnia poprzedniego roku do listopada, z jednakowymi wagami. Roczne i sezonowe dane treningowe powstają z tych samych miesięcy. Nie zastępuję tego celu opublikowanym agregatem `Meteorological year`.
+
+Sprawdzam ograniczoną listę konfiguracji, a ich wybór odbywa się osobno dla każdej częstotliwości, wyłącznie na historii dostępnej w danym podziale. Wyniki dotyczą tych procedur i tego celu; nie rozstrzygają, czy dowolny model miesięczny mógłby pokonać dowolny model roczny.
+
+### Czy w miesięcznych anomaliach pozostała struktura czasowa?
+
+Najpierw warto zobaczyć sam szereg. Poniżej pokazuję **grudzień 1961 – listopad 1990**, czyli 348 miesięcy należących do treningu pierwszego podziału walidacji. Korzystam z zachowanego historycznego wydania FAOSTAT. Jest to ilustracja dodana po przeprowadzeniu eksperymentu; nie służy do zmiany listy kandydatów ani ponownego doboru modeli.
+
+Górny wykres przedstawia anomalie i dopasowany do tego okresu trend liniowy. Dolny pokazuje autokorelację (ACF): związek wartości z obserwacją sprzed określonej liczby miesięcy. Porównuję ACF oryginalnych anomalii z ACF reszt po odjęciu trendu, ponieważ sam trend może podwyższać autokorelację. Odjęcie prostej jest tu zabiegiem opisowym — nie jest różnicowaniem ARIMA ani gwarancją stacjonarności.
+
+```{python}
+#| label: fig-monthly-structure
+#| fig-cap: "Miesięczne anomalie World i ich ACF w pierwszym okresie treningowym. Zaznaczone opóźnienia 12 i 24 miesięcy odpowiadają jednemu i dwóm latom. ACF bez pasm istotności; diagnostyka opisowa."
+from pathlib import Path
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import acf
+from IPython.display import display, Markdown
+sys.path.insert(0, str(Path.cwd().parent))
+from temperature.series import load_world, monthly_series
+from frequency_stability import verify_freeze
+verify_freeze()
+historical, _ = load_world('historical')
+diagnostic_series = monthly_series(historical).loc['1961-12':'1990-11']
+assert len(diagnostic_series) == 348 and diagnostic_series.notna().all()
+t = np.arange(len(diagnostic_series))
+diagnostic_trend = np.polyval(np.polyfit(t, diagnostic_series.to_numpy(), 1), t)
+diagnostic_residuals = diagnostic_series.to_numpy() - diagnostic_trend
+acf_raw = acf(diagnostic_series.to_numpy(), nlags=24, fft=False)
+acf_residual = acf(diagnostic_residuals, nlags=24, fft=False)
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.rcParams.update({'figure.dpi':130, 'axes.spines.top':False, 'axes.spines.right':False})
+fig, axes = plt.subplots(2, 1, figsize=(9, 6), layout='constrained')
+axes[0].plot(diagnostic_series.index.to_timestamp(), diagnostic_series, color='#31688e', linewidth=1, label='Anomalia miesięczna')
+axes[0].plot(diagnostic_series.index.to_timestamp(), diagnostic_trend, color='#555555', linestyle='--', label='Trend liniowy')
+axes[0].set(xlabel='Rok kalendarzowy', ylabel='Anomalia (°C vs 1951–1980)')
+axes[0].legend(fontsize=9)
+lags = np.arange(1, 25)
+axes[1].bar(lags-0.18, acf_raw[1:], width=0.36, color='#31688e', label='Anomalie')
+axes[1].bar(lags+0.18, acf_residual[1:], width=0.36, color='#b8860b', label='Po odjęciu trendu')
+axes[1].axhline(0, color='#555555', linewidth=1)
+for lag in [12, 24]:
+    axes[1].axvline(lag, color='#777777', linestyle=':', linewidth=1)
+axes[1].set(xlabel='Opóźnienie (miesiące)', ylabel='Autokorelacja', ylim=(-1, 1), xticks=[1, 3, 6, 9, 12, 15, 18, 21, 24])
+axes[1].legend(fontsize=9)
+plt.show()
+```
+
+```{python}
+display(Markdown(f'Po odjęciu trendu ACF wynosi **{acf_residual[1]:.2f}** dla opóźnienia o miesiąc, **{acf_residual[12]:.2f}** dla 12 miesięcy i **{acf_residual[24]:.2f}** dla 24 miesięcy. Są to wartości z pierwszego okresu treningowego, nie miary trafności prognoz.'))
+```
+
+W tym okresie po odjęciu trendu pozostaje dodatnia zależność między sąsiednimi miesiącami. Przy opóźnieniu rocznym ACF jest ujemna, a przy dwuletnim bliska zeru. To powód, aby sprawdzić modelowanie zależności krótkookresowych, ale sam ten obraz nie stanowi mocnego argumentu za SARIMA. Pojedyncza wartość ACF przy 12 miesiącach nie dowodzi odrębnego mechanizmu sezonowego, a wykres nie rozstrzyga, czy zależności będą stabilne w kolejnych latach. **Ich wartość prognostyczną sprawdza dopiero porównanie błędów na wspólnym celu rocznym.**
+
+### Pierwsza odpowiedź: ranking historycznych błędów
+
+```{python}
+from pathlib import Path
+import hashlib,json
+import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import display,Markdown
+root=Path.cwd().parent
+out=root/'results/frequency_arima'
+meta=json.loads((out/'provenance.json').read_text(encoding='utf-8'))
+for relative,digest in meta['code_sha256'].items():
+    assert hashlib.sha256((root/relative).read_bytes()).hexdigest()==digest, 'Kod zmieniony: ponów frequency_arima.py'
+for source in meta['sources']:
+    assert hashlib.sha256((root/source['path']).read_bytes()).hexdigest()==source['sha256'], 'Zmienione źródło'
+for relative,digest in meta['outputs_sha256'].items():
+    assert hashlib.sha256((out/relative).read_bytes()).hexdigest()==digest, 'Zmienione wyniki'
+scores=pd.read_csv(out/'scores.csv')
+horizons=pd.read_csv(out/'by_horizon.csv')
+fits=pd.read_csv(out/'fits.csv')
+selections=pd.read_csv(out/'selections.csv')
+predictions=pd.read_csv(out/'predictions.csv')
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.rcParams.update({'figure.dpi':130,'axes.spines.top':False,'axes.spines.right':False})
+labels={'annual':'Roczna','seasonal':'Sezonowa','monthly':'Miesięczna'}
+def table(frame):display(frame.style.format(precision=3).hide(axis='index'))
+dynamic=scores.query("stage=='cv' and model=='Selected ARIMA/SARIMA'")
+best=dynamic.sort_values('MAE').iloc[0]
+baseline=scores.query("stage=='cv' and frequency=='annual' and model=='Trend + period'").iloc[0]
+display(Markdown(f'W historycznej walidacji najniższe MAE spośród trzech procedur ARIMA/SARIMA osiąga **procedura {labels[best.frequency].lower()}: {best.MAE:.3f}°C**. Roczny trend liniowy (`Trend + period`) z poprzedniego etapu osiąga **{baseline.MAE:.3f}°C**. Porównanie obejmuje te same cele roczne i podziały czasowe.'))
+```
+
+Żadna z trzech badanych procedur ARIMA/SARIMA nie osiąga niższego średniego błędu niż roczny trend. **Możliwość modelowania dodatkowych zależności nie przełożyła się tutaj na lepszą prognozę roczną.** Nie oznacza to, że zależności nie istnieją ani że dane miesięczne są bezużyteczne — badane procedury nie potrafiły przełożyć dodatkowej szczegółowości na niższy średni błąd prognozy rocznej w historycznej walidacji.
+
+Sam ranking średnich błędów nie dowodzi trwałej przewagi. Dalsza część pokazuje, jak oddzielam wybór konfiguracji od jej oceny, a następnie sprawdza, **czy wynik zależy od daty rozpoczęcia prognozy i jej horyzontu**. Osobno przedstawiam retrospektywną ocenę lat 2020–2025, które były już wcześniej oglądane w projekcie.
+
+## Jak zapobiegamy doborowi do testu?
+
+Zewnętrzne początki prognozy to 1990–2013, a horyzonty to 1–6 lat. Dla początku zewnętrznego `T` wewnętrzne początki to `T−8`, `T−7` i `T−6`. Każdy prognozuje sześć lat; najpóźniejszy cel wewnętrzny kończy się w `T`. Przykładowo dla 1990 r. wybór wykorzystuje początki 1982, 1983 i 1984 oraz obserwacje najwyżej do 1990 r. Dopiero potem model otrzymuje cały trening do 1990 i prognozuje 1991–1996.
+
+| Decyzja | Reguła |
+|---|---|
+| Początek treningu | Rok meteorologiczny 1962 |
+| Kryterium konfiguracji | MAE roczne z 18 błędów wewnętrznych, równe wagi horyzontów |
+| Podział według dat | Koniec listopada; grudzień należy do kolejnego roku celu |
+| Dopasowanie ponowne | Zwycięska konfiguracja dopasowana na pełnym zewnętrznym treningu |
+| Brak zbieżności w środku | Kandydat wykluczony, jeśli zawiedzie choć jeden wymagany wewnętrzny fit |
+| Brak zbieżności przy ponownym dopasowaniu | Następny kandydat w rankingu wewnętrznego MAE |
+| Brak dopuszczalnego kandydata | Przerwanie eksperymentu; bez cichej zamiany na benchmark |
+
+Parametry dobieramy względem celu rocznego także dla modeli miesięcznych. Nie wybieramy konfiguracji według dopasowania na całym szeregu ani błędów zewnętrznego testu. Kosztowne dopasowania są współdzielone w pamięci, gdy konfiguracja i koniec treningu są identyczne; pamięć nie zmienia dostępnej informacji.
+
+## Mały, jawny zestaw kandydatów
+
+| Identyfikator | Specyfikacja |
+|---|---|
+| `ar1_trend` | ARIMA(1,0,0), stała i trend liniowy |
+| `arima011` | ARIMA(0,1,1), bez drift |
+| `arima011_drift` | ARIMA(0,1,1), z drift |
+| `arima110_drift` | ARIMA(1,1,0), z drift |
+| `arima212_original` | ARIMA(2,1,2), bez drift — odniesienie do pierwotnej specyfikacji |
+| `sarima011_100` | SARIMA(0,1,1)(1,0,0)[m], z drift |
+| `sarima010_011` | SARIMA(0,1,0)(0,1,1)[m], bez drift |
+
+Dwa ostatnie modele dotyczą tylko sezonów (`m=4`) i miesięcy (`m=12`). Uwzględniamy wariant bez różnicowania, różnicowanie zwykłe oraz wariant z różnicowaniem sezonowym. Nie zakładamy, że anomalie wymagają sezonowego różnicowania. To ograniczona lista hipotez, nie pełne poszukiwanie optymalnego modelu.
+
+Roczna częstotliwość ma pięciu kandydatów, pozostałe po siedmiu. Eksperyment porównuje zatem **procedury modelowania dla częstotliwości**, nie izolowany efekt liczby obserwacji przy identycznej klasie modeli. Prognozy punktowe agregujemy równymi wagami. Nie tworzymy przedziałów rocznych ze średniej granic przedziałów miesięcznych.
+
+## Czy wynik zmienia się wraz z horyzontem prognozy?
+
+```{python}
+#| label: fig-arima-horizons
+#| fig-cap: "MAE na wspólnym celu rocznym; 24 zewnętrzne początki 1990–2013. Wybór ARIMA/SARIMA odbywa się osobno wewnątrz każdego treningu."
+fig,ax=plt.subplots(figsize=(9,4.5),layout='constrained')
+for freq,style in zip(labels,['-','--',':']):
+    g=horizons.query("stage=='cv' and frequency==@freq and model=='Selected ARIMA/SARIMA'")
+    ax.plot(g.horizon,g.MAE,style,marker='o',label=labels[freq]+' — dobór ARIMA/SARIMA')
+g=horizons.query("stage=='cv' and frequency=='annual' and model=='Trend + period'")
+ax.plot(g.horizon,g.MAE,'k-.',label='Roczny trend liniowy')
+ax.set(xlabel='Horyzont (lata)',ylabel='MAE (°C)',ylim=(0,None))
+ax.legend(fontsize=8)
+plt.show()
+table(scores.query("stage=='cv'").sort_values('MAE')[['frequency','model','n','MAE','RMSE','bias']])
+```
+
+Każdą procedurę oceniamy dla **24 początków prognozy i sześciu horyzontów**, co daje łącznie **144 porównania prognozy z obserwacją (24 × 6)**. Nie są to 144 niezależne przypadki: kolejne okresy treningowe i prognozowane lata częściowo się pokrywają. MAE jest główną miarą oceny, a RMSE i bias ją uzupełniają. Bias oznacza `prognoza − obserwacja`.
+
+## Jak stabilny był wybór?
+
+### Czy przewaga zależy od daty startowej? {#stabilnosc-wynikow}
+
+Porównujemy **te same cele z tych samych początków prognozy**. Różnica to błąd bezwzględny danej procedury minus błąd rocznego trendu: poniżej zera wygrywa ARIMA/SARIMA, powyżej — trend. Każdy punkt na górnym wykresie jest średnią z sześciu horyzontów; każdy punkt na dolnym — z 24 początków. Trend jest odniesieniem wybranym po obejrzeniu historycznego rankingu, dlatego porównanie ma charakter opisowy.
+
+```{python}
+#| label: fig-paired-stability
+#| fig-cap: "Sparowane różnice MAE względem rocznego trendu. Zmiany znaku pokazują, że ranking zależy od początku i horyzontu prognozy."
+import sys
+sys.path.insert(0, str(root))
+from frequency_stability import verify_freeze
+lock = verify_freeze()
+stability_dir = root/'results/frequency_stability'
+origin_delta = pd.read_csv(stability_dir/'by_origin.csv')
+horizon_delta = pd.read_csv(stability_dir/'by_horizon.csv')
+stability = pd.read_csv(stability_dir/'stability.csv')
+fig, axes = plt.subplots(2, 1, figsize=(9, 6), sharey=True, layout='constrained')
+for freq, style, color in zip(labels, ['-', '--', ':'], ['#31688e', '#b8860b', '#9a5071']):
+    for ax, frame, x in [(axes[0], origin_delta, 'origin'), (axes[1], horizon_delta, 'horizon')]:
+        g = frame.query("frequency==@freq and model=='Selected ARIMA/SARIMA'")
+        ax.plot(g[x], g.delta_abs_error, style, color=color, marker='o', markersize=3, label=labels[freq])
+for ax in axes:
+    ax.axhline(0, color='black', linewidth=1)
+    ax.set_ylabel('Różnica MAE (°C)')
+axes[0].set_xlabel('Ostatni rok treningu')
+axes[0].set_xticks([1990, 1995, 2000, 2005, 2010, 2013])
+axes[1].set_xlabel('Horyzont (lata)')
+axes[0].legend(ncol=3)
+plt.show()
+```
+
+```{python}
+summary = stability.query("block==6 and model=='Selected ARIMA/SARIMA'").copy()
+summary['frequency'] = summary.frequency.map(labels)
+table(summary[['frequency','delta_MAE','wins','origins','low','high']].rename(columns={
+    'frequency':'Seria','delta_MAE':'Δ MAE (°C)',
+    'wins':'Wygrane','origins':'Początki',
+    'low':'2,5% (°C)','high':'97,5% (°C)'}))
+```
+
+Roczna ARIMA wygrywa z trendem w 6 z 24 początków, miesięczna w 10, a sezonowa w 8. Dodatnia średnia różnica błędów nie oznacza więc przegranej w każdym okresie. Wygrana dotyczy MAE z całych sześciu lat prognozy, nie liczby pojedynczych trafionych lat.
+
+### Jak bardzo wynik zależy od badanej historii?
+
+Losujemy z powtórzeniami **bloki sześciu kolejnych początków**, zachowując razem wszystkie horyzonty i pary model–trend. Z możliwych bloków mieszczących się w latach 1990–2013 składamy 24 początki; ostatni blok przycinamy do wymaganej długości. Powtarzamy to 10 000 razy ze stałym ziarnem 20260924. Tabela pokazuje środkowe 95% otrzymanych średnich różnic. W dodatkowej kontroli stosujemy bloki długości 3 i 8.
+
+```{python}
+table(stability.query("model=='Selected ARIMA/SARIMA'").assign(frequency=lambda df: df.frequency.map(labels))[['frequency','block','low','high']].rename(columns={
+    'frequency':'Częstotliwość','block':'Długość bloku',
+    'low':'Kwantyl 2,5% (°C)','high':'Kwantyl 97,5% (°C)'}))
+```
+
+**Dla bloku sześciu początków wszystkie trzy zakresy obejmują zero.** Dane nie uzasadniają mocnego wniosku o trwałej przewadze na podstawie samego średniego MAE. To orientacyjna analiza niepewności i wrażliwości na badaną historię, nie test istotności: mamy tylko 24 początki, nakładające się cele, wspólne treningi i możliwe zmiany procesu w czasie. Bloki ograniczają problem zależności, lecz go nie usuwają; długość bloku nie była estymowana. Zakresy nie są przedziałami predykcji przyszłej temperatury ani gwarancją pokrycia 95%.
+
+### Jakie konfiguracje wybierała procedura?
+
+```{python}
+chosen=selections.query('selected == True and origin < 2019')
+table(chosen.groupby(['frequency','candidate']).size().reset_index(name='Wybrane podziały'))
+summary=fits.groupby('frequency').agg(dopasowania=('success','size'),udane=('success','sum'),sekundy=('seconds','sum')).reset_index()
+summary['nieudane']=summary.dopasowania-summary.udane
+table(summary)
+```
+
+Liczby dotyczą unikalnych dopasowań wewnętrznych i ponownych dopasowań zewnętrznych, łącznie z oceną 2019. Wczesne odrzucenie kandydata po błędzie może zmniejszyć liczbę wykonanych dopasowań. Czas jest pomiarem tej maszyny, nie ogólną miarą wydajności. Ostrzeżenia i przyczyny niepowodzeń znajdują się w pełnym rejestrze.
+
+## Ocena późniejszych lat 2020–2025
+
+### Zamrożony zapis oceny {#zamrozona-ocena}
+
+Zapis zamroziliśmy **24 września 2026 r., po obejrzeniu wyników**. Jest to utrwalenie retrospektywnego eksperymentu, nie prerejestracja ani dowód wykonania prognoz w 2019 r. Kontrola SHA-256 obejmuje źródła, kod obliczeń, konfiguracje i wybory modeli oraz zapisane prognozy. Zmiana któregokolwiek z tych plików przerywa kontrolę; dalsze eksperymenty wymagają osobnej wersji, bez nadpisywania tej oceny.
+
+| Element | Utrwalona reguła |
+|---|---|
+| Trening | Historyczne wydanie, lata meteorologiczne 1962–2019; koniec 2019-11-30 |
+| Cel | Średnia miesięcznych anomalii World, równe wagi, grudzień–listopad |
+| Okres oceny | Sześć rocznych celów 2020–2025 z zapisanego nowego wydania |
+| Wybór benchmarku | Historyczne CV wskazuje roczny trend; nie zastępujemy go zwycięzcą późniejszej oceny |
+| Wybór ARIMA/SARIMA | Osobno dla częstotliwości, wewnętrzne początki 2011–2013; cele do 2019 |
+| Aktualizacja | Jedna prognoza sześciu lat; bez douczania na obserwacjach testowych |
+| Rewizje | Cel 2020 zawiera grudzień 2019 z nowego wydania; nie korygujemy nim treningu |
+
+**To inna ocena niż audyt dawnej prognozy ARIMA(2,1,2).** Tam celem jest opublikowany `Meteorological year`; tutaj rekonstruowana średnia miesięcy. Ich błędów nie łączymy w jeden ranking. Sześć lat pochodzi z jednej ścieżki prognozy, nie z sześciu niezależnych eksperymentów.
+
+Dla końca treningu 2019 dobór konfiguracji korzysta z wewnętrznych początków 2011–2013 i celów najpóźniej z 2019. Trening pozostaje ze starego wydania FAOSTAT; cel roczny tworzymy z miesięcy nowego wydania. Nie aktualizujemy modelu kolejnymi obserwacjami testowymi.
+
+```{python}
+table(selections.query('selected == True and origin == 2019')[['frequency','candidate','inner_MAE']])
+table(scores.query("stage=='retrospective'").sort_values('MAE')[['frequency','model','n','MAE','RMSE','bias']])
+```
+
+```{python}
+#| label: fig-arima-final
+#| fig-cap: "Prognozy dobrane wyłącznie na danych do 2019 r. oraz cel roczny z miesięcy FAOSTAT 2020–2025. Eksperyment wykonany retrospektywnie."
+fig,ax=plt.subplots(figsize=(9,4.5),layout='constrained')
+for freq,style in zip(labels,['-','--',':']):
+    g=predictions.query("stage=='retrospective' and frequency==@freq")
+    ax.plot(g.year,g.forecast,style,label=labels[freq])
+ax.plot(g.year,g.actual,'o-',color='#b23a48',label='Obserwacje')
+ax.set(xlabel='Rok meteorologiczny',ylabel='Anomalia (°C vs 1951–1980)')
+ax.legend()
+plt.show()
+```
+
+To retrospektywne rozszerzenie: lata 2020–2025 były już oglądane w projekcie, a stare wartości mogą podlegać rewizjom. Zagnieżdżony dobór chroni obliczenia przed wykorzystaniem przyszłych celów, ale nie usuwa wcześniejszej wiedzy autora o danych ani nie odtwarza archiwalnych wydań dla każdego punktu startowego.
+
+### Które lata składają się na końcowy wynik?
+
+```{python}
+frozen = pd.read_csv(stability_dir/'evaluation_2020_2025.csv')
+focus = frozen.query("model=='Selected ARIMA/SARIMA' or (frequency=='annual' and model in ['Trend + period','Drift'])").copy()
+focus['Procedura'] = focus.frequency.map(labels) + ' / ' + focus.model.map({'Selected ARIMA/SARIMA':'ARIMA/SARIMA','Trend + period':'Trend','Drift':'Drift'})
+focus['Błąd bezwzględny (°C)'] = focus.error.abs()
+table(focus.pivot(index='year', columns='Procedura', values='Błąd bezwzględny (°C)').reset_index().rename(columns={'year':'Rok'}))
+```
+
+Tabela ujawnia wkład każdego roku w MAE, lecz nie służy do wyboru nowego zwycięzcy. Najniższy późniejszy błąd driftu pozostaje wynikiem opisowym; procedurą wskazaną przez historyczne CV nadal jest trend.
+
+[Zamrożony protokół i SHA-256](../results/frequency_stability/evaluation_lock.json) · [Ocena każdego roku i wszystkich procedur](../results/frequency_stability/evaluation_2020_2025.csv) · [Sparowane błędy](../results/frequency_stability/paired_errors.csv) · [Zakresy wrażliwości](../results/frequency_stability/stability.csv).
+
+## Czy dodatkowa szczegółowość pomogła — i gdzie kończy się ten wniosek?
+
+**W historycznej walidacji tego eksperymentu większa szczegółowość szeregu nie przełożyła się na lepszą prognozę wspólnego celu rocznego.** Roczna procedura ARIMA osiągnęła niższy średni błąd niż procedury sezonowa i miesięczna, ale wszystkie trzy ustąpiły prostemu trendowi liniowemu. Nie oznacza to, że miesięczne anomalie nie zawierają dodatkowej struktury. Badane procedury nie wykazały korzyści z jej wykorzystania mierzonej niższym średnim MAE względem rocznego benchmarku.
+
+Ta odpowiedź zależy od okresu i sposobu oceny. ARIMA/SARIMA wygrywały z trendem w części dat startowych, a blokowa analiza niepewności nie uzasadnia mocnego wniosku o trwałej przewadze. W latach 2020–2025 najniższy błąd spośród procedur ARIMA/SARIMA ma wariant sezonowy, ale nadal nie pokonuje rocznego driftu. Zmiana rankingu między okresami przemawia za ostrożnością przy wyborze jednej częstotliwości.
+
+Wyniki dotyczą jednej zmiennej, jednej listy kandydatów, określonych horyzontów i dwóch zapisanych wydań źródła. Ranking częstotliwości pozostaje opisowy; wybór najlepszej częstotliwości na podstawie zewnętrznego CV i raportowanie jej wyniku jako niezależnego sukcesu byłoby kolejną selekcją. Raport pokazuje wszystkie trzy procedury i benchmarki. Rozszerzenie na inne źródła wymaga osobnej kontroli definicji i agregacji.
+
+### Odtworzenie i źródła
+
+Diagnostyka szeregu i ACF jest obliczana bezpośrednio w notebooku. Odczyt danych zapewnia [temperature/series.py](../temperature/series.py), a zgodność zamrożonych plików sprawdza [frequency_stability.py](../frequency_stability.py). Wykres nie zmienia obliczeń prognoz ani listy kandydatów.
+
+Eksperyment: `python stories/globalne_ocieplenie/frequency_arima.py`. Renderowanie notebooka odczytuje zapisane wyniki i sprawdza SHA-256 kodu, danych i tabel; nie uruchamia ponownie setek dopasowań. Po zmianie któregokolwiek wejścia należy ponowić eksperyment.
+
+Stabilność i kontrola zamrożenia: `python stories/globalne_ocieplenie/frequency_stability.py`. Istniejący manifest nie jest nadpisywany. Dla zmienionych wejść należy zachować obecną wersję i utworzyć osobny eksperyment.
+
+[Protokół i sumy kontrolne](../results/frequency_arima/provenance.json) · [Prognozy](../results/frequency_arima/predictions.csv) · [Wewnętrzny dobór](../results/frequency_arima/selections.csv) · [Diagnostyka dopasowań](../results/frequency_arima/fits.csv).
+
+Źródła: lokalne FAOSTAT opisane w metadanych; [walidacja czasowa](https://otexts.com/fpp3/tscv.html) i [modele SARIMA](https://otexts.com/fpp3/seasonal-arima.html). [Powrót do projektu](../index.qmd).

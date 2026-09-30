@@ -1,0 +1,84 @@
+- title: Wiek a statystyki zawodników NBA
+  description: Jak różnią się średnie punkty, asysty i zbiórki między grupami wieku? Porównaj profile zawodników, pamiętając, że obserwacje dotyczą zawodnika w sezonie, a nie całej kariery.
+  categories: [Sport]
+  tool: Tableau
+  chart: Wykresy słupkowe
+  mode: Interaktywna
+  url: https://public.tableau.com/app/profile/jacek.filipek/viz/NBA_JF/Wiekawydajno
+  thumbnail: https://public.tableau.com/static/images/NB/NBA_JF/Wiekawydajno/4_3.png
+  alt: Podgląd wykresów statystyk NBA według wieku.
+  related: stories/nba_scouting_patterns/index.html
+  related_label: Poznaj projekt NBA
+- title: Sprzedaż i zachowania klientów
+  description: Jak wygląda sprzedaż w analizowanym zbiorze e-commerce? Przegląd przychodów, marek, produktów i jakości danych jest punktem wyjścia do segmentacji klientów.
+  categories: [E-commerce]
+  tool: Python / Quarto
+  chart: Wykresy czasowe i rankingi
+  mode: Przegląd statyczny
+  url: stories/ecommerce_segmentation/03-eda-dashboard.html
+  thumbnail: stories/ecommerce_segmentation/full_figures/full_revenue_by_day.png
+  alt: Wykres przychodu dziennego w analizie e-commerce.
+  related: stories/ecommerce_segmentation/index.html
+  related_label: Poznaj projekt e-commerce
+- title: PlayStation — sprzedaż gier 1994–2010
+  description: Które platformy, gatunki i tytuły wyróżniają się w zestawieniu sprzedaży? Zmieniaj wydawcę i porównuj trendy, rankingi oraz strukturę sprzedaży w historycznym zbiorze.
+  categories: [Gry wideo]
+  tool: Tableau
+  chart: Słupki, wykres obszarowy, treemap
+  mode: Interaktywna
+  url: https://public.tableau.com/app/profile/jacek.filipek/viz/Grywideo-dash/PrzegldPlaystatation1994-2010
+  thumbnail: https://public.tableau.com/static/images/Gr/Grywideo-dash/PrzegldPlaystatation1994-2010/4_3.png
+  alt: Podgląd przeglądu sprzedaży gier PlayStation z lat 1994–2010.
+  related: https://public.tableau.com/app/profile/jacek.filipek/viz/Analizawideo-konkurencjastory/Analizakonkurencji1994-2010
+  related_label: Zobacz historię konkurencji
+- title: Rywalizacja platform — historia rynku gier
+  description: Porównaj perspektywę PlayStation, Nintendo i Xbox w analizie konkurencji z lat 1994–2010. Kolejne punkty historii prowadzą przez przygotowane widoki sprzedaży.
+  categories: [Gry wideo]
+  tool: Tableau
+  chart: Zestawienie wykresów
+  mode: Historia interaktywna
+  url: https://public.tableau.com/app/profile/jacek.filipek/viz/Analizawideo-konkurencjastory/Analizakonkurencji1994-2010
+  thumbnail: https://public.tableau.com/static/images/An/Analizawideo-konkurencjastory/Analizakonkurencji1994-2010/4_3.png
+  alt: Podgląd historii o konkurencji platform gier wideo.
+  related: https://public.tableau.com/app/profile/jacek.filipek/viz/Grywideo-dash/PrzegldPlaystatation1994-2010
+  related_label: Eksploruj przegląd sprzedaży
+- title: Urodzenia w Japonii — trend i prognoza
+  description: Jak prognoza urodzeń na grudzień 2019 roku wypada na tle średniej z pięciu lat? Historyczny przykład zestawia przebieg miesięczny z prognozą; pozostałe arkusze pokazują także inne kraje i sezonowość.
+  categories: [Demografia]
+  tool: Tableau
+  chart: Wykres liniowy z prognozą
+  mode: Interaktywna
+  url: https://public.tableau.com/app/profile/jacek.filipek/viz/WHOurodzenia/PrognozaJaponia
+  thumbnail: https://public.tableau.com/static/images/WH/WHOurodzenia/PrognozaJaponia/4_3.png
+  alt: Podgląd szeregu czasowego urodzeń i historycznej prognozy dla Japonii.
+- title: Edukacja w G20 — kobiety i mężczyźni
+  description: Ile lat spędziły w szkole osoby w wieku 25–34 lat? Porównaj średnie dla kobiet i mężczyzn w krajach przedstawionych na wykresie. Liczba lat nauki opisuje jej długość, nie jakość.
+  categories: [Edukacja]
+  tool: Tableau
+  chart: Wykresy słupkowe
+  mode: Interaktywna
+  url: https://public.tableau.com/app/profile/jacek.filipek/viz/G20pcie25-34lataspdzonewszkole/rednia
+  thumbnail: https://public.tableau.com/static/images/G2/G20pcie25-34lataspdzonewszkole/rednia/4_3.png
+  alt: Podgląd porównania długości edukacji kobiet i mężczyzn w krajach G20.
+- title: Globalna temperatura — trend 1940–2024
+  description: Roczne anomalie temperatury według Copernicus/ERA5 względem lat 1850–1900 oraz dopasowany trend liniowy. Zobacz długookresową zmianę na tle wahań między latami.
+  categories: [Klimat]
+  tool: Python / Matplotlib
+  chart: Wykres liniowy z trendem
+  mode: Statyczna
+  url: stories/globalne_ocieplenie/globalne_ocieplenie_story.html
+  thumbnail: assets/portfolio/climate.png
+  alt: Roczne anomalie temperatury Copernicus ERA5 w latach 1940–2024 i trend liniowy.
+  related: stories/globalne_ocieplenie/globalne_ocieplenie_story.html
+  related_label: Czytaj cały raport
+- title: Polski dług — rządy i zdarzenia fiskalne
+  description: Jak zmieniały się miary EDP i PDP na tle kolejnych rządów oraz wybranych punktów zwrotnych? Wykres pokazuje, dlaczego dynamikę długu trzeba czytać razem z definicją wskaźnika i kontekstem fiskalnym.
+  categories: [Finanse publiczne]
+  tool: Python / Quarto
+  chart: Wykres liniowy z oznaczeniami okresów
+  mode: Przegląd narracyjny
+  url: stories/public_debt_storytelling/article/polski_dlug_publiczny_story.html#teza-1-edp-vs-pdp
+  thumbnail: assets/portfolio/debt.png
+  alt: Polski dług EDP i PDP z oznaczeniami rządów.
+  related: stories/public_debt_storytelling/article/polski_dlug_publiczny_story.html
+  related_label: Czytaj cały raport

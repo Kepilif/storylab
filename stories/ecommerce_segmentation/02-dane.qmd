@@ -1,0 +1,131 @@
+---
+title: "Dane"
+---
+
+## Pochodzenie danych
+
+Źródłowe dane mają charakter e-commerce: opisują zdarzenia użytkowników w sklepach internetowych, takie jak wyświetlenia produktów, dodania do koszyka, zakupy i usunięcia z koszyka.
+
+Pełne dane nie są przechowywane w repozytorium. Repo zawiera kod, raport, małe demo i lekkie artefakty wynikowe, natomiast surowe pliki CSV pozostają lokalnie poza Gitem.
+
+## Skala danych źródłowych
+
+Dane pochodzą z publicznego zbioru Kaggle `eCommerce behavior data from multi category store`, przygotowanego na bazie danych eventowych REES46. W projekcie źródłowym były zarówno miesięczne pliki multi-category, jak i osobny zestaw kosmetyczny. Portfolio analizuje wyłącznie zbiór kosmetyczny z okresu październik 2019 - luty 2020.
+
+Dla kontekstu skali:
+
+| Zbiór | Rozmiar | Liczba wierszy | Liczba kolumn |
+|---|---:|---:|---:|
+| Multistore 2019-Oct | 5406.01 MB | 42 448 764 | 9 |
+| Multistore 2019-Nov | 8589.52 MB | 67 501 979 | 9 |
+| Multistore 2019-Dec | 8924.47 MB | 67 542 878 | 9 |
+| Multistore 2020-Jan | 7417.67 MB | 55 967 041 | 9 |
+| Multistore 2020-Feb | 7319.98 MB | 55 318 565 | 9 |
+| Multistore 2020-Mar | 7461.39 MB | 56 341 241 | 9 |
+| Multistore 2020-Apr | 8837.92 MB | 66 589 268 | 9 |
+| Cosmetic 2019-Oct | 460.19 MB | 4 102 283 | 9 |
+| Cosmetic 2019-Nov | 520.55 MB | 4 635 837 | 9 |
+| Cosmetic 2019-Dec | 396.06 MB | 3 533 286 | 9 |
+| Cosmetic 2020-Jan | 478.55 MB | 4 264 752 | 9 |
+| Cosmetic 2020-Feb | 466.16 MB | 4 156 682 | 9 |
+
+Ta skala uzasadnia trzymanie pełnych CSV poza repozytorium.
+
+## Zakres analizowanego zbioru kosmetycznego
+
+Na potrzeby portfolio jako główny zbiór analityczny przyjmujemy dane kosmetyczne z pięciu miesięcy: od października 2019 do lutego 2020. To one są najbliższe zakresowi aplikacji i modelu segmentacyjnego KMeans.
+
+Podsumowanie pełnych danych kosmetycznych:
+
+{{< include full_tables/full_data_overview.md >}}
+
+Po połączeniu pięciu miesięcy analiza obejmuje **20 692 840 zdarzeń**, **1 639 358 użytkowników**, **4 535 941 sesji**, **54 571 produktów**, **273 marki** i **525 kategorii**. Taka skala uzasadnia lekkie artefakty raportowe, ale też wymaga rozdzielenia pełnych wyników Quarto od małego pliku demonstracyjnego używanego w Streamlit.
+
+Struktura typów zdarzeń:
+
+{{< include full_tables/full_event_counts.md >}}
+
+W tym zbiorze zdarzenia `purchase` stanowią podstawę metryk sprzedażowych, RFM, analizy koszykowej i segmentacji. Pozostałe typy zdarzeń pomagają zrozumieć zachowanie użytkowników, ale nie są liczone jako przychód.
+
+## Co zawierają dane
+
+Podstawowy schemat danych e-commerce składa się z dziewięciu kolumn:
+
+| Kolumna | Opis |
+|---|---|
+| `event_time` | Czas zdarzenia, np. `2020-01-01 09:15:00 UTC`. |
+| `event_type` | Typ zdarzenia: `view`, `cart`, `purchase`, `remove_from_cart`. |
+| `product_id` | Identyfikator produktu. |
+| `category_id` | Identyfikator kategorii produktu. |
+| `category_code` | Tekstowa ścieżka kategorii. |
+| `brand` | Marka produktu. |
+| `price` | Wartość produktu w jednostkach zapisanych w danych źródłowych. |
+| `user_id` | Identyfikator klienta. |
+| `user_session` | Identyfikator sesji. |
+
+Najważniejszym typem zdarzenia dla analiz wartości klienta jest `purchase`.
+Jeden rekord `purchase` interpretuję jako **pozycję zakupową**, nie pełne
+zamówienie. Dlatego Frequency w RFM oznacza liczbę kupionych pozycji, a
+przychód oznacza sumę wartości z pola `price` dla tych pozycji. Zdarzenia
+`view`, `cart` i `remove_from_cart` są użyteczne kontekstowo, ale nie są liczone
+jako sprzedaż.
+
+## Braki danych i jakość
+
+W danych tego typu typowe problemy jakościowe to:
+
+- puste wartości w `brand` lub `category_code`,
+- różne formaty lub strefy czasu w `event_time`,
+- zdarzenia niezakupowe z ceną, które nie powinny być liczone jako przychód,
+- bardzo duże pliki wymagające przetwarzania partiami albo wcześniejszego
+  próbkowania.
+
+Sesje zawierające tylko wyświetlenia albo porzucone koszyki nie są błędem jakości danych. Są częścią zachowania użytkowników i powinny trafiać do analizy aktywności, ale nie do metryk przychodu.
+
+W aplikacji Streamlit przyjęto prostą zasadę: użytkownik wgrywa CSV zgodny ze
+schematem, a poszczególne moduły filtrują dane zgodnie ze swoim celem. Dashboard
+i RFM liczą metryki sprzedażowe po `purchase`, a analiza koszykowa definiuje
+koszyk jako zestaw unikalnych elementów kupionych w ramach jednej
+`user_session`.
+
+W pełnym zbiorze kosmetycznym braki danych wyglądają następująco:
+
+{{< include full_tables/full_missing_values.md >}}
+
+Największym ograniczeniem jest bardzo wysoki udział braków w `category_code` (**98,29%**) oraz
+istotny udział braków w `brand` (**42,32%**). Oznacza to, że:
+
+- analiza produktów po `product_id` jest najbardziej kompletna,
+- analiza marek jest użyteczna, ale traci część rekordów,
+- analiza kategorii po `category_code` jest zbyt niepełna i lepiej opierać ją na
+  `category_id`, jeśli potrzebna jest pełniejsza segmentacja kategorii.
+
+## Czyszczenie techniczne
+
+Przed dalszą analizą zastosowano podstawowe reguły czyszczenia:
+
+- poprawne parsowanie `event_time`,[^1]
+- poprawna wartość `event_type`,
+- obecność identyfikatorów `user_id` i `product_id`,
+- poprawna wartość liczbowa `price`,
+- wykluczenie rekordów z ceną ujemną.
+
+Podsumowanie po czyszczeniu:
+
+{{< include full_tables/full_cleaning_summary.md >}}
+
+Po oczyszczeniu technicznym zakres czasowy danych obejmuje okres od **2019-10-01 00:00:00 UTC** do **2020-02-29 23:59:59 UTC**. Wykryto **131 rekordów z ceną ujemną**, które nie powinny być wykorzystywane do liczenia przychodu, wartości klienta ani cech RFM.
+
+W danych występuje też **104 157 cen równych zero**. Nie każda cena zerowa musi być błędem biznesowym, ale przy modelowaniu wartości klienta i rozkładów cen wymaga osobnej kontroli, żeby nie zaniżać cech pieniężnych.
+
+## Cel przetwarzania
+
+Przetwarzanie danych ma trzy cele:
+
+1. **Ujednolicenie wejścia** - aplikacja oczekuje jednego schematu CSV.
+2. **Redukcja złożoności** - surowe zdarzenia są zamieniane na metryki, reguły i cechy klienta.
+3. **Przygotowanie do hipotez marketingowych** - wyniki mają prowadzić do rekomendacji i testów kampanii, a nie tylko do tabel technicznych.
+
+Dlatego szczegóły obliczeń są rozbite na kolejne rozdziały: dashboard pokazuje agregacje sprzedażowe, analiza koszykowa reguły współwystępowania, RFM cechy klienta, a KMeans grupowanie profili klientów. Struktura repozytorium, plik demo i komendy odtwarzania znajdują się w appendixie technicznym.
+
+[^1]: W danych źródłowych strefa czasowa była mieszana: część rekordów miała `UTC`, a część `+03:00`. W procesie czyszczenia wszystkie rekordy zostały przekształcone do strefy `UTC`.

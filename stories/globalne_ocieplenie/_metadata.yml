@@ -1,0 +1,7 @@
+lang: pl
+body-classes: temperature-project
+number-sections: false
+format:
+  html:
+    code-fold: true
+    include-before-body: _portfolio-links.html

@@ -1,0 +1,91 @@
+frequency,model,horizon,delta_abs_error
+annual,Drift,1,0.03196136915155203
+annual,Drift,2,0.03628858296018558
+annual,Drift,3,-0.00931827230460786
+annual,Drift,4,0.017256887179607047
+annual,Drift,5,-0.006492926882637646
+annual,Drift,6,0.047628044862828296
+annual,Naive,1,0.032066514256219265
+annual,Naive,2,0.03515466524843208
+annual,Naive,3,0.008061314684719247
+annual,Naive,4,0.03244124255237091
+annual,Naive,5,0.031272074812266355
+annual,Naive,6,0.08146512236205823
+annual,Seasonal naive,1,0.032066514256219265
+annual,Seasonal naive,2,0.03515466524843208
+annual,Seasonal naive,3,0.008061314684719247
+annual,Seasonal naive,4,0.03244124255237091
+annual,Seasonal naive,5,0.031272074812266355
+annual,Seasonal naive,6,0.08146512236205823
+annual,Selected ARIMA/SARIMA,1,0.0026481187931518854
+annual,Selected ARIMA/SARIMA,2,0.001598839580084406
+annual,Selected ARIMA/SARIMA,3,0.0004552467041619816
+annual,Selected ARIMA/SARIMA,4,0.012761281335545575
+annual,Selected ARIMA/SARIMA,5,0.006790787477470549
+annual,Selected ARIMA/SARIMA,6,0.03412713593157691
+annual,Trend + period,1,0.0
+annual,Trend + period,2,0.0
+annual,Trend + period,3,0.0
+annual,Trend + period,4,0.0
+annual,Trend + period,5,0.0
+annual,Trend + period,6,0.0
+monthly,Drift,1,0.1969166556841546
+monthly,Drift,2,0.21146323095856698
+monthly,Drift,3,0.18194521943234365
+monthly,Drift,4,0.21704213373716152
+monthly,Drift,5,0.19100853196710044
+monthly,Drift,6,0.20663333852157295
+monthly,Naive,1,0.19277137536733036
+monthly,Naive,2,0.19092897080398766
+monthly,Naive,3,0.18087034246249703
+monthly,Naive,4,0.20068082588570424
+monthly,Naive,5,0.158282491478933
+monthly,Naive,6,0.1705727612509471
+monthly,Seasonal naive,1,0.032066514256219265
+monthly,Seasonal naive,2,0.03515466524843208
+monthly,Seasonal naive,3,0.008061314684719247
+monthly,Seasonal naive,4,0.03244124255237091
+monthly,Seasonal naive,5,0.031272074812266355
+monthly,Seasonal naive,6,0.08146512236205823
+monthly,Selected ARIMA/SARIMA,1,0.007081410258461815
+monthly,Selected ARIMA/SARIMA,2,-0.007477622910925355
+monthly,Selected ARIMA/SARIMA,3,0.023710551678164948
+monthly,Selected ARIMA/SARIMA,4,0.04835066206995634
+monthly,Selected ARIMA/SARIMA,5,0.01303363905682405
+monthly,Selected ARIMA/SARIMA,6,0.03413750113796291
+monthly,Trend + period,1,9.772275581336014e-17
+monthly,Trend + period,2,8.854317741964952e-17
+monthly,Trend + period,3,1.277732260274167e-16
+monthly,Trend + period,4,1.2340931228316254e-16
+monthly,Trend + period,5,8.156814344332612e-17
+monthly,Trend + period,6,8.543513119185775e-17
+seasonal,Drift,1,0.07491741553486934
+seasonal,Drift,2,0.07388948385085277
+seasonal,Drift,3,0.07878521469033202
+seasonal,Drift,4,0.08712117692331404
+seasonal,Drift,5,0.059413016714502866
+seasonal,Drift,6,0.09839900676153283
+seasonal,Naive,1,0.07436859758955251
+seasonal,Naive,2,0.07090813747065426
+seasonal,Naive,3,0.08329395357360812
+seasonal,Naive,4,0.09709749255237088
+seasonal,Naive,5,0.06753249147893296
+seasonal,Naive,6,0.13130887236205824
+seasonal,Seasonal naive,1,0.032066514256219265
+seasonal,Seasonal naive,2,0.035154665248432075
+seasonal,Seasonal naive,3,0.008061314684719231
+seasonal,Seasonal naive,4,0.03244124255237089
+seasonal,Seasonal naive,5,0.031272074812266355
+seasonal,Seasonal naive,6,0.08146512236205822
+seasonal,Selected ARIMA/SARIMA,1,0.02918583248059693
+seasonal,Selected ARIMA/SARIMA,2,0.027872451517479514
+seasonal,Selected ARIMA/SARIMA,3,0.03217286805289565
+seasonal,Selected ARIMA/SARIMA,4,0.03955734090941037
+seasonal,Selected ARIMA/SARIMA,5,0.04547315269182133
+seasonal,Selected ARIMA/SARIMA,6,0.0808462217077011
+seasonal,Trend + period,1,1.608233222520165e-17
+seasonal,Trend + period,2,7.538819106015875e-17
+seasonal,Trend + period,3,1.1407613858168317e-16
+seasonal,Trend + period,4,1.1344368731439994e-16
+seasonal,Trend + period,5,4.643999305479577e-17
+seasonal,Trend + period,6,4.4813689796067515e-17

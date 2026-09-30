@@ -1,0 +1,8 @@
+---
+title: "Podejście do analizy"
+lang: pl
+toc: false
+number-sections: false
+---
+
+Opis sposobu pracy jest teraz częścią strony [O mnie — podejście do analizy](about.qmd#podejście-do-analizy).

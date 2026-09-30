@@ -1,0 +1,12 @@
+| Marka | Przychód |
+| --- | --- |
+| runail | 343433.19 |
+| grattol | 266295.94 |
+| irisk | 223903.38 |
+| uno | 190719.46 |
+| strong | 151941.8 |
+| masura | 139764.86 |
+| jessnail | 134775.04 |
+| ingarden | 124606.04 |
+| estel | 121788.76 |
+| cnd | 106327.8 |

@@ -1,0 +1,151 @@
+---
+title: "Dalszy rozwój analizy"
+subtitle: "Jak przesunąć projekt od eksploracji do systemu decyzyjnego"
+---
+
+## Cel rozwoju
+
+Obecny projekt odpowiada przede wszystkim na pytania opisowe i segmentacyjne: kto kupuje, jak zachowują się użytkownicy, które marki współwystępują w koszykach i gdzie pojawia się różnica między aktywnością a finalizacją zakupu.
+
+Dalszy rozwój powinien przesunąć analizę w stronę predykcji, eksperymentów i decyzji ekonomicznych. Oznacza to przejście od pytania „co widać w danych?” do pytań: „co prawdopodobnie wydarzy się dalej?”, „które działanie wygeneruje przyrostowy efekt?” oraz „czy rekomendacja jest opłacalna po uwzględnieniu kosztu?”.
+
+## Rozszerzenie danych
+
+Największym ograniczeniem obecnej analizy jest brak danych ekonomicznych i marketingowych. Dane zdarzeniowe pozwalają mierzyć przychód obserwowany jako sumę `price`, ale nie pozwalają jeszcze mówić o zysku, marży ani inkrementalnym efekcie kampanii.
+
+Najbardziej wartościowe rozszerzenia danych:
+
+- marża, koszt produktu i koszt dostawy,
+- koszt kampanii, kanał pozyskania i źródło sesji,
+- ekspozycje kampanii, kupony, rabaty i historia kontaktów marketingowych,
+- stany magazynowe, dostępność produktu i lead time dostawy,
+- kalendarz promocji, święta, sezonowość i zdarzenia zewnętrzne,
+- dane geograficzne lub demograficzne, jeżeli są legalnie dostępne i zgodne z polityką prywatności,
+- identyfikator zamówienia, który pozwoli odróżnić liczbę pozycji zakupowych od liczby transakcji.
+
+Te dane zmieniłyby charakter rekomendacji. Przykładowo, segment o wysokim przychodzie nie musi być najlepszym celem kampanii, jeśli ma niską marżę, wysoką skłonność do zakupów bez rabatu albo drogi koszt dotarcia.
+
+## Rozwój segmentacji
+
+RFM i KMeans są dobrym punktem startowym, bo są interpretowalne i łatwe do pokazania w portfolio. Kolejnym krokiem byłoby sprawdzenie, czy segmenty są stabilne, powtarzalne i użyteczne w decyzjach marketingowych.
+
+Możliwe kierunki:
+
+- porównanie RFM, KMeans, Gaussian Mixture Models, HDBSCAN i segmentacji hierarchicznej,
+- analiza stabilności segmentów w czasie, np. miesiąc do miesiąca,
+- segmentacja dynamiczna, w której klient może migrować między segmentami,
+- ocena segmentów nie tylko przez separację matematyczną, ale też przez przychód, marżę, retencję i reakcję na kampanie,
+- profile segmentów liczone osobno dla marek, kategorii albo kohort pozyskania.
+
+Ważne jest, aby segment nie był tylko etykietą modelu. Segment powinien mieć interpretację biznesową, przewidywać różnice w zachowaniu i pomagać wybrać inne działanie marketingowe.
+
+## Modele predykcyjne
+
+Naturalnym rozwinięciem projektu jest predykcja zachowań klientów w kolejnym oknie czasu. Wariant MVP mógłby przewidywać przychód klienta w kolejnych 30 dniach na podstawie wcześniejszego RFM, liczby sesji, historii zakupów i aktywności koszykowej.
+
+Przykładowe cele modelowania:
+
+- `revenue_next_30d`: przychód klienta w kolejnym oknie 30 dni,
+- prawdopodobieństwo ponownego zakupu,
+- ryzyko nieaktywności lub churn,
+- customer lifetime value,
+- next best brand lub next best offer,
+- prawdopodobieństwo przejścia z koszyka do zakupu.
+
+Technicznie można zacząć od modeli tabularnych, takich jak regresja regularyzowana, Random Forest, XGBoost albo LightGBM. Przy danych sekwencyjnych warto rozważyć modele RNN, GRU, LSTM albo architektury transformerowe dla sekwencji zdarzeń użytkownika. Taki model mógłby uczyć się nie tylko zagregowanych cech RFM, ale także kolejności zdarzeń: `view -> cart -> remove_from_cart -> purchase`.
+
+Modele sekwencyjne mają sens dopiero wtedy, gdy celem jest wykorzystanie porządku zdarzeń. Jeżeli decyzja opiera się głównie na agregatach klienta, prostsze modele tabularne będą łatwiejsze do walidacji i wyjaśnienia.
+
+## Analiza przyczynowa i eksperymenty
+
+Obecna analiza pokazuje korelacje i wzorce. Nie dowodzi jednak, że konkretna kampania, rekomendacja albo rabat spowoduje wzrost sprzedaży.
+
+Do oceny wpływu działań potrzebna byłaby warstwa eksperymentalna:
+
+- A/B testy kampanii i rekomendacji,
+- grupy kontrolne,
+- uplift modeling,
+- pomiar inkrementalnego przychodu,
+- rozdzielenie efektu kampanii od naturalnej skłonności klienta do zakupu,
+- analiza heterogenicznego efektu kampanii per segment.
+
+Dopiero taka warstwa pozwala odpowiedzieć na pytanie, czy warto inwestować w dany segment. Bez niej można mówić o potencjale i korelacjach, ale nie o przyczynowym efekcie działania.
+
+## Rozwój analizy koszykowej
+
+Analiza koszykowa może zostać rozwinięta w stronę bardziej użytecznych rekomendacji produktowych. Obecnie reguły pokazują współwystępowanie marek lub kategorii, ale nie uwzględniają marży, stanów magazynowych ani różnic między segmentami klientów.
+
+Kolejne kroki:
+
+- reguły asocjacyjne liczone osobno per segment RFM lub KMeans,
+- reguły per okres, sezon albo kampania,
+- filtrowanie reguł po marży, wolumenie i dostępności produktu,
+- porównanie Apriori z FP-Growth dla większych koszyków,
+- rekomendacje pakietów cross-sell i bundle,
+- testowanie reguł w kampanii z grupą kontrolną.
+
+W praktyce reguła o wysokim lift nie wystarczy. Rekomendacja powinna być jeszcze dostępna, opłacalna i zgodna z kontekstem zakupowym klienta.
+
+## Stack danych i pipeline
+
+Jeżeli projekt miałby przejść z portfolio do regularnie odświeżanego procesu, potrzebna byłaby warstwa pipeline'u danych. Obecne skrypty są wystarczające do odtworzenia artefaktów, ale nie pełnią jeszcze roli produkcyjnego systemu transformacji.
+
+Możliwe rozszerzenia techniczne:
+
+- `dbt` do wersjonowanych transformacji SQL, testów jakości i dokumentacji modelu danych,
+- DuckDB albo Polars do szybkiego lokalnego przetwarzania plików kolumnowych,
+- Apache Parquet zamiast dużych CSV jako format roboczy,
+- Great Expectations, Pandera albo testy `dbt` do kontroli jakości danych,
+- Airflow, Prefect albo Dagster do orkiestracji pipeline'ów,
+- MLflow do wersjonowania modeli, metryk i artefaktów,
+- DVC albo lakeFS do wersjonowania danych i reprodukowalności eksperymentów,
+- Feast albo inna warstwa feature store, jeżeli cechy miałyby zasilać modele predykcyjne online.
+
+W takim układzie Quarto pozostaje warstwą raportową, Streamlit warstwą eksploracyjną, a pipeline danych odpowiada za powtarzalne odświeżanie artefaktów.
+
+## Akceleracja obliczeń
+
+Przy pełnych danych rzędu dziesiątek milionów zdarzeń warto rozważyć optymalizację wydajności, zanim projekt zostanie rozbudowany o cięższe modele.
+
+Możliwe ścieżki:
+
+- NVIDIA RAPIDS `cuDF` do akceleracji operacji podobnych do pandas na GPU,
+- `cuML` do wybranych algorytmów uczenia maszynowego na GPU, np. KMeans,
+- Polars jako szybka alternatywa CPU dla transformacji kolumnowych,
+- DuckDB do zapytań analitycznych bez stawiania pełnej hurtowni,
+- Spark albo Dask, jeżeli dane przestaną mieścić się wygodnie na jednej maszynie,
+- formaty kolumnowe, partycjonowanie po czasie i cache pośrednich artefaktów.
+
+GPU nie powinno być pierwszym wyborem tylko dlatego, że jest szybsze. Najpierw warto ograniczyć zbędne odczyty CSV, przejść na Parquet, zoptymalizować agregacje i rozdzielić artefakty robocze od finalnych.
+
+## Produkcyjne wdrożenie modeli
+
+Obecny artefakt KMeans jest samym modelem, a nie pełnym pipeline'em transformacji. Produkcyjne podejście powinno zapisywać cały proces: czyszczenie, transformację `log1p`, skalowanie, model i mapowanie etykiet na interpretacje biznesowe.
+
+Docelowy proces modelowy powinien obejmować:
+
+- pełny pipeline `scikit-learn` lub równoważny pipeline produkcyjny,
+- walidację wejściowego schematu danych,
+- wersjonowanie modelu i danych treningowych,
+- monitoring driftu cech i stabilności segmentów,
+- testy regresji dla metryk segmentów,
+- jasne rozdzielenie treningu, scoringu i raportowania,
+- dokumentację tego, kiedy model powinien zostać przetrenowany.
+
+Wdrożenie nie musi oznaczać serwisu online. Dla wielu zastosowań marketingowych wystarczy batch scoring, np. codzienne lub tygodniowe odświeżenie segmentów i rekomendacji.
+
+## Warstwa decyzyjna
+
+Ostatecznym celem nie jest większa liczba modeli, tylko lepsza decyzja marketingowa. Dlatego kolejne iteracje powinny łączyć wynik modelu z kosztem działania, spodziewanym przychodem, marżą i ryzykiem błędnej decyzji.
+
+Przykładowy dojrzały output analizy:
+
+- segment klienta,
+- oczekiwany przychód w kolejnym oknie czasu,
+- rekomendowane działanie,
+- koszt kontaktu,
+- oczekiwany efekt inkrementalny,
+- ograniczenia interpretacji,
+- rekomendacja testu lub wdrożenia.
+
+Taka warstwa pozwoliłaby przejść od statycznego case study do systemu wspierającego decyzje: kogo aktywizować, komu rekomendować pakiet, gdzie nie używać rabatu i które segmenty wymagają osobnego eksperymentu.

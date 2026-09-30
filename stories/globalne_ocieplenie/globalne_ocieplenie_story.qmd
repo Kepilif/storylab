@@ -1,0 +1,225 @@
+---
+title: "Prognoza kontra rzeczywistość: czy ARIMA pokonała prosty trend?"
+subtitle: "Prognoza FAOSTAT wobec obserwacji 2020–2025 i osobny test modeli na ERA5"
+author: "StoryLab"
+date: 2026-09-21
+date-modified: 2026-09-22
+lang: pl
+format:
+  html:
+    toc: true
+    number-sections: false
+    theme: cosmo
+    code-fold: true
+    include-in-header:
+      text: |
+        <style>
+        .cell-output-display img { max-width: 100% !important; height: auto !important; }
+        .cell-output-display { max-width: 100%; overflow-x: auto; }
+        .cell-output-display table { width: 100%; font-variant-numeric: tabular-nums; }
+        </style>
+execute:
+  echo: false
+  warning: false
+  message: false
+jupyter: storylab
+---
+
+```{python}
+#| label: setup
+from pathlib import Path
+import sys
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from IPython.display import display, Markdown
+
+root = next(p for p in [Path.cwd(), Path.cwd() / 'stories/globalne_ocieplenie'] if (p / 'temperature_backtest.py').exists())
+sys.path.insert(0, str(root))
+from temperature_backtest import analyze
+r = analyze()
+from faostat_vintage_audit import audit
+fao_latest, fao_history, fao_validation, fao_audit = audit()
+train, test, scores, arima = (r[k] for k in ['train', 'test', 'scores', 'arima'])
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.rcParams.update({'figure.dpi': 130, 'axes.spines.top': False, 'axes.spines.right': False})
+def table(frame):
+    display(frame.style.format(precision=3).hide(axis='index'))
+```
+
+Punktem wyjścia jest [analiza temperatury nad lądami w FAOSTAT](notebooks/01_temperature_change_analysis.qmd). Notebook konstruuje kompletny roczny szereg `World / Temperature change / Meteorological year` z lat 1961–2019, bez imputacji, i wyznacza prognozę ARIMA(2,1,2) na lata 2020–2029.
+
+Ten raport prowadzi dwa eksperymenty. Najpierw zestawiamy prognozę z poprawnej serii FAOSTAT z obserwacjami 2020–2025 z nowego wydania tego samego źródła, kontrolując rewizje historii. Następnie pytamy, czy ARIMA daje przewagę nad prostymi metodami w osobnym teście ERA5 2020–2024. Ocena na ERA5 dotyczy ponownie dopasowanego modelu.
+
+```{python}
+#| results: asis
+a = scores.set_index('model').loc['ARIMA(2,1,2)']
+d = scores.set_index('model').loc['Drift']
+display(Markdown(f'''**Wynik w skrócie.** W teście ERA5 na latach 2020–2024 ARIMA nie pokonała prostych metod: jej średni błąd bezwzględny wyniósł **{a.MAE:.3f}°C**, wobec **{d.MAE:.3f}°C** dla modelu drift. W 2024 r. zaniżyła anomalię o **{abs(arima.iloc[-1].error):.3f}°C**. To wynik jednego pięcioletniego testu, a nie dowód, że ARIMA zawsze przegrywa.'''))
+```
+
+::: {.callout-note appearance="simple"}
+**2019 to koniec treningu, nie potwierdzona data prognozy.** Notebook ma datę 29 września 2024 r., a jego konstrukcję szeregu poprawiono później. Odtwarzamy prognozę z zachowanego pliku kończącego się w 2019 r.; nie jest to udokumentowana prognoza opublikowana w 2019 r.
+:::
+
+## Punkt wyjścia: roczna seria FAOSTAT World
+
+[Notebook bazowy](notebooks/01_temperature_change_analysis.qmd#poprawna-konstrukcja-szeregu) wykorzystuje jeden gotowy agregat źródłowy. Każdy rok ma jedną obserwację; nie uśredniamy krajów, regionów, miesięcy ani sezonów. Ten sam szereg służy w notebooku do opisu historii i estymacji ARIMA. Poniżej odtwarzamy tę specyfikację na tym samym lokalnym pliku.
+
+```{python}
+#| results: asis
+fao = r['faostat_forecast']
+display(Markdown(f"Prognoza FAOSTAT na **2020 r. wynosi {fao.iloc[0].forecast:.3f}°C**, a na **2029 r. {fao.iloc[-1].forecast:.3f}°C**. Po krótkich wahaniach model zbliża się do stałego poziomu. Poprawnie zdefiniowany szereg nie nadaje ARIMA bez drift mechanizmu trwałego wzrostu."))
+```
+
+```{python}
+#| label: fig-faostat
+#| fig-cap: "Prognoza z analizy bazowej: roczny agregat World w skali FAOSTAT, z modelowym przedziałem predykcji 95%."
+fig, ax = plt.subplots(figsize=(10, 4), layout='constrained')
+ax.plot(r['faostat_series'].index, r['faostat_series'].values, label='World / rok meteorologiczny', color='#245c8a')
+ax.plot(np.r_[2019, fao.year], np.r_[r['faostat_series'].iloc[-1], fao.forecast], color='#7a5195', label='ARIMA(2,1,2)')
+ax.fill_between(fao.year, fao.lower95, fao.upper95, color='#7a5195', alpha=.15)
+ax.axvline(2019, linestyle=':', color='#555')
+ax.set(xlabel='Rok', ylabel='Anomalia FAOSTAT (°C)', title='Prognoza na podstawie rocznej serii World')
+ax.legend()
+plt.show()
+```
+
+## Sześć nowych lat FAOSTAT: prognoza spotyka obserwacje
+
+[FAO opublikowało dane 1961–2025](https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2025.-global--regional-and-country-trends/) 1 kwietnia 2026 r. Pobraliśmy pełny pakiet 22 września 2026 r. W obu plikach wybieramy `World / Meteorological year / Temperature change`: zgadzają się kody obszaru (5000), okresu (7020) i elementu (7271). Nowy szereg zawiera 65 kolejnych lat, bez braków ani powtórzeń; jednostką jest °C.
+
+Publikacje FAO opisują tę samą zmienną: anomalię temperatury powietrza nad lądami względem 1951–1980, opartą na GISTEMP. Zgodność definicji i kodów pozwala na porównanie między wydaniami, lecz **nie dowodzi identyczności wszystkich szczegółów algorytmu**. Nie dysponujemy pełnym rejestrem zmian metodologii między tymi wydaniami. Wyniki oceniamy względem najnowszych oszacowań, z jawnym zastrzeżeniem rewizji.
+
+```{python}
+#| results: asis
+display(Markdown(f"W historii 1961–2019 zmieniło się **{fao_audit['revised_years']} z 59 wartości**. Średnia rewizja wynosi {fao_audit['mean_revision']:.3f}°C, a największa bezwzględna zmiana {fao_audit['max_absolute_revision']:.3f}°C. Rok 2019 zmienił się z 1,473°C na 1,430°C. Zachowujemy trening ze starego pliku; nie przeliczamy prognozy na zrewidowanej historii."))
+```
+
+```{python}
+#| label: tbl-faostat-validation
+#| tbl-cap: "Prognoza z zachowanego pliku i obserwacje z aktualizacji FAOSTAT; błąd = prognoza − obserwacja, °C."
+table(fao_validation[['year','forecast','latest','error']].rename(columns={'year':'Rok','forecast':'Prognoza','latest':'Obserwacja','error':'Błąd'}))
+```
+
+```{python}
+#| results: asis
+display(Markdown(f"**MAE wynosi {fao_audit['MAE']:.3f}°C, RMSE {fao_audit['RMSE']:.3f}°C, a bias {fao_audit['bias']:.3f}°C.** Model zaniża pięć z sześciu obserwacji. Największy błąd przypada na 2024 r.: prognoza 1,432°C wobec 2,107°C. Przedział predykcji 95% obejmuje {fao_audit['coverage95']} z 6 obserwacji; poza nim znajduje się 2024 r. Sześć lat nie wystarcza do oceny długookresowej kalibracji."))
+```
+
+To ocena odtworzonej, poprawionej prognozy FAOSTAT. Nie dowodzi jeszcze przewagi nad benchmarkami na FAOSTAT. Osobny eksperyment poniżej porównuje metody na ERA5.
+
+Audyt można odtworzyć za pomocą [faostat_vintage_audit.py](faostat_vintage_audit.py). Udostępniamy [rewizje rok po roku](results/faostat_revisions.csv), [prognozy i obserwacje](results/faostat_validation.csv) oraz [adres pobrania, sumy kontrolne i wyniki kontroli](results/faostat_audit.json).
+
+### Co przenosimy z notebooka do testu ERA5?
+
+Przenosimy **specyfikację ARIMA(2,1,2) bez drift i koniec treningu w 2019 r.**, a nie wyestymowane parametry ani wartości prognozy. Model uczymy ponownie na szeregu ERA5 1940–2019. To dłuższa historia i inna zmienna niż FAOSTAT 1961–2019, dlatego wynik nie izoluje wpływu zmiany źródła.
+
+FAOSTAT opisuje temperaturę powietrza nad lądami, a użyty szereg ERA5 — globalną średnią nad lądami i oceanami względem 1850–1900. Różnią się również definicje okresu rocznego i skali odniesienia. Nie odejmujemy prognozy FAOSTAT od obserwacji ERA5 i nie nazywamy takiej różnicy błędem prognozy.
+
+Test ERA5 odpowiada na odrębne pytanie o użyteczność tej samej klasy modelu. Nie zastępuje powyższego porównania prognozy z nowymi obserwacjami FAOSTAT.
+
+## Pięć lat, których model nie dostaje
+
+W poprawionym eksperymencie wszystkie metody korzystają wyłącznie z rocznych wartości ERA5 z lat **1940–2019**. Jednorazowo prognozują lata **2020–2024**, bez aktualizacji po każdym kolejnym roku. Poniższa ARIMA jest ponownie dopasowana do ERA5; nie jest prognozą FAOSTAT z notebooka.
+
+```{python}
+#| label: fig-backtest
+#| fig-cap: "Retrospektywny test na tej samej serii ERA5. Zacieniowanie oznacza modelowy przedział predykcji 95%, warunkowy względem założeń ARIMA."
+fig, axes = plt.subplots(2, 1, figsize=(9, 8), layout='constrained')
+for ax in axes:
+    ax.plot(train.year, train.actual, color='#245c8a', label='Dane treningowe')
+    ax.plot(test.year, test.actual, 'o-', color='#b23a48', label='Obserwacje 2020–2024')
+    ax.plot(np.r_[2019, arima.year], np.r_[train.actual.iloc[-1], arima.forecast], color='#7a5195', label='ARIMA(2,1,2)')
+    drift = r['comparison'].query("model == 'Drift'")
+    ax.plot(np.r_[2019, drift.year], np.r_[train.actual.iloc[-1], drift.forecast], '--', color='#238675', label='Drift')
+    ax.fill_between(arima.year, arima.lower95, arima.upper95, color='#7a5195', alpha=.13)
+    ax.axvline(2019, color='#555', linestyle=':', linewidth=1)
+    ax.set_xlabel('Rok')
+axes[0].set_title('Koniec treningu: 2019')
+axes[0].set_ylabel('Anomalia względem 1850–1900 (°C)')
+axes[0].legend(fontsize=8, loc='upper left')
+axes[1].set(xlim=(2017.5, 2024.5), ylim=(.85, 1.7), title='Zbliżenie na okres testowy')
+axes[1].set_xticks([2018, 2020, 2022, 2024])
+plt.show()
+```
+
+## Czy bardziej złożony model wniósł wartość?
+
+Wszystkie modele korzystają wyłącznie z danych do 2019 r. Lata 2020–2024 służą tylko do oceny prognoz. Dla ARIMA zachowujemy konfigurację (2,1,2) zastosowaną w notebooku bazowym, zamiast wybierać jej parametry na podstawie wyników z okresu testowego.
+
+| Metoda | Co przedłuża poza 2019 r.? |
+|---|---|
+| Naive | Ostatnią zaobserwowaną wartość: każdy kolejny rok równy 2019. |
+| Drift | Ostatnią wartość plus średni roczny przyrost między pierwszym i ostatnim rokiem treningu. |
+| Trend liniowy | Prostą dopasowaną metodą najmniejszych kwadratów do wszystkich 80 lat treningu. |
+| ARIMA(2,1,2) | Dynamikę szeregu po jednokrotnym różnicowaniu, bez deterministycznego trendu. |
+
+```{python}
+#| label: tbl-scores
+#| tbl-cap: "Błędy na pięciu latach testowych; wszystkie miary w °C."
+table(scores.rename(columns={'model':'Model', 'bias':'Bias'}))
+```
+
+**MAE** opisuje przeciętną wielkość pomyłki; **RMSE** mocniej uwzględnia duże błędy. **Bias** to średnia z `prognoza − obserwacja`: wynik ujemny oznacza zaniżanie. Błędy przeciwnych znaków mogą się w bias znosić, dlatego nie zastępuje on MAE.
+
+Drift wygrywa zarówno według MAE, jak i RMSE. ARIMA przegrywa też z utrzymaniem ostatniej wartości. Regresja liniowa na całym okresie 1940–2019 wypada najsłabiej. Nie oznacza to, że każdy model trendu jest zły: wynik dotyczy właśnie takiego okna treningowego i takiej definicji trendu. Pięć obserwacji nie wystarcza do ustalenia trwałej przewagi ani jej istotności statystycznej.
+
+## Gdzie model pomylił się najbardziej?
+
+```{python}
+#| label: tbl-errors
+#| tbl-cap: "ARIMA na ERA5: prognozy, obserwacje i błędy w °C."
+table(arima[['year','forecast','actual','error','absolute_error']].rename(columns={'year':'Rok','forecast':'Prognoza','actual':'Obserwacja','error':'Błąd','absolute_error':'|Błąd|'}))
+```
+
+Największe niedoszacowania przypadają na 2023 i 2024 r. W 2021 i 2022 r. model nieco zawyżał wartości, więc średni błąd ze znakiem łagodzi obraz pomyłek. Szczególnie wyraźnie widać to przy porównaniu bias z RMSE.
+
+```{python}
+#| results: asis
+display(Markdown(f'''Modelowy przedział predykcji 95% objął **{int(arima.covered.sum())} z 5** obserwacji. Wartość z 2024 r. ({arima.iloc[-1].actual:.3f}°C) przekroczyła jego górną granicę ({arima.iloc[-1].upper95:.3f}°C). Pokrycie 4/5 w tak małej próbie nie jest wiarygodną oceną długookresowej kalibracji przedziałów.'''))
+```
+
+Ten test pokazuje **kiedy i o ile** model się pomylił. Nie identyfikuje przyczyn fizycznych tych błędów. ARIMA jest klasycznym modelem statystycznym: korzysta z przeszłości jednego szeregu, a nie z emisji, wymuszeń radiacyjnych czy stanu oceanów. Nie zastępuje modelu klimatu ani analizy przyczynowej.
+
+## Czego uczy powrót do analizy?
+
+Notebook bazowy definiuje spójny szereg rocznej temperatury nad lądami. Porównanie z nowym FAOSTAT pokazuje niedoszacowanie późniejszego wzrostu przez odtworzoną ARIMA bez drift. W osobnym eksperymencie **ARIMA(2,1,2), nauczona na ERA5 do 2019 r., nie przewidziała lat 2020–2024 lepiej od naive ani drift.** To dwa wyniki dotyczące różnych szeregów. Poprawna definicja danych jest warunkiem sensownej analizy; przewagę modelu trzeba jeszcze wykazać względem prostych metod.
+
+Kolejnym uzasadnionym krokiem byłby test z wieloma historycznymi punktami startowymi, dobranymi przed 2020 r., oraz osobne porównanie błędów dla horyzontów od roku do pięciu lat. Pozwoliłby sprawdzić, czy wynik zależy od wyjątkowo trudnego końca badanego okresu. Nie wybieramy teraz nowego modelu na podstawie tych samych pięciu lat i nie przedstawiamy tego jako niezależnej walidacji.
+
+## Kontekst: jedna liczba globalna nie opisuje regionów
+
+W pakiecie Copernicus za 2024 r. globalna anomalia ERA5 wynosi około 1,60°C względem 1850–1900. To rekord w tym zbiorze, zgodny z [raportem Copernicus Global Climate Highlights 2024](https://climate.copernicus.eu/global-climate-highlights-2024). Zakres niniejszego testu pozostaje zamknięty na 2024 r.
+
+FAOSTAT pozwala uzupełnić obraz regionalny. Poniżej wykorzystujemy wyłącznie gotowe agregaty i kategorię `Meteorological year`, bez imputacji. Te linie nie są obserwacjami do oceny powyższej prognozy ERA5.
+
+```{python}
+#| label: fig-regions
+#| fig-cap: "Regionalny kontekst FAOSTAT, 1961–2019. Wartości w oryginalnej skali anomalii FAOSTAT; nie porównujemy ich poziomów z ERA5."
+fig, ax = plt.subplots(figsize=(10, 4.8), layout='constrained')
+for area, g in r['regions'].groupby('Area'):
+    g = g.sort_values('year')
+    ax.plot(g.year, g.anomaly, label=area, linewidth=2.5 if area == 'World' else 1.3)
+ax.set(xlabel='Rok', ylabel='Anomalia FAOSTAT (°C)', title='Różne przebiegi regionalne w tym samym źródle')
+ax.legend(ncol=3, fontsize=9)
+plt.show()
+```
+
+Rozkład średnich obszarów i porównania grup krajów zawiera [notebook bazowy](notebooks/01_temperature_change_analysis.qmd). Nie są potrzebne do rozstrzygnięcia testu prognostycznego.
+
+## Metoda, ograniczenia i odtwarzalność
+
+- **Jedna wersja danych.** Trening i test ERA5 pochodzą z tego samego lokalnego pakietu opublikowanego po 2024 r. Nie odtwarzamy wersji danych dostępnej w 2019 r.; możliwe rewizje historyczne nie są tu badane. Jest to retrospektywny holdout, nie test real-time.
+- **Jednostka analizy.** Jedna roczna globalna anomalia ERA5, 85 kolejnych obserwacji 1940–2024. Braki oznaczone `-999` są odrzucane; ciągłość lat jest sprawdzana. Nazwa pliku zawiera `wrt_1991-2020`, ale jego nagłówek określa wartości względem 1850–1900 i normalizację zbiorów do wspólnej średniej 1991–2020. Nie dodajemy ponownie przesunięcia bazowego.
+- **Brak dostrajania do testu.** Wszystkie cztery metody uczą się na latach 1940–2019. ARIMA używa rzędu z notebooka bazowego. Raport przerywa obliczenia przy braku zbieżności zamiast po cichu zastępować model regresją.
+- **Niepewność.** Przedziały pochodzą z `get_forecast`, a nie ze stałego pasma reszt regresji. Nie obejmują wszystkich źródeł niepewności klimatycznej ani niepewności wyboru modelu.
+- **Powiązanie z notebookiem.** Prognoza FAOSTAT korzysta z tej samej rocznej serii World, bez imputacji, i tej samej specyfikacji ARIMA co notebook bazowy. Miary błędów FAOSTAT i ERA5 podajemy osobno, dla różnych zmiennych i okresów testowych.
+
+Obliczenia znajdują się w [temperature_backtest.py](temperature_backtest.py). Uruchomienie skryptu zapisuje [wyniki modeli](results/scores.csv), [prognozy i błędy](results/comparison.csv), [przedziały ARIMA](results/arima.csv), [prognozę FAOSTAT z analizy bazowej](results/faostat_forecast.csv) oraz [wersję biblioteki, diagnostykę i sumy kontrolne źródeł](results/provenance.json). Renderowanie raportu ponownie wylicza wyniki z tych samych plików wejściowych.
+
+### Źródła
+
+- [FAO: wydanie 1961–2025](https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2025.-global--regional-and-country-trends/) — data aktualizacji, zakres i baza 1951–1980. [Opis wydania 1961–2023](https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2023.-global--regional-and-country-trends/) potwierdza definicję anomalii i źródło GISTEMP. Pełny pakiet pobrany 2026-09-22 zachowano jako `data/faostat_latest.zip`; pobrany plik może zawierać rewizje wprowadzone po dacie publikacji komunikatu.
+- [FAO: Temperature change statistics 1961–2019](https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-%281961-2019%29/) — zakres danych i zmienna dotycząca temperatury powietrza nad lądami. Lokalny plik: `data/Environment_Temperature_change_E_All_Data_NOFLAG.csv`, używany w oryginalnym notebooku.
+- [Copernicus: Global Climate Highlights 2024](https://climate.copernicus.eu/global-climate-highlights-2024) oraz [pakiet materiałów źródłowych](https://climate.copernicus.eu/gch-2024-press-resources). Lokalny plik roczny: `data/copernicus/annual/GCH_time_series_of_annual_global_temperatures_1850-2024_wrt_1991-2020.csv`.

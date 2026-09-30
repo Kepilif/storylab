@@ -1,0 +1,6 @@
+| Typ zdarzenia | Liczba |
+| --- | --- |
+| view | 9657821 |
+| cart | 5768333 |
+| remove_from_cart | 3979679 |
+| purchase | 1287007 |

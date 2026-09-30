@@ -1,0 +1,226 @@
+---
+title: "O mnie"
+subtitle: "Analiza danych, data engineering i storytelling."
+description: "Warsztat StoryLab: Python, SQL, uczenie maszynowe, wizualizacja danych i podejście do analizy."
+lang: pl
+body-classes: portfolio-page portfolio-methods
+toc: false
+number-sections: false
+---
+
+::: {.about-hero}
+<p class="about-eyebrow">DATA ANALYSIS · DATA ENGINEERING · DATA STORYTELLING</p>
+
+<h2>Od danych do decyzji</h2>
+
+<p>Łączę przygotowanie danych, analizę i komunikację wyników w raportach, które można sprawdzić i odtworzyć.</p>
+
+:::
+
+## Kompetencje
+
+Technologie pokazuję przez ich zastosowanie w projektach. Portfolio jest rozwijane iteracyjnie: część obszarów ma już konkretne raporty i notebooki, a kolejne są jeszcze uzupełniane.
+
+
+::: {.skills-grid}
+
+::: {.skill-card}
+<span class="skill-number">01</span>
+
+### Analiza danych i statystyka
+
+::: {.skill-tech}
+Python · pandas · NumPy · statsmodels
+:::
+
+**Dbam o to, by jakość danych zawsze szła w parze z ich potencjałem.** Zajmuję się kompleksowym czyszczeniem, transformacją i analizą eksploracyjną danych. Wykorzystuję statystykę opisową, aby skutecznie przygotować każdy zbiór do dalszego modelowania predykcyjnego.
+:::
+
+
+::: {.skill-card}
+<span class="skill-number">02</span>
+
+### Uczenie maszynowe
+
+::: {.skill-tech}
+scikit-learn · Regresja · Klasyfikacja
+:::
+
+**Przekształcam surowe dane w inteligentne algorytmy, które rozwiązują realne problemy biznesowe.** Ożywiając informacje za pomocą uczenia maszynowego, tworzę efektywne i skalowalne modele ML, które pomagają wyciągać wartościowe wnioski z chaosu. Projektuję rozwiązania przewidujące trendy i automatyzujące złożone procesy.
+:::
+
+
+::: {.skill-card}
+<span class="skill-number">03</span>
+
+### SQL i bazy danych
+
+::: {.skill-tech}
+SQL · SQLite
+:::
+
+**Skutecznie porządkuję i agreguję rozproszone informacje.** Projektuję zapytania do baz relacyjnych, przeprowadzam zaawansowane agregacje statystyczne i sprawnie przygotowuję duże wolumeny danych do dalszych etapów analizy.
+:::
+
+
+::: {.skill-card}
+<span class="skill-number">04</span>
+
+### Wizualizacja i BI
+
+::: {.skill-tech}
+Matplotlib · Plotly · Tableau
+:::
+
+**Zmieniam suche liczby w czytelne, wizualne historie.** Tworzę zarówno statyczne wykresy eksploracyjne, jak i interaktywne dashboardy biznesowe, które pozwalają odbiorcom łatwo zrozumieć trendy i samodzielnie odkrywać wnioski.
+:::
+
+
+::: {.skill-card}
+<span class="skill-number">05</span>
+
+### Raporty i aplikacje
+
+::: {.skill-tech}
+Quarto · Jupyter · Streamlit
+:::
+
+**Przekładam kod na zrozumiałą dla każdego narrację.** Buduję interaktywne aplikacje demonstracyjne oraz generuję profesjonalne raporty, które płynnie łączą techniczny kod z jasnymi wnioskami analitycznymi dla biznesu.
+:::
+
+::: {.skill-card}
+<span class="skill-number">06</span>
+
+### Organizacja pracy
+
+::: {.skill-tech}
+Git · Jira · Parabol
+:::
+
+**Dbam o transparentność, strukturę i ciągły rozwój projektów.** Śledzę historię zmian w kodzie, dokumentuję każdy krok workflow i efektywnie planuję kolejne iteracje analiz w oparciu o metodyki zwinne.
+:::
+
+
+:::
+## Od danych do wniosków
+
+::: {.data-pipeline}
+::: {.pipeline-step}
+<span class="pipeline-number">01</span>
+<h3>Źródła danych</h3>
+pliki · API · dane publiczne
+:::
+<div class="pipeline-arrow">→</div>
+::: {.pipeline-step}
+<span class="pipeline-number">02</span>
+<h3>Przygotowanie</h3>
+czyszczenie · transformacja · model danych
+:::
+<div class="pipeline-arrow">→</div>
+::: {.pipeline-step}
+<span class="pipeline-number">03</span>
+<h3>Analiza</h3>
+eksploracja · statystyka · porównania
+:::
+<div class="pipeline-arrow">→</div>
+::: {.pipeline-step}
+<span class="pipeline-number">04</span>
+<h3>Modelowanie</h3>
+segmentacja · prognozowanie
+:::
+<div class="pipeline-arrow">→</div>
+::: {.pipeline-step}
+<span class="pipeline-number">05</span>
+<h3>Wizualizacja</h3>
+wykresy · dashboardy · raporty
+:::
+<div class="pipeline-arrow">→</div>
+::: {.pipeline-step}
+<span class="pipeline-number">06</span>
+<h3>Storytelling</h3>
+interpretacja · narracja · publikacja
+:::
+:::
+
+::: {.tools-supporting}
+**Workflow:** Git · środowiska wirtualne · dokumentacja zmian
+:::
+
+## Umiejętności w praktyce
+
+::: {.competency-list}
+::: {.competency}
+<span class="competency-marker">01</span>
+**Przygotowanie i jakość danych** — identyfikacja braków, duplikatów i nietypowych wartości; definiowanie jednostki analizy oraz porównywalnych miar.
+:::
+::: {.competency}
+<span class="competency-marker">02</span>
+**Analiza eksploracyjna i statystyka opisowa** — rozkłady, zależności, trendy w czasie i porównania grup z uwzględnieniem ograniczeń danych.
+:::
+::: {.competency}
+<span class="competency-marker">03</span>
+**Uczenie maszynowe bez nadzoru** — dobór cech, segmentacja KMeans i interpretacja profili klientów. [Zobacz zastosowanie w projekcie e-commerce →](stories/ecommerce_segmentation/index.qmd)
+:::
+::: {.competency}
+<span class="competency-marker">04</span>
+**Analiza zachowań i segmentacja** — RFM, analiza koszykowa i identyfikacja wzorców zachowania klientów.
+:::
+::: {.competency}
+<span class="competency-marker">05</span>
+**Data storytelling** — formułowanie pytania, dobór wykresów i budowanie narracji. [Historia NBA →](stories/nba_scouting_patterns/story.qmd)
+:::
+::: {.competency}
+<span class="competency-marker">06</span>
+**Odtwarzalność analizy** — kod, tabele, notatniki i dokumentacja pozwalające prześledzić drogę od danych do wniosków.
+:::
+::: {.competency}
+<span class="competency-marker">07</span>
+**Przepływy danych** — pobieranie danych z API i plików, porządkowanie źródeł oraz przygotowanie ich do analizy i publikacji.
+:::
+:::
+
+## Podejście do analizy
+
+::: {.analysis-timeline}
+::: {.analysis-step}
+<span class="analysis-marker">01</span>
+<h3>Pytanie i kontekst</h3>
+
+Zaczynamy od pytania, które wyznacza zakres analizy. W e-commerce dotyczy ono wartości i zachowań klientów; w analizach makro — porównywalności wskaźników i znaczenia ich zmian.
+
+:::
+::: {.analysis-step}
+<span class="analysis-marker">02</span>
+<h3>Źródła i definicje</h3>
+
+Podobnie nazwane miary nie zawsze opisują to samo. Rekord zakupu nie musi oznaczać zamówienia, a EDP i PDP nie są wymiennymi definicjami długu. Dlatego źródła, jednostki i zakres czasowy są częścią raportu.
+
+:::
+::: {.analysis-step}
+<span class="analysis-marker">03</span>
+<h3>Metody i dowody</h3>
+
+Pełne raporty zawierają wykresy, tabele i opis metod. Projekt e-commerce udostępnia również [notatnik analityczny](stories/ecommerce_segmentation/notebooks/interactive-notebook.qmd) oraz [dokumentację techniczną](stories/ecommerce_segmentation/technical/appendix.qmd). Widoczny wynik można zestawić z metodą, która do niego prowadzi.
+
+:::
+::: {.analysis-step}
+<span class="analysis-marker">04</span>
+<h3>Wnioski i ograniczenia</h3>
+
+Zaobserwowana zależność nie przesądza o przyczynowości. Segmentacja może podpowiedzieć hipotezę kampanii, ale nie dowodzi jej skuteczności. Raporty wskazują ograniczenia danych i miejsca wymagające dalszej weryfikacji.
+:::
+:::
+
+::: {.sl-note}
+**Wybierz poziom szczegółowości.** Zacznij od [projektu](projects.qmd), przejdź do jego podsumowania, a następnie do pełnej analizy. [Wizualizacje](wizualizacje.qmd) ułatwiają przegląd wyników; tabele i dokumentacja pozwalają zbadać szczegóły.
+:::
+
+## Kontakt
+
+::: {.about-contact}
+[jacek.filipek@gmail.com](mailto:jacek.filipek@gmail.com){.contact-email}
+
+::: {.contact-profiles}
+[GitHub](https://github.com/Kepilif/) · [LinkedIn](https://www.linkedin.com/in/kepilif/) · [Tableau Public](https://public.tableau.com/app/profile/jacek.filipek/) · [GitLab](https://gitlab.com/kepilif/)
+:::
+:::

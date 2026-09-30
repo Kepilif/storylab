@@ -1,0 +1,49 @@
+---
+title: "Temperatura — prognoza i rzeczywistość"
+subtitle: "Od konstrukcji szeregu do sprawdzenia wartości modelu"
+lang: pl
+toc: false
+number-sections: false
+---
+
+Czy model oparty wyłącznie na historii temperatury potrafi przewidywać kolejne lata lepiej niż proste metody? Projekt prowadzi od uporządkowania rocznych danych FAOSTAT do porównania prognoz na osobnym szeregu ERA5.
+
+## Ramy metodologiczne
+
+Część eksperymentów w projekcie powstała na podstawie zagadnień omawianych przez Aileen Nielsen w książce *Szeregi czasowe. Praktyczna analiza i predykcja z wykorzystaniem statystyki i uczenia maszynowego*. Książka stanowi punkt odniesienia dla konstrukcji szeregu, analizy częstotliwości i sezonowości, modeli statystycznych oraz oceny prognoz.
+
+Koncepcje te nie są odtwarzane rozdział po rozdziale. Służą jako punkt wyjścia do eksperymentów na danych FAOSTAT: porównania częstotliwości, prostych benchmarków, ARIMA i SARIMA oraz oceny prognoz poza próbą.
+
+## 1. Analiza FAOSTAT
+
+[Temperatura nad lądami: analiza FAOSTAT i prognoza ARIMA](notebooks/01_temperature_change_analysis.qmd)
+
+Notebook buduje serię `World / Temperature change / Meteorological year` z lat 1961–2019, opisuje zmiany historyczne i regionalne oraz wyznacza prognozę ARIMA na lata 2020–2029. To podstawa projektu: jedna definicja zmiennej, jeden rodzaj okresu i brak automatycznej imputacji.
+
+## 2. Prognoza kontra rzeczywistość
+
+[Czy ARIMA pokonała prosty trend?](globalne_ocieplenie_story.qmd)
+
+Raport porównuje prognozę FAOSTAT z nowymi obserwacjami 2020–2025, sprawdzając rewizje historycznych danych. Następnie zestawia ARIMA z naive, drift i trendem liniowym na osobnym szeregu ERA5: trening do 2019 r. i ocena na latach 2020–2024.
+
+**Projekt obejmuje dwa osobne eksperymenty.** FAOSTAT opisuje temperaturę nad lądami; jego prognozę oceniamy względem nowego wydania FAOSTAT. Użyta seria ERA5 obejmuje lądy i oceany i służy niezależnemu porównaniu metod.
+
+## 3. Miesiące i sezony
+
+[Czy każda część roku ociepla się tak samo?](notebooks/02_monthly_seasonal_exploration.qmd)
+
+Osobne rozszerzenie eksploracyjne porównuje trendy miesięczne i sezonowe, zmienność po usunięciu trendu oraz zgodność agregacji. Przygotowuje eksperyment częstotliwości, dokumentując granicę roku meteorologicznego i rozbieżności między rekonstrukcjami a gotowymi agregatami FAOSTAT.
+
+## 4. Częstotliwość i prognoza
+
+[Czy gęstszy szereg poprawia prognozę roczną?](notebooks/03_frequency_forecasting.qmd)
+
+Kontrolowane porównanie częstotliwości rocznej, sezonowej i miesięcznej: cztery benchmarki, 24 początki prognozy, wspólny cel roczny oraz późniejsza ocena 2020–2025.
+
+## 5. ARIMA i SARIMA
+
+[Czy ARIMA wykorzystuje informację z miesięcy?](notebooks/04_arima_frequency.qmd)
+
+Zagnieżdżony dobór modeli w każdej częstotliwości, wspólny cel roczny i porównanie z benchmarkami. [Stabilność wyników](notebooks/04_arima_frequency.qmd#stabilnosc-wynikow) według daty startowej i horyzontu, blokowa analiza niepewności oraz [zamrożony zapis oceny 2020–2025](notebooks/04_arima_frequency.qmd#zamrozona-ocena). Pełny zapis wyborów oraz nieudanych dopasowań.
+
+[Wszystkie projekty StoryLab](../../projects.qmd)

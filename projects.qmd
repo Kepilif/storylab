@@ -1,0 +1,51 @@
+---
+title: "Projekty"
+subtitle: "Od pytania do wniosków: analizy, metody i ograniczenia."
+description: "Projekty analityczne StoryLab: segmentacja klientów e-commerce, analiza zawodników NBA i prognozowanie temperatury."
+lang: pl
+body-classes: portfolio-page portfolio-list
+page-layout: full
+toc: false
+number-sections: false
+listing:
+  id: project-gallery
+  contents: portfolio/projects.yml
+  type: grid
+  grid-columns: 2
+  categories: true
+  sort: false
+  fields: [image, title, subtitle, description, categories]
+  image-height: 235px
+  image-lazy-loading: false
+  max-description-length: 300
+  filter-ui: true
+  sort-ui: false
+---
+
+Każdy projekt łączy pełną analizę z metodologią i materiałami do pogłębionej lektury. Pojedyncze historie znajdziesz na [blogu](blog.qmd), a przeglądy wyników w [Wizualizacjach](wizualizacje.qmd).
+
+::: {#project-gallery}
+:::
+
+## Wybierz ścieżkę lektury {.sl-resources-heading}
+
+::: {.sl-resource-grid}
+::: {}
+### E-commerce
+
+[Podsumowanie biznesowe](stories/ecommerce_segmentation/business/executive-report.qmd) · [Wizualizacje EDA](stories/ecommerce_segmentation/03-eda-dashboard.qmd) · [Prezentacja](stories/ecommerce_segmentation/slides.qmd) · [Opis aplikacji](stories/ecommerce_segmentation/11-aplikacja-streamlit.qmd)
+:::
+::: {}
+### NBA
+
+[Historia](stories/nba_scouting_patterns/story.qmd) · [Metodologia](stories/nba_scouting_patterns/methodology.qmd) · [Warsztat](stories/nba_scouting_patterns/portfolio.qmd) · [Dalszy rozwój](stories/nba_scouting_patterns/roadmap.qmd)
+:::
+:::
+
+::: {.sl-resource-grid}
+::: {}
+### Temperatura — prognoza i rzeczywistość
+
+[O projekcie](stories/globalne_ocieplenie/index.qmd) · [Analiza FAOSTAT](stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.qmd) · [Prognoza kontra rzeczywistość](stories/globalne_ocieplenie/globalne_ocieplenie_story.qmd)
+:::
+:::

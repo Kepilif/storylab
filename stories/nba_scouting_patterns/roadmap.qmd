@@ -1,0 +1,72 @@
+---
+title: "Dalszy rozwój"
+---
+
+::: {.callout-tip appearance="simple"}
+**Rozdziały projektu:** [Start](index.qmd) | [Historia](story.qmd) | [Metodologia](methodology.qmd) | [Warsztat](portfolio.qmd) | **Dalszy rozwój**
+:::
+
+## Plan rozwoju
+
+Projekt jest rozwijany iteracyjnie. Celem nie jest tylko publikacja jednego raportu, ale pokazanie przemyślanego procesu analitycznego.
+
+Aktualny status:
+
+- Iteracja 1: completed
+- Iteracja 2: completed
+- Iteracja 3: next
+
+## Iteracja 1: Fundament projektu
+
+- uporządkować strukturę katalogów
+- rozdzielić warstwę storytellingową od warstwy technicznej
+- zdefiniować główne pytanie projektu
+- opisać ograniczenia danych i ryzyka interpretacyjne
+
+## Iteracja 2: Storytelling
+
+- wybrać najmocniejsze wykresy z obecnej analizy
+- zbudować finalną narrację pod stakeholdera scoutingowego
+- dopisać syntetyczne wnioski i rekomendacje
+- dopracować prezentację wykresów: rozmiar, podpisy, osie i sposób otwierania pełnej wersji
+
+## Iteracja 3: Metodologia i SQL
+
+- podzielić obecny SQL na logiczne moduły
+- zbudować warstwę `player-career`
+- dopisać sekcje statystyki i walidacji danych
+
+## Iteracja 4: Interaktywność
+
+- przygotować notebook marimo jako companion app
+- rozważyć DuckDB jako główny silnik analityczny
+- pokazać filtrowanie archetypów, krajów i ścieżek rozwoju
+
+## Iteracja 5: ML i eksperymenty
+
+- zdefiniować target sukcesu zawodnika
+- zbudować baseline model predykcyjny
+- porównać modele i ograniczenia
+- dodać eksperyment z klastrowaniem archetypów zawodników
+
+## Backlog
+
+### Now
+
+- uporządkowanie publikacji Quarto
+- wybór głównych metryk sukcesu
+- selekcja materialu z `archive/`
+
+### Next
+
+- feature engineering na poziomie kariery
+- mocniejsza statystyka
+- pierwsza wersja companion notebooka
+- stworzenie nowych wykresów natywnie pod Quarto zamiast polegania wyłącznie na eksportach z `archive/`
+- utrzymywanie roboczych wersji raportu w różnych stylach i iteracjach, np. `story_v*_*.txt`
+
+### Later
+
+- rozszerzenie danych o dodatkowe źródła draftowe lub biograficzne
+- sekcja ML
+- bardziej zaawansowane analizy porównawcze i archetypy zawodników

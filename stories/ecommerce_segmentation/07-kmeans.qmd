@@ -1,0 +1,54 @@
+---
+title: "KMeans i dobór liczby klastrów"
+---
+
+## Cel
+
+KMeans grupuje klientów o podobnych profilach RFM. W aplikacji model używa cech:
+
+- `recency`,
+- `frequency`,
+- `monetary`.
+
+## Przygotowanie cech
+
+Tak jak w RFM, segmentacja jest liczona wyłącznie na zdarzeniach `purchase`. Cechy RFM mają skośne rozkłady, dlatego przed porównaniem liczby klastrów stosowane jest logarytmowanie `log1p` oraz standaryzacja.
+
+Wykresy pokazują punkty w surowej skali RFM: `recency` w dniach, `frequency` jako liczbę pozycji zakupowych i `monetary` jako sumę wartości `price`. Sam model jest trenowany na cechach po transformacji.
+
+## Dobór liczby klastrów
+
+Metoda łokcia pozwala ocenić, czy kolejne klastry istotnie zmniejszają inercję modelu. W notebooku dla RFM interpretowano wynik jako argument za 5 segmentami. W tej wersji tabela i wykres są przeliczone na pełnych danych kosmetycznych.
+
+To nadal jest kryterium pomocnicze. Ostateczny wybór liczby klastrów powinien łączyć spadek inercji, liczebność segmentów, stabilność profili i interpretowalność biznesową.
+
+{{< include full_tables/full_kmeans_scores.md >}}
+
+![Metoda łokcia dla segmentacji RFM](full_figures/full_kmeans_elbow.png){fig-alt="Wykres metody łokcia dla segmentacji RFM na pełnych danych."}
+
+W praktyce wybór pięciu klastrów jest więc decyzją analityczną, nie czysto technicznym odczytem jednego wykresu. Liczebności segmentów są wystarczająco porównywalne, żeby każdy klaster dało się dalej opisać, ale sam wykres łokcia nie przesądza jeszcze o jakości biznesowych profili.
+
+Wynikowy podział RFM daje pięć grup o udziałach **19,48%**, **24,03%**, **10,69%**, **22,59%** i **23,21%**. Najmniejszy segment nie jest marginalny, a pozostałe mieszczą się w przedziale około 19-24%, więc każdy klaster ma sens jako osobny kandydat do profilowania.
+
+## Wizualizacja segmentów
+
+Dla pełnych danych można pokazywać wykres 3D, ale w wersji portfolio lepszym domyślnym widokiem jest wykres 2D:
+
+- oś X: `recency`,
+- oś Y: `monetary`,
+- rozmiar punktu: `frequency`,
+- kolor: klaster KMeans.
+
+Podsumowanie klastrów RFM:
+
+{{< include full_tables/full_kmeans_summary.md >}}
+
+![Segmentacja klientów na podstawie RFM](full_figures/full_kmeans_rfm_scatter.png){fig-alt="Wykres punktowy pokazujący próbkę segmentów klientów według recency i monetary, z rozmiarem punktu zależnym od frequency."}
+
+Tabela podsumowania jest tutaj ważniejsza niż sam numer klastra: dopiero zestawienie liczby klientów, recency, frequency i monetary pozwala powiedzieć, czy klaster reprezentuje świeżych, częstych albo wysokowartościowych kupujących. Bez tej warstwy opisowej KMeans pozostaje wynikiem technicznym, a nie jeszcze rekomendacją marketingową.
+
+## Interpretacja
+
+KMeans nie powinien kończyć się na numerach klastrów. Każdy segment wymaga profilu: jaka jest jego aktywność, wartość, świeżość i potencjalne działanie marketingowe.
+
+W raporcie używam nazw `Klaster X`, ponieważ znaczenie klastra powinno wynikać z jego profilu RFM, a nie z arbitralnie nadanej etykiety. Nazwy biznesowe i działania dla segmentów są opisane w kolejnym rozdziale.

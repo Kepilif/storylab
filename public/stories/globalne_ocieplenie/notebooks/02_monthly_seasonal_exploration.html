@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Czy każda część roku ociepla się tak samo? – StoryLab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-75e3a9182966834e0e08ebad559894cc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../../assets/storylab.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed temperature-project quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">StoryLab</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Szukaj"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Przełącz nawigację" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../projects.html"> 
+<span class="menu-text">Projekty</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../wizualizacje.html"> 
+<span class="menu-text">Wizualizacje</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">O mnie</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../stories/globalne_ocieplenie/notebooks/02_monthly_seasonal_exploration.html">3. Miesiące i sezony</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">O projekcie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Analiza FAOSTAT</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/globalne_ocieplenie_story.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Prognoza kontra rzeczywistość</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/02_monthly_seasonal_exploration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3. Miesiące i sezony</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Częstotliwość i prognoza</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/globalne_ocieplenie/notebooks/04_arima_frequency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. ARIMA i SARIMA</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej stronie</h2>
+   
+  <ul>
+  <li><a href="#od-średniej-rocznej-do-części-roku" id="toc-od-średniej-rocznej-do-części-roku" class="nav-link active" data-scroll-target="#od-średniej-rocznej-do-części-roku">Od średniej rocznej do części roku</a></li>
+  <li><a href="#co-dokładnie-porównujemy" id="toc-co-dokładnie-porównujemy" class="nav-link" data-scroll-target="#co-dokładnie-porównujemy">Co dokładnie porównujemy?</a></li>
+  <li><a href="#tempo-zmian-zależy-od-części-roku" id="toc-tempo-zmian-zależy-od-części-roku" class="nav-link" data-scroll-target="#tempo-zmian-zależy-od-części-roku">Tempo zmian zależy od części roku</a>
+  <ul class="collapse">
+  <li><a href="#jak-wygląda-to-w-przebiegu-sezonów" id="toc-jak-wygląda-to-w-przebiegu-sezonów" class="nav-link" data-scroll-target="#jak-wygląda-to-w-przebiegu-sezonów">Jak wygląda to w przebiegu sezonów?</a></li>
+  </ul></li>
+  <li><a href="#czy-wraz-z-ociepleniem-rośnie-również-zmienność" id="toc-czy-wraz-z-ociepleniem-rośnie-również-zmienność" class="nav-link" data-scroll-target="#czy-wraz-z-ociepleniem-rośnie-również-zmienność">Czy wraz z ociepleniem rośnie również zmienność?</a></li>
+  <li><a href="#czy-miesiące-odtwarzają-sezon-i-rok" id="toc-czy-miesiące-odtwarzają-sezon-i-rok" class="nav-link" data-scroll-target="#czy-miesiące-odtwarzają-sezon-i-rok">Czy miesiące odtwarzają sezon i rok?</a></li>
+  <li><a href="#ważna-konsekwencja-gdzie-kończy-się-trening" id="toc-ważna-konsekwencja-gdzie-kończy-się-trening" class="nav-link" data-scroll-target="#ważna-konsekwencja-gdzie-kończy-się-trening">Ważna konsekwencja: gdzie kończy się trening?</a></li>
+  <li><a href="#wnioski-wspólny-wzrost-różne-tempo-i-zmienność" id="toc-wnioski-wspólny-wzrost-różne-tempo-i-zmienność" class="nav-link" data-scroll-target="#wnioski-wspólny-wzrost-różne-tempo-i-zmienność">Wnioski: wspólny wzrost, różne tempo i zmienność</a>
+  <ul class="collapse">
+  <li><a href="#co-z-tego-wynika-dla-dalszej-analizy" id="toc-co-z-tego-wynika-dla-dalszej-analizy" class="nav-link" data-scroll-target="#co-z-tego-wynika-dla-dalszej-analizy">Co z tego wynika dla dalszej analizy?</a></li>
+  <li><a href="#czy-większa-szczegółowość-poprawiła-prognozy" id="toc-czy-większa-szczegółowość-poprawiła-prognozy" class="nav-link" data-scroll-target="#czy-większa-szczegółowość-poprawiła-prognozy">Czy większa szczegółowość poprawiła prognozy?</a></li>
+  <li><a href="#źródła-i-odtwarzalność" id="toc-źródła-i-odtwarzalność" class="nav-link" data-scroll-target="#źródła-i-odtwarzalność">Źródła i odtwarzalność</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<nav aria-label="Projekt"><p><a href="../../../projects.html">Projekty</a> · <a href="../index.html">O projekcie</a> · <a href="../globalne_ocieplenie_story.html">Prognoza kontra rzeczywistość</a> · <a href="02_monthly_seasonal_exploration.html">Miesiące i sezony</a></p></nav>
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Czy każda część roku ociepla się tak samo?</h1>
+<p class="subtitle lead">Miesiące, sezony i granice porównania częstotliwości FAOSTAT</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Opublikowano</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23 września 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="od-średniej-rocznej-do-części-roku" class="level2">
+<h2 class="anchored" data-anchor-id="od-średniej-rocznej-do-części-roku">Od średniej rocznej do części roku</h2>
+<p>Średnia roczna pokazuje wyraźny wzrost anomalii temperatury nad lądami. Nie mówi jednak, czy zmiany zachodzą podobnie przez cały rok.</p>
+<p>W tej części schodzimy więc poziom niżej: od jednego szeregu rocznego do miesięcy i sezonów. Sprawdzamy dwa pytania:</p>
+<ul>
+<li>czy wszystkie części roku ocieplały się w podobnym tempie,</li>
+<li>czy ich zmienność zmieniała się w czasie.</li>
+</ul>
+<p>To analiza eksploracyjna. Jej celem jest zrozumienie struktury danych przed porównaniem modeli prognostycznych, a nie wskazanie najlepszego modelu.</p>
+<div id="7208171e" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sys.path.insert(<span class="dv">0</span>,<span class="bu">str</span>(Path.cwd().parent))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> frequency_exploration <span class="im">import</span> analyze</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> temperature.series <span class="im">import</span> LABELS</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display,Markdown</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>r<span class="op">=</span>analyze()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({<span class="st">'figure.dpi'</span>:<span class="dv">130</span>,<span class="st">'axes.spines.top'</span>:<span class="va">False</span>,<span class="st">'axes.spines.right'</span>:<span class="va">False</span>})</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> table(frame):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    display(frame.style.<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">3</span>).hide(axis<span class="op">=</span><span class="st">'index'</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>annual<span class="op">=</span>r[<span class="st">'trends'</span>].set_index(<span class="st">'code'</span>).loc[<span class="dv">7020</span>,<span class="st">'trend_decade'</span>]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>monthly<span class="op">=</span>r[<span class="st">'trends'</span>].query(<span class="st">'code &lt;= 7012'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>lo<span class="op">=</span>monthly.loc[monthly.trend_decade.idxmin()]<span class="op">;</span> hi<span class="op">=</span>monthly.loc[monthly.trend_decade.idxmax()]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f'**W historii 1961–2019 trendy miesięczne wynoszą od </span><span class="sc">{</span>lo<span class="sc">.</span>trend_decade<span class="sc">:.3f}</span><span class="ss">°C/dekadę (</span><span class="sc">{</span>lo<span class="sc">.</span>period<span class="sc">}</span><span class="ss">) do </span><span class="sc">{</span>hi<span class="sc">.</span>trend_decade<span class="sc">:.3f}</span><span class="ss">°C/dekadę (</span><span class="sc">{</span>hi<span class="sc">.</span>period<span class="sc">}</span><span class="ss">).** Trend roczny wynosi </span><span class="sc">{</span>annual<span class="sc">:.3f}</span><span class="ss">°C/dekadę. Są to oszacowania opisowe, bez testu istotności różnic.'</span>))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><strong>W historii 1961–2019 trendy miesięczne wynoszą od 0.242°C/dekadę (Lip) do 0.333°C/dekadę (Mar).</strong> Trend roczny wynosi 0.275°C/dekadę. Są to oszacowania opisowe, bez testu istotności różnic.</p>
+</div>
+</div>
+</section>
+<section id="co-dokładnie-porównujemy" class="level2">
+<h2 class="anchored" data-anchor-id="co-dokładnie-porównujemy">Co dokładnie porównujemy?</h2>
+<p>Analizujemy globalne dane FAOSTAT World / Temperature change dla lat 1961–2019. Porównujemy 12 miesięcy, cztery sezony oraz rok meteorologiczny.</p>
+<p>Wartości są anomaliami temperatury, czyli odchyleniami od średniej z okresu referencyjnego 1951–1980. Dlatego np. anomalii stycznia i lipca nie należy interpretować jako bezpośredniego porównania temperatur tych miesięcy. Każdy miesiąc jest porównywany z własną historyczną normą.</p>
+<p>Sezony meteorologiczne powstają przez połączenie kolejnych miesięcy w cztery trzymiesięczne okresy. Ich skróty pochodzą od angielskich nazw miesięcy:</p>
+<ul>
+<li>DJF — December, January, February, czyli grudzień–styczeń–luty,</li>
+<li>MAM — March, April, May, czyli marzec–kwiecień–maj,</li>
+<li>JJA — June, July, August, czyli czerwiec–lipiec–sierpień,</li>
+<li>SON — September, October, November, czyli wrzesień–październik–listopad.</li>
+</ul>
+<p>W analizie globalnej lepiej posługiwać się tymi skrótami niż nazwami „zima”, „wiosna”, „lato” i „jesień”. DJF odpowiada zimie na półkuli północnej, ale jednocześnie latu na półkuli południowej. Podobnie JJA oznacza lato na północy i zimę na południu. Skróty DJF, MAM, JJA i SON opisują więc konkretne miesiące, a nie porę roku wspólną dla całego świata.</p>
+<p>Szczególnym przypadkiem jest DJF, ponieważ obejmuje dwa lata kalendarzowe. W tym projekcie sezon przypisujemy do roku stycznia i lutego. DJF 2019 oznacza więc grudzień 2018 oraz styczeń i luty 2019. Ta konwencja będzie później ważna przy ustalaniu granicy między danymi treningowymi a prognozowanymi.</p>
+<p>Nowsze wydanie FAOSTAT, obejmujące lata 1961–2025, wykorzystujemy tylko pomocniczo - do sprawdzenia agregacji i ewentualnych rewizji danych.</p>
+</section>
+<section id="tempo-zmian-zależy-od-części-roku" class="level2">
+<h2 class="anchored" data-anchor-id="tempo-zmian-zależy-od-części-roku">Tempo zmian zależy od części roku</h2>
+<div id="cell-fig-period-trends" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig,axes<span class="op">=</span>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">11</span>,<span class="dv">4</span>),layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax,codes,title <span class="kw">in</span> [(axes[<span class="dv">0</span>],<span class="bu">range</span>(<span class="dv">7001</span>,<span class="dv">7013</span>),<span class="st">'Miesiące'</span>),(axes[<span class="dv">1</span>],<span class="bu">range</span>(<span class="dv">7016</span>,<span class="dv">7020</span>),<span class="st">'Sezony'</span>)]:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    part<span class="op">=</span>r[<span class="st">'trends'</span>].set_index(<span class="st">'code'</span>).loc[<span class="bu">list</span>(codes)]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    ax.bar(part.period,part.trend_decade,color<span class="op">=</span><span class="st">'#245c8a'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    ax.axhline(annual,color<span class="op">=</span><span class="st">'#b23a48'</span>,linestyle<span class="op">=</span><span class="st">'--'</span>,label<span class="op">=</span><span class="st">'Rok meteorologiczny'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(title<span class="op">=</span>title,ylabel<span class="op">=</span><span class="st">'Trend (°C/dekadę)'</span>,ylim<span class="op">=</span>(<span class="dv">0</span>,r[<span class="st">'trends'</span>].trend_decade.<span class="bu">max</span>()<span class="op">*</span><span class="fl">1.2</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>,rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-period-trends" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-period-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_monthly_seasonal_exploration_files/figure-html/fig-period-trends-output-1.png" width="1445" height="535" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-period-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;1: World, historyczne FAOSTAT 1961–2019. OLS w każdej części roku; linia przerywana oznacza trend roczny. Bez przedziałów ufności — porównanie opisowe.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Pierwsze porównanie dotyczy trendu temperatury. Dla każdego miesiąca i sezonu osobno dopasowujemy trend liniowy i wyrażamy jego nachylenie w °C na dekadę.</p>
+<p>Wysokość słupka na wykresie oznacza więc <strong>tempo zmiany temperatury</strong>, a nie jej poziom.</p>
+<p>Najważniejsza obserwacja jest prosta: <strong>wszystkie miesiące wykazują wzrost, ale jego tempo nie jest jednakowe</strong>. Roczna średnia ukrywa zatem część struktury widocznej dopiero po rozbiciu roku na krótsze okresy.</p>
+<p>Różnic tych nie należy jednak traktować jako formalnego dowodu, że jeden miesiąc ociepla się statystycznie istotnie szybciej od drugiego. Miesiące należą do tego samego szeregu klimatycznego i nie są niezależnymi próbami. Na tym etapie porównujemy jedynie oszacowania trendów.</p>
+<section id="jak-wygląda-to-w-przebiegu-sezonów" class="level3">
+<h3 class="anchored" data-anchor-id="jak-wygląda-to-w-przebiegu-sezonów">Jak wygląda to w przebiegu sezonów?</h3>
+<p>Rozbicie szeregu na cztery sezony pozwala zobaczyć tę samą historię z innej perspektywy.</p>
+<p>W każdym sezonie długookresowy kierunek zmian jest podobny — anomalie rosną — ale poszczególne szeregi różnią się zarówno tempem wzrostu, jak i krótkookresowymi wahaniami.</p>
+<p><strong>Średnia roczna dobrze pokazuje wspólny kierunek zmian, ale wygładza różnice występujące wewnątrz roku.</strong></p>
+<div id="cell-fig-season-history" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fig,axes<span class="op">=</span>plt.subplots(<span class="dv">2</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>),sharex<span class="op">=</span><span class="va">True</span>,sharey<span class="op">=</span><span class="va">True</span>,layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax,code <span class="kw">in</span> <span class="bu">zip</span>(axes.flat,<span class="bu">range</span>(<span class="dv">7016</span>,<span class="dv">7020</span>)):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    ax.plot(r[<span class="st">'old'</span>].index,r[<span class="st">'old'</span>][code],label<span class="op">=</span>LABELS[code],color<span class="op">=</span><span class="st">'#245c8a'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(r[<span class="st">'old'</span>].index,r[<span class="st">'old'</span>][<span class="dv">7020</span>],label<span class="op">=</span><span class="st">'Rok'</span>,color<span class="op">=</span><span class="st">'#888'</span>,linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(title<span class="op">=</span>LABELS[code],xlabel<span class="op">=</span><span class="st">'Rok'</span>,ylabel<span class="op">=</span><span class="st">'Anomalia (°C vs 1951–1980)'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-season-history" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-season-history-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_monthly_seasonal_exploration_files/figure-html/fig-season-history-output-1.png" width="1315" height="795" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-season-history-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;2: Przebiegi czterech sezonów z tego samego historycznego wydania FAOSTAT. Wspólne osie ułatwiają porównanie.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="czy-wraz-z-ociepleniem-rośnie-również-zmienność" class="level2">
+<h2 class="anchored" data-anchor-id="czy-wraz-z-ociepleniem-rośnie-również-zmienność">Czy wraz z ociepleniem rośnie również zmienność?</h2>
+<p>Rosnący poziom temperatury nie musi oznaczać, że temperatury stają się bardziej zmienne. Aby rozdzielić te dwa zjawiska, najpierw usuwamy lokalny trend liniowy, a dopiero potem mierzymy rozrzut pozostałych odchyleń.</p>
+<p>Porównujemy trzy równie długie okresy:</p>
+<ul>
+<li>1961–1979,</li>
+<li>1981–1999,</li>
+<li>2001–2019.</li>
+</ul>
+<p>Dla każdego miesiąca i sezonu pytamy więc nie „jak bardzo wzrosła temperatura?”, lecz:</p>
+<p><strong>jak silnie wartości wahały się wokół swojego lokalnego trendu?</strong></p>
+<p>Wyniki nie pokazują jednego wspólnego wzorca. Dla części miesięcy zmienność w ostatnim okresie jest większa niż w pierwszym, dla innych — mniejsza.</p>
+<p>Oznacza to, że <strong>wzrost temperatury i zmiana jej zmienności są dwoma różnymi zjawiskami</strong>. Sam wzrost średniej anomalii nie wystarcza, aby stwierdzić, że wszystkie części roku stały się bardziej zmienne.</p>
+<p>Trzeba też pamiętać, że analizujemy zmienność rocznych anomalii poszczególnych miesięcy i sezonów. Nie jest to miara częstości fal upałów, mrozów ani innych ekstremalnych zjawisk pogodowych.</p>
+<div id="cell-fig-residual-variability" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig,axes<span class="op">=</span>plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize<span class="op">=</span>(<span class="dv">11</span>,<span class="dv">4</span>),layout<span class="op">=</span><span class="st">'constrained'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax,codes,title <span class="kw">in</span> [(axes[<span class="dv">0</span>],<span class="bu">range</span>(<span class="dv">7001</span>,<span class="dv">7013</span>),<span class="st">'Miesiące'</span>),(axes[<span class="dv">1</span>],<span class="bu">range</span>(<span class="dv">7016</span>,<span class="dv">7020</span>),<span class="st">'Sezony'</span>)]:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (window,g),marker <span class="kw">in</span> <span class="bu">zip</span>(r[<span class="st">'variability'</span>].groupby(<span class="st">'window'</span>),[<span class="st">'o'</span>,<span class="st">'s'</span>,<span class="st">'^'</span>]):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        g<span class="op">=</span>g[g.code.isin(codes)]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        ax.plot(g.period,g.residual_sd,marker<span class="op">=</span>marker,label<span class="op">=</span>window)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(title<span class="op">=</span>title,ylabel<span class="op">=</span><span class="st">'Odchylenie reszt (°C)'</span>,ylim<span class="op">=</span>(<span class="dv">0</span>,<span class="va">None</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>,rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-residual-variability" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-residual-variability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_monthly_seasonal_exploration_files/figure-html/fig-residual-variability-output-1.png" width="1445" height="535" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-residual-variability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Rysunek&nbsp;3: Zmienność reszt po lokalnym trendzie liniowym, °C; World. Każdy punkt odpowiada 19 obserwacjom tej samej części roku.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="95e70637" class="cell" data-results="asis" data-execution_count="5">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>v<span class="op">=</span>r[<span class="st">'variability'</span>].query(<span class="st">'code &lt;= 7012'</span>).pivot(index<span class="op">=</span><span class="st">'period'</span>,columns<span class="op">=</span><span class="st">'window'</span>,values<span class="op">=</span><span class="st">'residual_sd'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>count<span class="op">=</span><span class="bu">int</span>((v[<span class="st">'2001–2019'</span>]<span class="op">&gt;</span>v[<span class="st">'1961–1979'</span>]).<span class="bu">sum</span>())</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f'W ostatnim oknie zmienność reszt jest wyższa niż w pierwszym dla **</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> z 12 miesięcy**. To opis wybranych okien, nie dowód trwałej zmiany wariancji.'</span>))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>W ostatnim oknie zmienność reszt jest wyższa niż w pierwszym dla <strong>3 z 12 miesięcy</strong>. To opis wybranych okien, nie dowód trwałej zmiany wariancji.</p>
+</div>
+</div>
+</section>
+<section id="czy-miesiące-odtwarzają-sezon-i-rok" class="level2">
+<h2 class="anchored" data-anchor-id="czy-miesiące-odtwarzają-sezon-i-rok">Czy miesiące odtwarzają sezon i rok?</h2>
+<p>Dane miesięczne są bardziej szczegółowe, ale pojawia się praktyczne pytanie: <strong>czy można z nich dokładnie odtworzyć agregaty publikowane przez FAOSTAT?</strong></p>
+<p>Sprawdzamy kilka prostych reguł:</p>
+<ul>
+<li>średnią z jednakowymi wagami miesięcy,</li>
+<li>średnią ważoną liczbą dni,</li>
+<li>średnią z czterech sezonów.</li>
+</ul>
+<p>Dla DJF grudzień należy do poprzedniego roku kalendarzowego. Przykładowo DJF 2019 wykorzystuje grudzień 2018 oraz styczeń i luty 2019.</p>
+<p>Porównanie pokazuje, że proste rekonstrukcje są zbliżone do wartości źródłowych, ale <strong>nie są ich dokładnym odpowiednikiem</strong>. Nie powinniśmy więc zakładać, że FAOSTAT tworzy swoje agregaty dokładnie według jednej z testowanych przez nas reguł.</p>
+<p>Największe rozbieżności warto traktować jako sygnał do sprawdzenia metodologii źródła, a nie automatycznie jako błąd lub efekt zaokrąglenia.</p>
+<div id="b278ae4a" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>table(r[<span class="st">'summary'</span>].rename(columns<span class="op">=</span>{<span class="st">'vintage'</span>:<span class="st">'Wydanie'</span>,<span class="st">'target'</span>:<span class="st">'Cel'</span>,<span class="st">'rule'</span>:<span class="st">'Reguła'</span>,<span class="st">'n'</span>:<span class="st">'Lata'</span>,<span class="st">'bias'</span>:<span class="st">'Średnia różnica'</span>,<span class="st">'max_abs'</span>:<span class="st">'Maks. |różnica|'</span>,<span class="st">'mae'</span>:<span class="st">'Średnia |różnica|'</span>}))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_4ae98" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_4ae98_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Wydanie</th>
+<th id="T_4ae98_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Cel</th>
+<th id="T_4ae98_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Reguła</th>
+<th id="T_4ae98_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Lata</th>
+<th id="T_4ae98_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Średnia różnica</th>
+<th id="T_4ae98_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Maks. |różnica|</th>
+<th id="T_4ae98_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Średnia |różnica|</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_4ae98_row0_col0" class="data row0 col0">historical</td>
+<td id="T_4ae98_row0_col1" class="data row0 col1">MAM</td>
+<td id="T_4ae98_row0_col2" class="data row0 col2">equal_months</td>
+<td id="T_4ae98_row0_col3" class="data row0 col3">59</td>
+<td id="T_4ae98_row0_col4" class="data row0 col4">0.000</td>
+<td id="T_4ae98_row0_col5" class="data row0 col5">0.002</td>
+<td id="T_4ae98_row0_col6" class="data row0 col6">0.000</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row1_col0" class="data row1 col0">historical</td>
+<td id="T_4ae98_row1_col1" class="data row1 col1">MAM</td>
+<td id="T_4ae98_row1_col2" class="data row1 col2">day_weights</td>
+<td id="T_4ae98_row1_col3" class="data row1 col3">59</td>
+<td id="T_4ae98_row1_col4" class="data row1 col4">0.000</td>
+<td id="T_4ae98_row1_col5" class="data row1 col5">0.004</td>
+<td id="T_4ae98_row1_col6" class="data row1 col6">0.001</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row2_col0" class="data row2 col0">historical</td>
+<td id="T_4ae98_row2_col1" class="data row2 col1">JJA</td>
+<td id="T_4ae98_row2_col2" class="data row2 col2">equal_months</td>
+<td id="T_4ae98_row2_col3" class="data row2 col3">59</td>
+<td id="T_4ae98_row2_col4" class="data row2 col4">0.000</td>
+<td id="T_4ae98_row2_col5" class="data row2 col5">0.002</td>
+<td id="T_4ae98_row2_col6" class="data row2 col6">0.000</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row3_col0" class="data row3 col0">historical</td>
+<td id="T_4ae98_row3_col1" class="data row3 col1">JJA</td>
+<td id="T_4ae98_row3_col2" class="data row3 col2">day_weights</td>
+<td id="T_4ae98_row3_col3" class="data row3 col3">59</td>
+<td id="T_4ae98_row3_col4" class="data row3 col4">-0.000</td>
+<td id="T_4ae98_row3_col5" class="data row3 col5">0.004</td>
+<td id="T_4ae98_row3_col6" class="data row3 col6">0.001</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row4_col0" class="data row4 col0">historical</td>
+<td id="T_4ae98_row4_col1" class="data row4 col1">SON</td>
+<td id="T_4ae98_row4_col2" class="data row4 col2">equal_months</td>
+<td id="T_4ae98_row4_col3" class="data row4 col3">59</td>
+<td id="T_4ae98_row4_col4" class="data row4 col4">-0.000</td>
+<td id="T_4ae98_row4_col5" class="data row4 col5">0.003</td>
+<td id="T_4ae98_row4_col6" class="data row4 col6">0.000</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row5_col0" class="data row5 col0">historical</td>
+<td id="T_4ae98_row5_col1" class="data row5 col1">SON</td>
+<td id="T_4ae98_row5_col2" class="data row5 col2">day_weights</td>
+<td id="T_4ae98_row5_col3" class="data row5 col3">59</td>
+<td id="T_4ae98_row5_col4" class="data row5 col4">0.000</td>
+<td id="T_4ae98_row5_col5" class="data row5 col5">0.004</td>
+<td id="T_4ae98_row5_col6" class="data row5 col6">0.001</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row6_col0" class="data row6 col0">historical</td>
+<td id="T_4ae98_row6_col1" class="data row6 col1">Rok</td>
+<td id="T_4ae98_row6_col2" class="data row6 col2">equal_seasons</td>
+<td id="T_4ae98_row6_col3" class="data row6 col3">59</td>
+<td id="T_4ae98_row6_col4" class="data row6 col4">-0.000</td>
+<td id="T_4ae98_row6_col5" class="data row6 col5">0.003</td>
+<td id="T_4ae98_row6_col6" class="data row6 col6">0.000</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row7_col0" class="data row7 col0">historical</td>
+<td id="T_4ae98_row7_col1" class="data row7 col1">DJF</td>
+<td id="T_4ae98_row7_col2" class="data row7 col2">equal_months</td>
+<td id="T_4ae98_row7_col3" class="data row7 col3">58</td>
+<td id="T_4ae98_row7_col4" class="data row7 col4">0.001</td>
+<td id="T_4ae98_row7_col5" class="data row7 col5">0.024</td>
+<td id="T_4ae98_row7_col6" class="data row7 col6">0.001</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row8_col0" class="data row8 col0">historical</td>
+<td id="T_4ae98_row8_col1" class="data row8 col1">DJF</td>
+<td id="T_4ae98_row8_col2" class="data row8 col2">day_weights</td>
+<td id="T_4ae98_row8_col3" class="data row8 col3">58</td>
+<td id="T_4ae98_row8_col4" class="data row8 col4">-0.002</td>
+<td id="T_4ae98_row8_col5" class="data row8 col5">0.024</td>
+<td id="T_4ae98_row8_col6" class="data row8 col6">0.008</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row9_col0" class="data row9 col0">historical</td>
+<td id="T_4ae98_row9_col1" class="data row9 col1">Rok</td>
+<td id="T_4ae98_row9_col2" class="data row9 col2">equal_months</td>
+<td id="T_4ae98_row9_col3" class="data row9 col3">58</td>
+<td id="T_4ae98_row9_col4" class="data row9 col4">0.000</td>
+<td id="T_4ae98_row9_col5" class="data row9 col5">0.005</td>
+<td id="T_4ae98_row9_col6" class="data row9 col6">0.000</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row10_col0" class="data row10 col0">historical</td>
+<td id="T_4ae98_row10_col1" class="data row10 col1">Rok</td>
+<td id="T_4ae98_row10_col2" class="data row10 col2">day_weights</td>
+<td id="T_4ae98_row10_col3" class="data row10 col3">58</td>
+<td id="T_4ae98_row10_col4" class="data row10 col4">-0.000</td>
+<td id="T_4ae98_row10_col5" class="data row10 col5">0.008</td>
+<td id="T_4ae98_row10_col6" class="data row10 col6">0.002</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row11_col0" class="data row11 col0">updated</td>
+<td id="T_4ae98_row11_col1" class="data row11 col1">MAM</td>
+<td id="T_4ae98_row11_col2" class="data row11 col2">equal_months</td>
+<td id="T_4ae98_row11_col3" class="data row11 col3">65</td>
+<td id="T_4ae98_row11_col4" class="data row11 col4">-0.000</td>
+<td id="T_4ae98_row11_col5" class="data row11 col5">0.002</td>
+<td id="T_4ae98_row11_col6" class="data row11 col6">0.000</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row12_col0" class="data row12 col0">updated</td>
+<td id="T_4ae98_row12_col1" class="data row12 col1">MAM</td>
+<td id="T_4ae98_row12_col2" class="data row12 col2">day_weights</td>
+<td id="T_4ae98_row12_col3" class="data row12 col3">65</td>
+<td id="T_4ae98_row12_col4" class="data row12 col4">0.000</td>
+<td id="T_4ae98_row12_col5" class="data row12 col5">0.005</td>
+<td id="T_4ae98_row12_col6" class="data row12 col6">0.001</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row13_col0" class="data row13 col0">updated</td>
+<td id="T_4ae98_row13_col1" class="data row13 col1">JJA</td>
+<td id="T_4ae98_row13_col2" class="data row13 col2">equal_months</td>
+<td id="T_4ae98_row13_col3" class="data row13 col3">65</td>
+<td id="T_4ae98_row13_col4" class="data row13 col4">0.000</td>
+<td id="T_4ae98_row13_col5" class="data row13 col5">0.002</td>
+<td id="T_4ae98_row13_col6" class="data row13 col6">0.000</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row14_col0" class="data row14 col0">updated</td>
+<td id="T_4ae98_row14_col1" class="data row14 col1">JJA</td>
+<td id="T_4ae98_row14_col2" class="data row14 col2">day_weights</td>
+<td id="T_4ae98_row14_col3" class="data row14 col3">65</td>
+<td id="T_4ae98_row14_col4" class="data row14 col4">-0.000</td>
+<td id="T_4ae98_row14_col5" class="data row14 col5">0.003</td>
+<td id="T_4ae98_row14_col6" class="data row14 col6">0.001</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row15_col0" class="data row15 col0">updated</td>
+<td id="T_4ae98_row15_col1" class="data row15 col1">SON</td>
+<td id="T_4ae98_row15_col2" class="data row15 col2">equal_months</td>
+<td id="T_4ae98_row15_col3" class="data row15 col3">65</td>
+<td id="T_4ae98_row15_col4" class="data row15 col4">0.000</td>
+<td id="T_4ae98_row15_col5" class="data row15 col5">0.006</td>
+<td id="T_4ae98_row15_col6" class="data row15 col6">0.000</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row16_col0" class="data row16 col0">updated</td>
+<td id="T_4ae98_row16_col1" class="data row16 col1">SON</td>
+<td id="T_4ae98_row16_col2" class="data row16 col2">day_weights</td>
+<td id="T_4ae98_row16_col3" class="data row16 col3">65</td>
+<td id="T_4ae98_row16_col4" class="data row16 col4">0.000</td>
+<td id="T_4ae98_row16_col5" class="data row16 col5">0.004</td>
+<td id="T_4ae98_row16_col6" class="data row16 col6">0.001</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row17_col0" class="data row17 col0">updated</td>
+<td id="T_4ae98_row17_col1" class="data row17 col1">Rok</td>
+<td id="T_4ae98_row17_col2" class="data row17 col2">equal_seasons</td>
+<td id="T_4ae98_row17_col3" class="data row17 col3">65</td>
+<td id="T_4ae98_row17_col4" class="data row17 col4">0.000</td>
+<td id="T_4ae98_row17_col5" class="data row17 col5">0.003</td>
+<td id="T_4ae98_row17_col6" class="data row17 col6">0.000</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row18_col0" class="data row18 col0">updated</td>
+<td id="T_4ae98_row18_col1" class="data row18 col1">DJF</td>
+<td id="T_4ae98_row18_col2" class="data row18 col2">equal_months</td>
+<td id="T_4ae98_row18_col3" class="data row18 col3">64</td>
+<td id="T_4ae98_row18_col4" class="data row18 col4">0.000</td>
+<td id="T_4ae98_row18_col5" class="data row18 col5">0.023</td>
+<td id="T_4ae98_row18_col6" class="data row18 col6">0.001</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row19_col0" class="data row19 col0">updated</td>
+<td id="T_4ae98_row19_col1" class="data row19 col1">DJF</td>
+<td id="T_4ae98_row19_col2" class="data row19 col2">day_weights</td>
+<td id="T_4ae98_row19_col3" class="data row19 col3">64</td>
+<td id="T_4ae98_row19_col4" class="data row19 col4">-0.001</td>
+<td id="T_4ae98_row19_col5" class="data row19 col5">0.026</td>
+<td id="T_4ae98_row19_col6" class="data row19 col6">0.008</td>
+</tr>
+<tr class="odd">
+<td id="T_4ae98_row20_col0" class="data row20 col0">updated</td>
+<td id="T_4ae98_row20_col1" class="data row20 col1">Rok</td>
+<td id="T_4ae98_row20_col2" class="data row20 col2">equal_months</td>
+<td id="T_4ae98_row20_col3" class="data row20 col3">64</td>
+<td id="T_4ae98_row20_col4" class="data row20 col4">0.000</td>
+<td id="T_4ae98_row20_col5" class="data row20 col5">0.005</td>
+<td id="T_4ae98_row20_col6" class="data row20 col6">0.000</td>
+</tr>
+<tr class="even">
+<td id="T_4ae98_row21_col0" class="data row21 col0">updated</td>
+<td id="T_4ae98_row21_col1" class="data row21 col1">Rok</td>
+<td id="T_4ae98_row21_col2" class="data row21 col2">day_weights</td>
+<td id="T_4ae98_row21_col3" class="data row21 col3">64</td>
+<td id="T_4ae98_row21_col4" class="data row21 col4">-0.000</td>
+<td id="T_4ae98_row21_col5" class="data row21 col5">0.008</td>
+<td id="T_4ae98_row21_col6" class="data row21 col6">0.002</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Różnice liczymy jako rekonstrukcja minus wartość źródłowa. Brak grudnia 1960 wyklucza rekonstrukcję pełnego pierwszego DJF i roku meteorologicznego. Dla miesięcy wspólne pełne lata meteorologiczne zaczynają się zatem w 1962 r.</p>
+<div id="3e9e52f8" class="cell" data-results="asis" data-execution_count="7">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>g<span class="op">=</span>r[<span class="st">'audit'</span>].query(<span class="st">"vintage == 'historical' and target == 'DJF' and rule == 'equal_months'"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>worst<span class="op">=</span>g.loc[g.error.<span class="bu">abs</span>().idxmax()]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f'Największa różnica prostej rekonstrukcji DJF w starym pliku przypada na **</span><span class="sc">{</span><span class="bu">int</span>(worst.year)<span class="sc">}</span><span class="ss"> r.**: rekonstrukcja **</span><span class="sc">{</span>worst<span class="sc">.</span>reconstructed<span class="sc">:.3f}</span><span class="ss">°C**, źródło **</span><span class="sc">{</span>worst<span class="sc">.</span>source<span class="sc">:.3f}</span><span class="ss">°C**, różnica **</span><span class="sc">{</span>worst<span class="sc">.</span>error<span class="sc">:.3f}</span><span class="ss">°C**. Nie zakładamy, że jest to wyłącznie zaokrąglenie. Przyczyna wymaga potwierdzenia metody agregacji FAOSTAT.'</span>))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p>Największa różnica prostej rekonstrukcji DJF w starym pliku przypada na <strong>1992 r.</strong>: rekonstrukcja <strong>0.635°C</strong>, źródło <strong>0.611°C</strong>, różnica <strong>0.024°C</strong>. Nie zakładamy, że jest to wyłącznie zaokrąglenie. Przyczyna wymaga potwierdzenia metody agregacji FAOSTAT.</p>
+</div>
+</div>
+</section>
+<section id="ważna-konsekwencja-gdzie-kończy-się-trening" class="level2">
+<h2 class="anchored" data-anchor-id="ważna-konsekwencja-gdzie-kończy-się-trening">Ważna konsekwencja: gdzie kończy się trening?</h2>
+<p>Ta różnica kalendarzowa ma bezpośrednie znaczenie dla eksperymentu prognostycznego.</p>
+<p>Rok meteorologiczny kończy się w listopadzie. Jeżeli model ma korzystać wyłącznie z informacji dostępnych do końca roku meteorologicznego 2019, jego miesięczny zbiór treningowy również musi kończyć się <strong>w listopadzie 2019</strong>.</p>
+<p>Grudzień 2019 należy już do roku meteorologicznego 2020 i musi znaleźć się po stronie prognozowanej.</p>
+<p>To drobny szczegół kalendarza, ale ważny dla uczciwego eksperymentu: wykorzystanie grudnia w treningu oznaczałoby przekazanie modelowi informacji z okresu, który ma dopiero przewidywać.</p>
+</section>
+<section id="wnioski-wspólny-wzrost-różne-tempo-i-zmienność" class="level2">
+<h2 class="anchored" data-anchor-id="wnioski-wspólny-wzrost-różne-tempo-i-zmienność">Wnioski: wspólny wzrost, różne tempo i zmienność</h2>
+<p>Analiza miesięcy i sezonów pokazuje bardziej złożony obraz niż pojedynczy szereg roczny. Wspólnym elementem jest wzrost anomalii temperatury, ale jego tempo oraz zmienność różnią się między częściami roku.</p>
+<div id="f3478242" class="cell" data-results="asis" data-execution_count="8">
+<details class="code-fold">
+<summary>Kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>t<span class="op">=</span>r[<span class="st">'trends'</span>].set_index(<span class="st">'code'</span>).trend_decade</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sd<span class="op">=</span>r[<span class="st">'variability'</span>].pivot(index<span class="op">=</span><span class="st">'code'</span>,columns<span class="op">=</span><span class="st">'window'</span>,values<span class="op">=</span><span class="st">'residual_sd'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>display(Markdown(<span class="ss">f'''</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ss">**Nie każda część roku ocieplała się w tym samym tempie.** Wszystkie 12 miesięcy i cztery sezony mają dodatnie oszacowania trendu w latach 1961–2019. Trend marcowy wynosi </span><span class="sc">{</span>t[<span class="dv">7003</span>]<span class="sc">:.3f}</span><span class="ss">°C/dekadę, a lipcowy </span><span class="sc">{</span>t[<span class="dv">7007</span>]<span class="sc">:.3f}</span><span class="ss">°C/dekadę — różnica między nimi to **</span><span class="sc">{</span>t[<span class="dv">7003</span>]<span class="op">-</span>t[<span class="dv">7007</span>]<span class="sc">:.3f}</span><span class="ss">°C/dekadę**. Jest to różnica oszacowań, a nie wynik testu ich statystycznej istotności.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ss">**Średnia roczna ukrywa część różnic wewnątrz roku.** Wśród sezonów największe tempo wzrostu ma MAM (</span><span class="sc">{</span>t[<span class="dv">7017</span>]<span class="sc">:.3f}</span><span class="ss">°C/dekadę), a najmniejsze JJA (</span><span class="sc">{</span>t[<span class="dv">7018</span>]<span class="sc">:.3f}</span><span class="ss">°C/dekadę). Trend roczny (</span><span class="sc">{</span>t[<span class="dv">7020</span>]<span class="sc">:.3f}</span><span class="ss">°C/dekadę) znajduje się pomiędzy nimi. Wynik dotyczy globalnego agregatu temperatury nad lądami i nie oznacza, że taki sam wzorzec występuje w każdym regionie.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ss">**Ocieplenie nie oznacza automatycznie większej zmienności.** Między okresami 1961–1979 i 2001–2019 odchylenie reszt rocznych spada z </span><span class="sc">{</span>sd<span class="sc">.</span>loc[<span class="dv">7020</span>,<span class="st">'1961–1979'</span>]<span class="sc">:.3f}</span><span class="ss"> do </span><span class="sc">{</span>sd<span class="sc">.</span>loc[<span class="dv">7020</span>,<span class="st">'2001–2019'</span>]<span class="sc">:.3f}</span><span class="ss">°C. Dla DJF rośnie z </span><span class="sc">{</span>sd<span class="sc">.</span>loc[<span class="dv">7016</span>,<span class="st">'1961–1979'</span>]<span class="sc">:.3f}</span><span class="ss"> do </span><span class="sc">{</span>sd<span class="sc">.</span>loc[<span class="dv">7016</span>,<span class="st">'2001–2019'</span>]<span class="sc">:.3f}</span><span class="ss">°C, natomiast dla JJA spada z </span><span class="sc">{</span>sd<span class="sc">.</span>loc[<span class="dv">7018</span>,<span class="st">'1961–1979'</span>]<span class="sc">:.3f}</span><span class="ss"> do </span><span class="sc">{</span>sd<span class="sc">.</span>loc[<span class="dv">7018</span>,<span class="st">'2001–2019'</span>]<span class="sc">:.3f}</span><span class="ss">°C. Nie obserwujemy więc jednego kierunku zmian zmienności dla wszystkich części roku. Jest to analiza reszt po usunięciu lokalnego trendu, a nie analiza ekstremalnych zjawisk pogodowych.</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ss">'''</span>))</span></code></pre></div><button title="Kopiuj do schowka" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><strong>Nie każda część roku ocieplała się w tym samym tempie.</strong> Wszystkie 12 miesięcy i cztery sezony mają dodatnie oszacowania trendu w latach 1961–2019. Trend marcowy wynosi 0.333°C/dekadę, a lipcowy 0.242°C/dekadę — różnica między nimi to <strong>0.091°C/dekadę</strong>. Jest to różnica oszacowań, a nie wynik testu ich statystycznej istotności.</p>
+<p><strong>Średnia roczna ukrywa część różnic wewnątrz roku.</strong> Wśród sezonów największe tempo wzrostu ma MAM (0.296°C/dekadę), a najmniejsze JJA (0.251°C/dekadę). Trend roczny (0.275°C/dekadę) znajduje się pomiędzy nimi. Wynik dotyczy globalnego agregatu temperatury nad lądami i nie oznacza, że taki sam wzorzec występuje w każdym regionie.</p>
+<p><strong>Ocieplenie nie oznacza automatycznie większej zmienności.</strong> Między okresami 1961–1979 i 2001–2019 odchylenie reszt rocznych spada z 0.198 do 0.157°C. Dla DJF rośnie z 0.355 do 0.382°C, natomiast dla JJA spada z 0.186 do 0.135°C. Nie obserwujemy więc jednego kierunku zmian zmienności dla wszystkich części roku. Jest to analiza reszt po usunięciu lokalnego trendu, a nie analiza ekstremalnych zjawisk pogodowych.</p>
+</div>
+</div>
+<section id="co-z-tego-wynika-dla-dalszej-analizy" class="level3">
+<h3 class="anchored" data-anchor-id="co-z-tego-wynika-dla-dalszej-analizy">Co z tego wynika dla dalszej analizy?</h3>
+<p>Dane miesięczne i sezonowe ujawniają strukturę, której nie widać w pojedynczej średniej rocznej. Większa szczegółowość ma jednak swoją cenę: kolejne obserwacje są ze sobą powiązane, dlatego <strong>więcej punktów w szeregu nie oznacza automatycznie więcej niezależnej informacji</strong> ani lepszych prognoz.</p>
+<p>Znaczenie ma również sposób agregacji. Proste średnie z miesięcy nie odtwarzają dokładnie agregatów publikowanych przez FAOSTAT. W dalszych eksperymentach porównujemy więc modele na wspólnie skonstruowanym celu, zamiast traktować różne definicje szeregu jako równoważne.</p>
+</section>
+<section id="czy-większa-szczegółowość-poprawiła-prognozy" class="level3">
+<h3 class="anchored" data-anchor-id="czy-większa-szczegółowość-poprawiła-prognozy">Czy większa szczegółowość poprawiła prognozy?</h3>
+<p>To pytanie jest przedmiotem kolejnych etapów projektu: <a href="../../../stories/globalne_ocieplenie/notebooks/03_frequency_forecasting.html">porównania benchmarków</a> oraz <a href="../../../stories/globalne_ocieplenie/notebooks/04_arima_frequency.html">zagnieżdżonego doboru ARIMA/SARIMA</a>.</p>
+<p>Dla badanych modeli i horyzontów przejście z danych rocznych do gęstszych szeregów <strong>nie obniżyło łącznego historycznego MAE względem najlepszego benchmarku rocznego</strong>.</p>
+<p>Nie oznacza to, że dane miesięczne są zbędne. Okazały się wartościowe <strong>opisowo</strong>: pozwoliły zobaczyć, kiedy wzrost temperatury był szybszy, jak różniły się sezony oraz jak zmieniała się zmienność. Nie przełożyło się to jednak automatycznie na przewagę prognostyczną.</p>
+<p><strong>Większa szczegółowość pomogła lepiej zrozumieć proces, ale w badanych eksperymentach nie dała automatycznie lepszej prognozy.</strong></p>
+</section>
+<section id="źródła-i-odtwarzalność" class="level3">
+<h3 class="anchored" data-anchor-id="źródła-i-odtwarzalność">Źródła i odtwarzalność</h3>
+<ul>
+<li>Historyczny plik FAOSTAT: <code>data/Environment_Temperature_change_E_All_Data_NOFLAG.csv</code>.</li>
+<li>Nowe wydanie: <code>data/faostat_latest.zip</code>, pobrane 2026-09-22; <a href="https://www.fao.org/statistics/highlights-archive/highlights-detail/temperature-change-statistics-1961-2025.-global--regional-and-country-trends/">publikacja FAO 1961–2025</a>.</li>
+<li><a href="https://data.giss.nasa.gov/gistemp/faq/">NASA: definicja anomalii i roku meteorologicznego</a>.</li>
+<li><a href="../results/frequency_exploration/provenance.json">Tabele i sumy kontrolne</a>, <a href="../results/frequency_exploration/audit.csv">audyt agregacji</a>, <a href="../results/frequency_exploration/trends.csv">trendy</a>, <a href="../results/frequency_exploration/revisions.csv">rewizje</a>.</li>
+<li>Eksport: <code>python stories/globalne_ocieplenie/frequency_exploration.py</code>. Notebook oblicza wyniki ponownie przez ten sam moduł. Nie pobiera danych podczas renderowania.</li>
+</ul>
+<p><a href="../../../stories/globalne_ocieplenie/index.html">Powrót do projektu</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kepilif\.github\.io\/storylab\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>StoryLab · Historie oparte na danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:jacek.filipek@gmail.com">
+<p>E-mail</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/Kepilif/">
+<p>GitHub</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/kepilif/">
+<p>LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://public.tableau.com/app/profile/jacek.filipek/">
+<p>Tableau Public</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://gitlab.com/kepilif/">
+<p>GitLab</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,560 @@
+frequency,origin,candidate,success,error,warnings,seconds,training_values
+annual,1982,ar1_trend,True,,,0.048295199987478554,21
+annual,1983,ar1_trend,True,,,0.0383428999921307,22
+annual,1984,ar1_trend,True,,,0.056641100032720715,23
+annual,1982,arima011,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.026659500028472394,21
+annual,1983,arima011,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.024386400007642806,22
+annual,1984,arima011,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.03268999996362254,23
+annual,1982,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.06630090001272038,21
+annual,1983,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.08467399998335168,22
+annual,1984,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.08193099999334663,23
+annual,1982,arima110_drift,True,,,0.020269600034225732,21
+annual,1983,arima110_drift,True,,,0.0244185000192374,22
+annual,1984,arima110_drift,True,,,0.021485399978701025,23
+annual,1982,arima212_original,True,,,0.09729710000101477,21
+annual,1983,arima212_original,True,,,0.09297800000058487,22
+annual,1984,arima212_original,True,,,0.3278561999904923,23
+annual,1990,ar1_trend,True,,,0.015188599994871765,29
+seasonal,1982,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.13945209997473285,84
+seasonal,1982,arima011,True,,,0.026475100021343678,84
+seasonal,1983,arima011,True,,,0.025331499986350536,88
+seasonal,1984,arima011,True,,,0.027408799971453846,92
+seasonal,1982,arima011_drift,True,,,0.04487759998301044,84
+seasonal,1983,arima011_drift,True,,,0.05018060002475977,88
+seasonal,1984,arima011_drift,True,,,0.03813529998296872,92
+seasonal,1982,arima110_drift,True,,,0.03375360002974048,84
+seasonal,1983,arima110_drift,True,,,0.03017449995968491,88
+seasonal,1984,arima110_drift,True,,,0.03134499996667728,92
+seasonal,1982,arima212_original,True,,,0.15385689999675378,84
+seasonal,1983,arima212_original,True,,,0.20715349999954924,88
+seasonal,1984,arima212_original,True,,,0.15916470001684502,92
+seasonal,1982,sarima011_100,True,,,0.14061810000566766,84
+seasonal,1983,sarima011_100,True,,,0.1389325000345707,88
+seasonal,1984,sarima011_100,True,,,0.10998629999812692,92
+seasonal,1982,sarima010_011,True,,,0.07859369996003807,84
+seasonal,1983,sarima010_011,True,,,0.06581880000885576,88
+seasonal,1984,sarima010_011,True,,,0.07526700000744313,92
+seasonal,1990,sarima011_100,True,,,0.13317709998227656,116
+monthly,1982,ar1_trend,True,,,0.0557245000381954,252
+monthly,1983,ar1_trend,True,,,0.17972180002834648,264
+monthly,1984,ar1_trend,True,,,0.0813334000413306,276
+monthly,1982,arima011,True,,,0.045739400025922805,252
+monthly,1983,arima011,True,,,0.03250060003483668,264
+monthly,1984,arima011,True,,,0.04045970004517585,276
+monthly,1982,arima011_drift,True,,,0.0625988999963738,252
+monthly,1983,arima011_drift,True,,,0.06379000004380941,264
+monthly,1984,arima011_drift,True,,,0.15509810001822188,276
+monthly,1982,arima110_drift,True,,,0.0407437999965623,252
+monthly,1983,arima110_drift,True,,,0.03455590002704412,264
+monthly,1984,arima110_drift,True,,,0.03534939995734021,276
+monthly,1982,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.39161449996754527,252
+monthly,1983,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.3821225999854505,264
+monthly,1984,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.27770480001345277,276
+monthly,1982,sarima011_100,True,,,0.2625951000372879,252
+monthly,1983,sarima011_100,True,,,0.2900830000289716,264
+monthly,1984,sarima011_100,True,,,0.2807261999696493,276
+monthly,1982,sarima010_011,True,,,0.48405289999209344,252
+monthly,1983,sarima010_011,True,,,0.16324639995582402,264
+monthly,1984,sarima010_011,True,,,0.5184262999682687,276
+monthly,1990,ar1_trend,True,,,0.17258210002910346,348
+annual,1985,ar1_trend,True,,,0.04799399996409193,24
+annual,1985,arima011,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.02798300003632903,24
+annual,1985,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.08292790001723915,24
+annual,1985,arima110_drift,True,,,0.02837569999974221,24
+annual,1985,arima212_original,True,,,0.13200660003349185,24
+annual,1991,ar1_trend,True,,,0.04833119997056201,30
+seasonal,1983,ar1_trend,True,,,0.07760709995636716,88
+seasonal,1984,ar1_trend,True,,,0.06465700000990182,92
+seasonal,1985,ar1_trend,True,,,0.05375659995479509,96
+seasonal,1985,arima011,True,,,0.03090330003760755,96
+seasonal,1985,arima011_drift,True,,,0.04836639994755387,96
+seasonal,1985,arima110_drift,True,,,0.03365739999571815,96
+seasonal,1985,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.2058303999947384,96
+seasonal,1985,sarima011_100,True,,,0.10419080004794523,96
+seasonal,1985,sarima010_011,True,,,0.09422450000420213,96
+seasonal,1991,ar1_trend,True,,,0.047985600016545504,120
+monthly,1985,ar1_trend,True,,,0.055236399988643825,288
+monthly,1985,arima011,True,,,0.03667160001350567,288
+monthly,1985,arima011_drift,True,,,0.057042700005695224,288
+monthly,1985,arima110_drift,True,,,0.023974799958523363,288
+monthly,1985,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.3341381999780424,288
+monthly,1985,sarima011_100,True,,,0.42918470001313835,288
+monthly,1985,sarima010_011,True,,,0.5960505999973975,288
+monthly,1991,ar1_trend,True,,,0.1349713000236079,360
+annual,1986,ar1_trend,True,,,0.09410649997880682,25
+annual,1986,arima011,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.03717490000417456,25
+annual,1986,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.09586750000016764,25
+annual,1986,arima110_drift,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.0690279999980703,25
+annual,1986,arima212_original,True,,,0.25035569997271523,25
+annual,1992,ar1_trend,True,,,0.07250330003444105,31
+seasonal,1986,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.11184950004098937,100
+seasonal,1986,arima011,True,,,0.04359230003319681,100
+seasonal,1986,arima011_drift,True,,,0.08713890000944957,100
+seasonal,1986,arima110_drift,True,,,0.03722430003108457,100
+seasonal,1986,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.25090119999367744,100
+seasonal,1986,sarima011_100,True,,,0.13013199996203184,100
+seasonal,1986,sarima010_011,True,,,0.07852390001062304,100
+seasonal,1992,sarima011_100,True,,,0.2102069000247866,124
+monthly,1986,ar1_trend,True,,,0.07287290005479008,300
+monthly,1986,arima011,True,,,0.033966600021813065,300
+monthly,1986,arima011_drift,True,,,0.05840300000272691,300
+monthly,1986,arima110_drift,True,,,0.034415600006468594,300
+monthly,1986,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.3198149999952875,300
+monthly,1986,sarima011_100,True,,,0.24611780000850558,300
+monthly,1986,sarima010_011,True,,,0.296762999962084,300
+monthly,1992,ar1_trend,True,,,0.07992709998507053,372
+annual,1987,ar1_trend,True,,,0.08251059998292476,26
+annual,1987,arima011,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.03807309997500852,26
+annual,1987,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.16175549995386973,26
+annual,1987,arima212_original,True,,,0.09295219997875392,26
+annual,1993,arima011_drift,True,,,0.16396830003941432,32
+seasonal,1987,arima011,True,,,0.034463100018911064,104
+seasonal,1987,arima011_drift,True,,,0.20105870004044846,104
+seasonal,1987,arima110_drift,True,,,0.040568700002040714,104
+seasonal,1987,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.21202310000080615,104
+seasonal,1987,sarima011_100,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.286902200023178,104
+seasonal,1987,sarima010_011,True,,,0.06962760002352297,104
+seasonal,1993,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.17023260000860319,128
+monthly,1987,ar1_trend,True,,,0.19858960004057735,312
+monthly,1987,arima011,True,,,0.043435600004158914,312
+monthly,1987,arima011_drift,True,,,0.09052070003235713,312
+monthly,1987,arima110_drift,True,,,0.03579829999944195,312
+monthly,1987,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.4706747000454925,312
+monthly,1987,sarima011_100,True,,,0.2364543000003323,312
+monthly,1987,sarima010_011,True,,,0.6254596000071615,312
+monthly,1993,ar1_trend,True,,,0.19855490000918508,384
+annual,1988,ar1_trend,True,,,0.05092760000843555,27
+annual,1988,arima011,True,,,0.036606799985747784,27
+annual,1988,arima011_drift,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.07364640000741929,27
+annual,1988,arima212_original,True,,,0.13659879995975643,27
+annual,1994,arima011_drift,True,,,0.08927890000632033,33
+seasonal,1988,arima011,True,,,0.034985599981155246,108
+seasonal,1988,arima011_drift,True,,,0.0795580999692902,108
+seasonal,1988,arima110_drift,True,,,0.03675400000065565,108
+seasonal,1988,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.1689475000021048,108
+seasonal,1988,sarima010_011,True,,,0.07889020000584424,108
+seasonal,1994,arima011_drift,True,,,0.19470699998782948,132
+monthly,1988,ar1_trend,True,,,0.07360220002010465,324
+monthly,1988,arima011,True,,,0.03172219998668879,324
+monthly,1988,arima011_drift,True,,,0.06453430000692606,324
+monthly,1988,arima110_drift,True,,,0.022328999999444932,324
+monthly,1988,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.3378748000250198,324
+monthly,1988,sarima011_100,True,,,0.5174562999745831,324
+monthly,1988,sarima010_011,True,,,0.48233269999036565,324
+monthly,1994,ar1_trend,True,,,0.10880349995568395,396
+annual,1989,ar1_trend,True,,,0.05620440002530813,28
+annual,1989,arima011,True,,,0.033824299986008555,28
+annual,1989,arima011_drift,True,,,0.07048970001051202,28
+annual,1987,arima110_drift,True,,,0.02106400002958253,26
+annual,1988,arima110_drift,True,,,0.023334699973929673,27
+annual,1989,arima110_drift,True,,,0.023008399992249906,28
+annual,1989,arima212_original,True,,,0.11887970002135262,28
+annual,1995,arima011_drift,True,,,0.1135818000184372,34
+seasonal,1987,ar1_trend,True,,,0.054999299987684935,104
+seasonal,1988,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.10197560000233352,108
+seasonal,1989,arima011,True,,,0.03422049997607246,112
+seasonal,1989,arima011_drift,True,,,0.11524039995856583,112
+seasonal,1989,arima110_drift,True,,,0.03655720001552254,112
+seasonal,1989,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.19065139995655045,112
+seasonal,1989,sarima010_011,True,,,0.0633871000027284,112
+seasonal,1995,arima011_drift,True,,,0.05263589997775853,136
+monthly,1989,ar1_trend,True,,,0.07866400002967566,336
+monthly,1989,arima011,True,,,0.038913499971386045,336
+monthly,1989,arima011_drift,True,,,0.06506469997111708,336
+monthly,1989,arima110_drift,True,,,0.026471199991647154,336
+monthly,1989,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.32361139997374266,336
+monthly,1989,sarima011_100,True,,,0.3914492000476457,336
+monthly,1989,sarima010_011,True,,,0.5035702000022866,336
+monthly,1995,ar1_trend,True,,,0.10686259996145964,408
+annual,1990,arima011,True,,,0.029868299956433475,29
+annual,1990,arima011_drift,True,,,0.02843479998409748,29
+annual,1990,arima110_drift,True,,,0.02793260000180453,29
+annual,1990,arima212_original,True,,,0.10920409997925162,29
+annual,1996,arima011_drift,True,,,0.17003390000900254,35
+seasonal,1990,arima011,True,,,0.044429400004446507,116
+seasonal,1990,arima011_drift,True,,,0.09034639998571947,116
+seasonal,1990,arima110_drift,True,,,0.036768200050573796,116
+seasonal,1990,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.17390709999017417,116
+seasonal,1988,sarima011_100,True,,,0.15181730000767857,108
+seasonal,1989,sarima011_100,True,,,0.20197279995772988,112
+seasonal,1990,sarima010_011,True,,,0.07888159999856725,116
+seasonal,1996,sarima011_100,True,,,0.1310885000275448,140
+monthly,1990,arima011,True,,,0.04161529999691993,348
+monthly,1990,arima011_drift,True,,,0.10616309999022633,348
+monthly,1990,arima110_drift,True,,,0.0376101000001654,348
+monthly,1990,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.5125089000212029,348
+monthly,1990,sarima011_100,True,,,0.23927429999457672,348
+monthly,1990,sarima010_011,True,,,0.41980790003435686,348
+monthly,1996,ar1_trend,True,,,0.05868230003397912,420
+annual,1991,arima011,True,,,0.03136449999874458,30
+annual,1991,arima011_drift,True,,,0.03900900000007823,30
+annual,1991,arima110_drift,True,,,0.02203019999433309,30
+annual,1991,arima212_original,True,,,0.10539199999766424,30
+annual,1997,arima011_drift,True,,,0.15434790001017973,36
+seasonal,1989,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.11286049999762326,112
+seasonal,1991,arima011,True,,,0.03369760001078248,120
+seasonal,1991,arima011_drift,True,,,0.06428890000097454,120
+seasonal,1991,arima110_drift,True,,,0.04797539999708533,120
+seasonal,1991,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.22294279997004196,120
+seasonal,1991,sarima011_100,True,,,0.11821400001645088,120
+seasonal,1991,sarima010_011,True,,,0.06630089995451272,120
+seasonal,1997,sarima011_100,True,,,0.10903250001138076,144
+monthly,1991,arima011,True,,,0.0358418999821879,360
+monthly,1991,arima011_drift,True,,,0.07602969999425113,360
+monthly,1991,arima110_drift,True,,,0.03364580002380535,360
+monthly,1991,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.3341266000061296,360
+monthly,1991,sarima011_100,True,,,0.28582389996154234,360
+monthly,1991,sarima010_011,True,,,0.6032396000227891,360
+monthly,1997,ar1_trend,True,,,0.12150260002817959,432
+annual,1992,arima011,True,,,0.030421100032981485,31
+annual,1992,arima011_drift,True,,,0.11800320004113019,31
+annual,1992,arima110_drift,True,,,0.0285268000443466,31
+annual,1992,arima212_original,True,,,0.16003359999740496,31
+annual,1998,arima011_drift,True,,,0.13923470000736415,37
+seasonal,1990,ar1_trend,True,,,0.0934220000053756,116
+seasonal,1992,ar1_trend,True,,,0.04255929996725172,124
+seasonal,1992,arima011,True,,,0.0300586000084877,124
+seasonal,1992,arima011_drift,True,,,0.09186590003082529,124
+seasonal,1992,arima110_drift,True,,,0.04202090000035241,124
+seasonal,1992,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.1931853999849409,124
+seasonal,1992,sarima010_011,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.19743490003747866,124
+seasonal,1998,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.10402530001010746,148
+seasonal,1998,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.2031116000143811,148
+monthly,1992,arima011,True,,,0.11800860002404079,372
+monthly,1992,arima011_drift,True,,,0.12657830002717674,372
+monthly,1992,arima110_drift,True,,,0.04606879997299984,372
+monthly,1992,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.35694820003118366,372
+monthly,1992,sarima011_100,True,,,0.2516467999666929,372
+monthly,1992,sarima010_011,True,,,0.9128085000556894,372
+monthly,1998,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.4489614000194706,444
+monthly,1998,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.7750643999897875,444
+annual,1993,ar1_trend,True,,,0.05471019999822602,32
+annual,1993,arima011,True,,,0.026005399995483458,32
+annual,1993,arima110_drift,True,,,0.026248899986967444,32
+annual,1993,arima212_original,True,,,0.12163449998479337,32
+annual,1999,arima011_drift,True,,,0.10303429997293279,38
+seasonal,1993,ar1_trend,True,,,0.05912809999426827,128
+seasonal,1993,arima011,True,,,0.07886999996844679,128
+seasonal,1993,arima011_drift,True,,,0.0651872000307776,128
+seasonal,1993,arima110_drift,True,,,0.062360099982470274,128
+seasonal,1993,sarima011_100,True,,,0.15093800000613555,128
+seasonal,1999,ar1_trend,True,,,0.04819800000404939,152
+monthly,1993,arima011,True,,,0.040580299973953515,384
+monthly,1993,arima011_drift,True,,,0.07662429998163134,384
+monthly,1993,arima110_drift,True,,,0.03685610002139583,384
+monthly,1993,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.35323690000222996,384
+monthly,1993,sarima011_100,True,,,0.21404910000273958,384
+monthly,1993,sarima010_011,True,,,0.39392890001181513,384
+monthly,1999,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.27043370000319555,456
+monthly,1999,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.33892999996896833,456
+annual,1994,ar1_trend,True,,,0.0877942000515759,33
+annual,1994,arima011,True,,,0.04261220002081245,33
+annual,1994,arima110_drift,True,,,0.0380525000509806,33
+annual,1994,arima212_original,True,,,0.1234794000047259,33
+annual,2000,arima011_drift,True,,,0.14128740003798157,39
+seasonal,1994,ar1_trend,True,,,0.07077120000030845,132
+seasonal,1994,arima011,True,,,0.04308799997670576,132
+seasonal,1994,arima110_drift,True,,,0.031927900039590895,132
+seasonal,1994,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.14458180003566667,132
+seasonal,1994,sarima011_100,True,,,0.15426889999071136,132
+seasonal,2000,ar1_trend,True,,,0.08576789998915046,156
+monthly,1994,arima011,True,,,0.07209440000588074,396
+monthly,1994,arima011_drift,True,,,0.2124012999702245,396
+monthly,1994,arima110_drift,True,,,0.1326320000225678,396
+monthly,1994,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.47713709995150566,396
+monthly,1994,sarima011_100,True,,,0.37532419996568933,396
+monthly,1994,sarima010_011,True,,,0.5397569999913685,396
+monthly,2000,ar1_trend,True,,,0.1409840999986045,468
+annual,1995,ar1_trend,True,,,0.04251500003738329,34
+annual,1995,arima011,True,,,0.026490600022953004,34
+annual,1995,arima110_drift,True,,,0.035018499998841435,34
+annual,1995,arima212_original,True,,,0.16749110003001988,34
+annual,2001,ar1_trend,True,,,0.09832769999047741,40
+seasonal,1995,ar1_trend,True,,,0.0917131999740377,136
+seasonal,1995,arima011,True,,,0.0293194999685511,136
+seasonal,1995,arima110_drift,True,,,0.034667100000660866,136
+seasonal,1995,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.1490201000124216,136
+seasonal,1995,sarima011_100,True,,,0.11034610000206158,136
+seasonal,1993,sarima010_011,True,,,0.06219430000055581,128
+seasonal,1994,sarima010_011,True,,,0.07364159997086972,132
+seasonal,1995,sarima010_011,True,,,0.0824492999818176,136
+seasonal,2001,ar1_trend,True,,,0.07483439997304231,160
+monthly,1995,arima011,True,,,0.03882710001198575,408
+monthly,1995,arima011_drift,True,,,0.0691324999788776,408
+monthly,1995,arima110_drift,True,,,0.04201380000449717,408
+monthly,1995,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.33490850002272055,408
+monthly,1995,sarima011_100,True,,,0.3514492000103928,408
+monthly,1995,sarima010_011,True,,,0.39379139995435253,408
+monthly,2001,ar1_trend,True,,,0.23478050000267103,480
+annual,1996,ar1_trend,True,,,0.0495239999727346,35
+annual,1996,arima011,True,,,0.02405410003848374,35
+annual,1996,arima110_drift,True,,,0.023624999972525984,35
+annual,1996,arima212_original,True,,,0.14767169998958707,35
+annual,2002,arima110_drift,True,,,0.03374620003160089,41
+seasonal,1996,ar1_trend,True,,,0.05892340000718832,140
+seasonal,1996,arima011,True,,,0.0367343999678269,140
+seasonal,1996,arima011_drift,True,,,0.05866749997949228,140
+seasonal,1996,arima110_drift,True,,,0.040766899997834116,140
+seasonal,1996,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.17657570005394518,140
+seasonal,1996,sarima010_011,True,,,0.07886569999391213,140
+seasonal,2002,sarima011_100,True,,,0.1237396999495104,164
+monthly,1996,arima011,True,,,0.04607390001183376,420
+monthly,1996,arima011_drift,True,,,0.09146259998669848,420
+monthly,1996,arima110_drift,True,,,0.04880499996943399,420
+monthly,1996,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.40512670000316575,420
+monthly,1996,sarima011_100,True,,,0.3207517000264488,420
+monthly,1996,sarima010_011,True,,,0.5651311000110582,420
+monthly,2002,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.17404950002674013,492
+monthly,2002,sarima011_100,True,,,0.28092629997991025,492
+annual,1997,ar1_trend,True,,,0.07837579998886213,36
+annual,1997,arima011,True,,,0.027635900012683123,36
+annual,1997,arima110_drift,True,,,0.052012300002388656,36
+annual,1997,arima212_original,True,,,0.14393570000538602,36
+annual,2003,arima110_drift,True,,,0.03641030000289902,42
+seasonal,1997,ar1_trend,True,,,0.06634590000612661,144
+seasonal,1997,arima011,True,,,0.031886200013104826,144
+seasonal,1997,arima011_drift,True,,,0.23337969998829067,144
+seasonal,1997,arima110_drift,True,,,0.06468280003173277,144
+seasonal,1997,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.23123520001536235,144
+seasonal,1997,sarima010_011,True,,,0.09733970003435388,144
+seasonal,2003,sarima011_100,True,,,0.17657449998660013,168
+monthly,1997,arima011,True,,,0.044310899975243956,432
+monthly,1997,arima011_drift,True,,,0.08580579998670146,432
+monthly,1997,arima110_drift,True,,,0.03326380002545193,432
+monthly,1997,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.5298331000376493,432
+monthly,1997,sarima011_100,True,,,0.3028556000208482,432
+monthly,1997,sarima010_011,True,,,0.6382942000054754,432
+monthly,2003,sarima010_011,True,,,0.7297538000275381,504
+annual,1998,ar1_trend,True,,,0.03659840003820136,37
+annual,1998,arima011,True,,,0.02778279996709898,37
+annual,1998,arima110_drift,True,,,0.02681110001867637,37
+annual,1998,arima212_original,True,,,0.09551590000046417,37
+annual,2004,arima110_drift,True,,,0.029179900011513382,43
+seasonal,1998,arima011,True,,,0.027515300025697798,148
+seasonal,1998,arima011_drift,True,,,0.05347220000112429,148
+seasonal,1998,arima110_drift,True,,,0.041571299952920526,148
+seasonal,1998,sarima011_100,True,,,0.13341040001250803,148
+seasonal,1998,sarima010_011,True,,,0.07657149998703972,148
+seasonal,2004,sarima011_100,True,,,0.11844970000674948,172
+monthly,1998,arima011,True,,,0.046048799995332956,444
+monthly,1998,arima011_drift,True,,,0.10180780000519007,444
+monthly,1998,arima110_drift,True,,,0.14087379997363314,444
+monthly,1998,sarima011_100,True,,,0.3671262999996543,444
+monthly,1998,sarima010_011,True,,,0.4621737999841571,444
+monthly,2004,sarima011_100,True,,,0.38796890003141016,516
+annual,1999,ar1_trend,True,,,0.04234429995995015,38
+annual,1999,arima011,True,,,0.02111879998119548,38
+annual,1999,arima110_drift,True,,,0.03836439998121932,38
+annual,1999,arima212_original,True,,,0.14800580003065988,38
+annual,2005,arima110_drift,True,,,0.028054499998688698,44
+seasonal,1999,arima011,True,,,0.03288170002633706,152
+seasonal,1999,arima011_drift,True,,,0.07142619998194277,152
+seasonal,1999,arima110_drift,True,,,0.03733630001079291,152
+seasonal,1999,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.18221450003329664,152
+seasonal,1999,sarima011_100,True,,,0.11857099999906495,152
+seasonal,1999,sarima010_011,True,,,0.07602819998282939,152
+seasonal,2005,sarima010_011,True,,,0.10916049999650568,176
+monthly,1999,arima011,True,,,0.04361079999944195,456
+monthly,1999,arima011_drift,True,,,0.08250429999316111,456
+monthly,1999,arima110_drift,True,,,0.11600499995984137,456
+monthly,1999,sarima011_100,True,,,0.27458670001942664,456
+monthly,1999,sarima010_011,True,,,0.5097435999778099,456
+monthly,2005,arima011_drift,True,,,0.10401320003438741,528
+annual,2000,ar1_trend,True,,,0.06292579998262227,39
+annual,2000,arima011,True,,,0.023423200007528067,39
+annual,2000,arima110_drift,True,,,0.027382599946577102,39
+annual,2000,arima212_original,True,,,0.14637720002792776,39
+annual,2006,arima110_drift,True,,,0.02639349998207763,45
+seasonal,2000,arima011,True,,,0.03024699998786673,156
+seasonal,2000,arima011_drift,True,,,0.05880940001225099,156
+seasonal,2000,arima110_drift,True,,,0.034872000047471374,156
+seasonal,2000,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.20646820002002642,156
+seasonal,2000,sarima011_100,True,,,0.13559690001420677,156
+seasonal,2000,sarima010_011,True,,,0.07655860000522807,156
+seasonal,2006,sarima011_100,True,,,0.15284019999671727,180
+monthly,2000,arima011,True,,,0.05359399999724701,468
+monthly,2000,arima011_drift,True,,,0.1021720000426285,468
+monthly,2000,arima110_drift,True,,,0.06063299998641014,468
+monthly,2000,arima212_original,True,,,0.4365203999914229,468
+monthly,2000,sarima011_100,True,,,0.3115479000261985,468
+monthly,2000,sarima010_011,True,,,0.4902631000149995,468
+monthly,2006,arima212_original,True,,,0.6694605000084266,540
+annual,2001,arima011,True,,,0.02468939998652786,40
+annual,2001,arima011_drift,True,,,0.10818769998149946,40
+annual,2001,arima110_drift,True,,,0.029948100040201098,40
+annual,2001,arima212_original,True,,,0.09727339999517426,40
+annual,2007,arima110_drift,True,,,0.029241300013381988,46
+seasonal,2001,arima011,True,,,0.04219259996898472,160
+seasonal,2001,arima011_drift,True,,,0.10187830001814291,160
+seasonal,2001,arima110_drift,True,,,0.04859989997930825,160
+seasonal,2001,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.22750059998361394,160
+seasonal,2001,sarima011_100,True,,,0.1527310000383295,160
+seasonal,2001,sarima010_011,True,,,0.08130030002212152,160
+seasonal,2007,sarima011_100,True,,,0.24952620000112802,184
+monthly,2001,arima011,True,,,0.05287650000536814,480
+monthly,2001,arima011_drift,True,,,0.19035089999670163,480
+monthly,2001,arima110_drift,True,,,0.05273740005213767,480
+monthly,2001,arima212_original,True,,Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.5355675000464544,480
+monthly,2001,sarima011_100,True,,,0.3118640999891795,480
+monthly,2001,sarima010_011,True,,,0.48833690001629293,480
+monthly,2007,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.38870650000171736,552
+annual,2002,ar1_trend,True,,,0.030433300009462982,41
+annual,2002,arima011,True,,,0.02602889999980107,41
+annual,2002,arima011_drift,True,,,0.06237430003238842,41
+annual,2002,arima212_original,True,,,0.2682390999980271,41
+annual,2008,arima110_drift,True,,,0.03451880003558472,47
+seasonal,2002,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.05969089997233823,164
+seasonal,2002,arima011,True,,,0.03516180004226044,164
+seasonal,2002,arima011_drift,True,,,0.0761818999890238,164
+seasonal,2002,arima110_drift,True,,,0.04310599999735132,164
+seasonal,2002,arima212_original,True,,,0.2424931999994442,164
+seasonal,2002,sarima010_011,True,,,0.09783459996106103,164
+seasonal,2008,sarima011_100,True,,,0.11354789999313653,188
+monthly,2002,arima011,True,,,0.04031479998957366,492
+monthly,2002,arima011_drift,True,,,0.08442510000895709,492
+monthly,2002,arima110_drift,True,,,0.06053249997785315,492
+monthly,2002,arima212_original,True,,,0.5389377999817953,492
+monthly,2002,sarima010_011,True,,,0.6155470999656245,492
+monthly,2008,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.4423990999930538,564
+annual,2003,ar1_trend,True,,,0.045377499947790056,42
+annual,2003,arima011,True,,,0.023506099998485297,42
+annual,2003,arima011_drift,True,,,0.05991349997930229,42
+annual,2003,arima212_original,True,,,0.21313850005390123,42
+annual,2009,arima110_drift,True,,,0.027358699997421354,48
+seasonal,2003,arima011,True,,,0.031190299952868372,168
+seasonal,2003,arima011_drift,True,,,0.061837200017180294,168
+seasonal,2003,arima110_drift,True,,,0.04505160002736375,168
+seasonal,2003,arima212_original,True,,,0.12491979997139424,168
+seasonal,2003,sarima010_011,True,,,0.0836847999598831,168
+seasonal,2009,arima110_drift,True,,,0.04077980003785342,192
+monthly,2003,arima011,True,,,0.05939609999768436,504
+monthly,2003,arima011_drift,True,,,0.2091692000394687,504
+monthly,2003,arima110_drift,True,,,0.03738850000081584,504
+monthly,2003,arima212_original,True,,,0.38628009997773916,504
+monthly,2003,sarima011_100,True,,,0.28978770005051047,504
+monthly,2009,arima011_drift,True,,,0.127563200017903,576
+annual,2004,ar1_trend,True,,,0.04446840001037344,43
+annual,2004,arima011,True,,,0.043397100002039224,43
+annual,2004,arima011_drift,True,,,0.12326979998033494,43
+annual,2004,arima212_original,True,,,0.38095729995984584,43
+annual,2010,arima110_drift,True,,,0.03103979997104034,49
+seasonal,2004,arima011,True,,,0.03163649997441098,172
+seasonal,2004,arima011_drift,True,,,0.0716217000153847,172
+seasonal,2004,arima110_drift,True,,,0.04012750001857057,172
+seasonal,2004,arima212_original,True,,,0.1856823999551125,172
+seasonal,2004,sarima010_011,True,,,0.059094400028698146,172
+seasonal,2010,sarima011_100,True,,,0.3487823000177741,196
+monthly,2004,arima011,True,,,0.11202370002865791,516
+monthly,2004,arima011_drift,True,,,0.10231369995744899,516
+monthly,2004,arima110_drift,True,,,0.041700400004629046,516
+monthly,2004,arima212_original,True,,,0.36146240000380203,516
+monthly,2004,sarima010_011,True,,,0.6007764000096358,516
+monthly,2010,arima011_drift,True,,,0.1307158000417985,588
+annual,2005,ar1_trend,True,,,0.04876099998364225,44
+annual,2005,arima011,True,,,0.027610499993897974,44
+annual,2005,arima011_drift,True,,,0.07050390000222251,44
+annual,2005,arima212_original,True,,,0.2393102000351064,44
+annual,2011,arima110_drift,True,,,0.03225029999157414,50
+seasonal,2003,ar1_trend,True,,,0.1617720000213012,168
+seasonal,2004,ar1_trend,True,,,0.12434690003283322,172
+seasonal,2005,ar1_trend,True,,,0.04246760002570227,176
+seasonal,2005,arima011,True,,,0.03495049994671717,176
+seasonal,2005,arima011_drift,True,,,0.17076529999030754,176
+seasonal,2005,arima110_drift,True,,,0.04743939999025315,176
+seasonal,2005,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters.,0.369710800005123,176
+seasonal,2005,sarima011_100,True,,,0.32553790003294125,176
+seasonal,2011,arima011_drift,True,,,0.1163438999792561,200
+monthly,2003,ar1_trend,True,,,0.1870647000032477,504
+monthly,2004,ar1_trend,True,,,0.14958730002399534,516
+monthly,2005,ar1_trend,True,,,0.18900610000127926,528
+monthly,2005,arima011,True,,,0.06203450000612065,528
+monthly,2005,arima110_drift,True,,,0.05898380000144243,528
+monthly,2005,arima212_original,True,,,0.4990582999889739,528
+monthly,2005,sarima011_100,True,,,0.37767760001588613,528
+monthly,2005,sarima010_011,True,,,1.4454566000495106,528
+monthly,2011,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.31356219999725,600
+monthly,2011,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.4575880000484176,600
+annual,2006,ar1_trend,True,,,0.04907690000254661,45
+annual,2006,arima011,True,,,0.041223599982913584,45
+annual,2006,arima011_drift,True,,,0.1392994000343606,45
+annual,2006,arima212_original,True,,,0.39207190001616254,45
+annual,2012,arima011_drift,True,,,0.08349659998202696,51
+seasonal,2006,ar1_trend,True,,,0.04973790002986789,180
+seasonal,2006,arima011,True,,,0.049428600003011525,180
+seasonal,2006,arima011_drift,True,,,0.16434379998827353,180
+seasonal,2006,arima110_drift,True,,,0.08292730001267046,180
+seasonal,2006,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.28950720001012087,180
+seasonal,2006,sarima010_011,True,,,0.12969309999607503,180
+seasonal,2012,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.08939859998645261,204
+seasonal,2012,arima011_drift,True,,,0.18253230000846088,204
+monthly,2006,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.23802280001109466,540
+monthly,2006,arima011,True,,,0.06375769997248426,540
+monthly,2006,arima011_drift,True,,,0.11724500003037974,540
+monthly,2006,arima110_drift,True,,,0.06593310000607744,540
+monthly,2006,sarima011_100,True,,,0.46883620001608506,540
+monthly,2006,sarima010_011,True,,,1.0154701999854296,540
+monthly,2012,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.5291214999742806,612
+annual,2007,ar1_trend,True,,,0.09599409997463226,46
+annual,2007,arima011,True,,,0.0313865999924019,46
+annual,2007,arima011_drift,True,,,0.07845880003878847,46
+annual,2007,arima212_original,True,,,0.1475057000061497,46
+annual,2013,arima011,True,,,0.035310300008859485,52
+seasonal,2007,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.1156994000193663,184
+seasonal,2007,arima011,True,,,0.04273210000246763,184
+seasonal,2007,arima011_drift,True,,,0.08483629999682307,184
+seasonal,2007,arima110_drift,True,,,0.04237629997078329,184
+seasonal,2007,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.1733327000401914,184
+seasonal,2007,sarima010_011,True,,,0.07947449997300282,184
+seasonal,2013,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.2405548000242561,208
+monthly,2007,arima011,True,,,0.040762699965853244,552
+monthly,2007,arima011_drift,True,,,0.1399414999759756,552
+monthly,2007,arima110_drift,True,,,0.04566169995814562,552
+monthly,2007,sarima011_100,True,,,0.36729449999984354,552
+monthly,2007,sarima010_011,True,,,1.4819203999941237,552
+monthly,2013,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.5428700000047684,624
+annual,2011,ar1_trend,True,,,0.08297340001445264,50
+annual,2012,ar1_trend,True,,,0.08062049996806309,51
+annual,2013,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.09177720005391166,52
+annual,2011,arima011,True,,,0.03241879999404773,50
+annual,2012,arima011,True,,,0.031217899988405406,51
+annual,2011,arima011_drift,True,,,0.10128989996155724,50
+annual,2013,arima011_drift,True,,,0.09031239995965734,52
+annual,2012,arima110_drift,True,,,0.031951599987223744,51
+annual,2013,arima110_drift,True,,,0.04631900001550093,52
+annual,2011,arima212_original,True,,,0.3370389000046998,50
+annual,2012,arima212_original,True,,,0.17554580001160502,51
+annual,2013,arima212_original,True,,,0.18766239995602518,52
+annual,2019,arima011_drift,True,,,0.05665060004685074,58
+seasonal,2011,ar1_trend,False,Optimizer did not converge,Maximum Likelihood optimization failed to converge. Check mle_retvals,0.205384100030642,200
+seasonal,2011,arima011,True,,,0.04401210002833977,200
+seasonal,2012,arima011,True,,,0.045588099979795516,204
+seasonal,2013,arima011,True,,,0.04342289996566251,208
+seasonal,2013,arima011_drift,True,,,0.23084779997589067,208
+seasonal,2011,arima110_drift,True,,,0.059829300036653876,200
+seasonal,2012,arima110_drift,True,,,0.06271670002024621,204
+seasonal,2013,arima110_drift,True,,,0.05951190000632778,208
+seasonal,2011,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.2340272999717854,200
+seasonal,2012,arima212_original,True,,Non-invertible starting MA parameters found. Using zeros as starting parameters. | Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.,0.35479159996612,204
+seasonal,2011,sarima011_100,True,,,0.21288750000530854,200
+seasonal,2012,sarima011_100,True,,,0.24076679995050654,204
+seasonal,2013,sarima011_100,True,,,0.23315520002506673,208
+seasonal,2011,sarima010_011,True,,,0.09711760003119707,200
+seasonal,2012,sarima010_011,True,,,0.11529269994935021,204
+seasonal,2013,sarima010_011,True,,,0.10800190002191812,208
+seasonal,2019,arima011_drift,True,,,0.1185655000153929,232
+monthly,2011,arima011,True,,,0.09025139996083453,600
+monthly,2012,arima011,True,,,0.15206920000491664,612
+monthly,2013,arima011,True,,,0.0746365999802947,624
+monthly,2011,arima011_drift,True,,,0.17959680000785738,600
+monthly,2012,arima011_drift,True,,,0.2026927000260912,612
+monthly,2013,arima011_drift,True,,,0.1734641000512056,624
+monthly,2011,arima110_drift,True,,,0.06366309995064512,600
+monthly,2012,arima110_drift,True,,,0.07383960002334788,612
+monthly,2013,arima110_drift,True,,,0.07882890000473708,624
+monthly,2011,sarima011_100,True,,,0.5063608000054955,600
+monthly,2012,sarima011_100,True,,,0.430519399989862,612
+monthly,2013,sarima011_100,True,,,0.42337179998867214,624
+monthly,2011,sarima010_011,True,,,1.3454197000246495,600
+monthly,2012,sarima010_011,True,,,0.8338594000088051,612
+monthly,2013,sarima010_011,True,,,1.361538400000427,624
+monthly,2019,sarima011_100,True,,,0.4825861999997869,696

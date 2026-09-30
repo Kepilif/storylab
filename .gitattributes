@@ -1,0 +1,19 @@
+stories/globalne_ocieplenie/data/** -text
+stories/globalne_ocieplenie/results/** -text
+stories/globalne_ocieplenie/*.py -text
+stories/globalne_ocieplenie/temperature/** -text
+stories/globalne_ocieplenie/tests/** -text
+*.png binary
+*.zip binary
+*.pdf binary
+*.xlsx binary
+*.parquet binary
+# Generated bundles are reviewed in the browser, not as minified text diffs.
+public/** -text -diff
+stories/ecommerce_segmentation/ecommerce_customer_segmentation.html -text -diff
+* whitespace=cr-at-eol
+# Preserve whitespace in original provider files and imported archival sources.
+stories/**/data/** whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+stories/globalne_ocieplenie/notebooks/01_temperature_change_analysis.qmd whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+stories/nba_scouting_patterns/story.qmd whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+stories/nba_scouting_patterns/archive/analiza_nba_JF.sql whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

@@ -1,0 +1,33 @@
+- title: Którzy klienci tworzą wartość?
+  subtitle: Segmentacja klientów e-commerce
+  description: 20,7 mln zdarzeń e-commerce. RFM, KMeans i analiza koszykowa prowadzą od zachowań klientów do hipotez marketingowych
+    — z jawnymi ograniczeniami danych.
+  path: stories/ecommerce_segmentation/index.html
+  image: stories/ecommerce_segmentation/full_figures/full_kmeans_rfm_scatter.png
+  image-alt: Wykres klastrów klientów z raportu e-commerce.
+  categories:
+  - E-commerce
+  - Segmentacja
+  featured: true
+- title: Co dane mówią o zawodnikach NBA?
+  subtitle: NBA Scouting Patterns · analiza eksploracyjna
+  description: Profile zawodników, wiek i ścieżki pochodzenia w perspektywie scoutingu. Historia, metodologia i plan rozwoju
+    oddzielają obserwacje sezonowe od pytań o całą karierę.
+  path: stories/nba_scouting_patterns/index.html
+  image: stories/nba_scouting_patterns/archive/wiek_wydajnosc.png
+  image-alt: Wiek a średnie statystyki zawodników NBA.
+  categories:
+  - Sport
+  - Scouting
+  featured: true
+
+- title: Czy historia temperatury wystarcza do prognozowania?
+  subtitle: Temperatura — prognoza i rzeczywistość
+  description: Jeden projekt, dwie analizy. Roczna seria FAOSTAT World i prognoza ARIMA jako punkt wyjścia do osobnego testu modeli na ERA5.
+  path: stories/globalne_ocieplenie/index.html
+  image: stories/globalne_ocieplenie/figures/backtest-output.png
+  image-alt: Prognoza temperatury na tle obserwacji ERA5 w teście backtestowym.
+  categories:
+  - Klimat
+  - Szeregi czasowe
+  featured: true

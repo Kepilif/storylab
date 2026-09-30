@@ -1,0 +1,444 @@
+{
+  "source": "marketing_data_app_gitea/analysis",
+  "source_commit": "dd4006d4f7ccc8d153cafe1e6dcf89690b9469b1",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "c98307bbe20958ee0588c22c3e0e2c723e53024d885ca743f2949f881df0e532"
+    },
+    {
+      "path": "01-wprowadzenie.qmd",
+      "sha256": "a4d075b6c22e03cf9c2d52d7ad5d4ecf9c90b8965a229e72bd82601f85e2a5e2"
+    },
+    {
+      "path": "02-dane.qmd",
+      "sha256": "582672dffb286ea966115bc4cdd6bf26fc9b3ef8b1df11c64fab06215bd59b95"
+    },
+    {
+      "path": "03-eda-dashboard.qmd",
+      "sha256": "e366a86d906e568532fcef8f9aefe5dc52e8376ac4a0e90e84912947907fab98"
+    },
+    {
+      "path": "04-zachowania-w-czasie.qmd",
+      "sha256": "cf3900edd3ae5c68bf23bd96c864c014b276ed0379a09effc9cd2592bcf75f60"
+    },
+    {
+      "path": "05-analiza-koszykowa.qmd",
+      "sha256": "15fc682c3fc8455a7e73daf42f47941fff8e53b277ddabe07934b24cf18fa687"
+    },
+    {
+      "path": "06-rfm.qmd",
+      "sha256": "2e5ab39caaba4564f3692938333ab65780418dadd7a29b6199e1d5ebf5d32f61"
+    },
+    {
+      "path": "07-kmeans.qmd",
+      "sha256": "ba5814e2397d7b2165af0fa8e6c7b74fa035db827eb893534a89cc337a06e669"
+    },
+    {
+      "path": "08-segmentacja-zachowan.qmd",
+      "sha256": "5cbd0287dc81d82f19dc997cfbea449bad0c8ce6d1c88a6543cbaaee4fe033e2"
+    },
+    {
+      "path": "09-profile-segmentow.qmd",
+      "sha256": "bbf7b758f8c67278c53bccd346c93cb5ab645418a4feba4f7dd0507227119e40"
+    },
+    {
+      "path": "10-rekomendacje.qmd",
+      "sha256": "42fb7180d4068b1c542077316dca94f23f4f4ffb366965b8cc92fb98f1723816"
+    },
+    {
+      "path": "11-aplikacja-streamlit.qmd",
+      "sha256": "65176cd7ce596e36315099022abc0a7c48af3c5a0645da053134890957e9cfe7"
+    },
+    {
+      "path": "12-ograniczenia.qmd",
+      "sha256": "9723c19d852669a5bf3d87e5b7c40b6fea60880b4bfd3edc8abd912404b70bcc"
+    },
+    {
+      "path": "ecommerce_customer_segmentation.html",
+      "sha256": "114510a91dc5b263806d500781788816f791bec8e6d8d919cf2081af7cf7d109"
+    },
+    {
+      "path": "index.qmd",
+      "sha256": "d9cb0fd240d33a0e91bb5a7ddcbef05820d04fc09fa98cd4ba75f9c54091e837"
+    },
+    {
+      "path": "slides.css",
+      "sha256": "df0f113009a3a86234e2a038d6916fb6a4fa5e8390f26f5a9470afe47854a5bd"
+    },
+    {
+      "path": "slides.qmd",
+      "sha256": "f06a9da86cecb5bec9ed7cd7b2a3e4c4b41e917ab4d73fce61b46f109494b9d5"
+    },
+    {
+      "path": "_quarto.yml",
+      "sha256": "d646ba8645b94a13bd13e31dbb7a38e595fea06673709fe044b4b5065af0c050"
+    },
+    {
+      "path": "business/executive-report.qmd",
+      "sha256": "69ca82d0adc91e715d8a55506be6ac1e48b65452a599e09ab22db79c6aa6c592"
+    },
+    {
+      "path": "figures/basket_rules_lift.png",
+      "sha256": "693788265406fae7df938a0661628dab20599aa2ac56ca8e734c212dd6da4fd6"
+    },
+    {
+      "path": "figures/dashboard_daily_revenue.png",
+      "sha256": "83c28b8722e18db6c64dda6e144e676d5a1a481f96ee7c9b97d6c0e88da578ad"
+    },
+    {
+      "path": "figures/kmeans_rfm_scatter.png",
+      "sha256": "9dc71fe218ce12e436450bd51d1843e42f9d45ce4bad762b751a8271cdeefcf7"
+    },
+    {
+      "path": "figures/rfm_segment_counts.png",
+      "sha256": "5437b0aa9c89f6f04ebca0ca943ed2b70e085d203e681ec3df4256e5ce0b381a"
+    },
+    {
+      "path": "figures/streamlit/streamlit-basket-input.png",
+      "sha256": "dfe4b56cf80de07f86e793a98515c093c4aaf61e4f5c4f2c590d744f73d7609d"
+    },
+    {
+      "path": "figures/streamlit/streamlit-basket.png",
+      "sha256": "f8e73548ac9c347409abd40e830837a2f779822b0b3d1369df6a2184675a78c1"
+    },
+    {
+      "path": "figures/streamlit/streamlit-dashboard.png",
+      "sha256": "06be427cad453a81cd181f74c82f5954b8b36f3a18956f9cf530b9607c4bc6db"
+    },
+    {
+      "path": "figures/streamlit/streamlit-home-loaded.png",
+      "sha256": "c5d3f37c621e3b54fef1d0a9b8fe57353e0c662438ae2c6943d31702bb7cc520"
+    },
+    {
+      "path": "figures/streamlit/streamlit-home.png",
+      "sha256": "e29547182af7737013e34810a19151d0add10e32fc40bf26c77d568c6f2c1145"
+    },
+    {
+      "path": "figures/streamlit/streamlit-kmeans.png",
+      "sha256": "0f3563c847bd1d52f0be152714cd632c44a734913e0b5dd52983bf4efc1f0504"
+    },
+    {
+      "path": "figures/streamlit/streamlit-rfm.png",
+      "sha256": "c7d4aa21f67ad1a5708b59139f7f271ac4f792b33938f55c4db0b5e5dda47d6e"
+    },
+    {
+      "path": "full_figures/brand_roles_scatter.png",
+      "sha256": "e1a5987d1a690d8abb110ce5bbe4e3ae69721a03899174e40ec6341f0be71f7f"
+    },
+    {
+      "path": "full_figures/full_behavior_kmeans_elbow.png",
+      "sha256": "53cedefe28ef072a87f7b4d8494f2f184608fc972b00b1c507576bfca985e40b"
+    },
+    {
+      "path": "full_figures/full_behavior_kmeans_scatter.png",
+      "sha256": "2299288b89d9ab62c8d39a4f72f857b5622c9057174d1536f04c43ddf4961b91"
+    },
+    {
+      "path": "full_figures/full_conversion_by_date.png",
+      "sha256": "453ccdb9192801ac05cb324497263ad8679afedf89e589d0be7bce8a1990b3ca"
+    },
+    {
+      "path": "full_figures/full_conversion_by_hour.png",
+      "sha256": "76aae7c01ef03167e632a8940c211063007ae46006a39dc4b048cd5d850e576b"
+    },
+    {
+      "path": "full_figures/full_event_type_by_month.png",
+      "sha256": "5124939fd4c456be608a1b9944f4293ccccb33b9ed45e99e5ddc1d4232537c19"
+    },
+    {
+      "path": "full_figures/full_kmeans_elbow.png",
+      "sha256": "28e39b6cb0a51e25687e3c5ffe93aa46cd55a9818f0fc842dbb19e0857ae240d"
+    },
+    {
+      "path": "full_figures/full_kmeans_rfm_scatter.png",
+      "sha256": "36d9fb1113c3bf4ca4202e66ffd1ca50ad48f6557771257cd8c23d104ac4fd45"
+    },
+    {
+      "path": "full_figures/full_price_distribution.png",
+      "sha256": "b7837299ff4e567885482600bde4875ef0478e490465df36fa15d492f7007717"
+    },
+    {
+      "path": "full_figures/full_revenue_by_day.png",
+      "sha256": "fab33acb2c287567d511878c068fe959d421bd73eb1e91776a8ceaea17826ae0"
+    },
+    {
+      "path": "full_figures/full_revenue_by_hour.png",
+      "sha256": "02246ae152a0a7173942baf0a06f5a6e4bd9cc0f6b47025ad18e4139330c2284"
+    },
+    {
+      "path": "full_figures/full_revenue_by_weekday.png",
+      "sha256": "8ee40e6cd135829bb0efc6c987a0ead5d5afe8aa08ff1edbda2c34bba40ce5f8"
+    },
+    {
+      "path": "full_figures/full_rfm_segment_counts.png",
+      "sha256": "2c7a2c83d7a3e17a9519843db0f93a35eeb4b7608296cdde2651c77d2ed9cb2b"
+    },
+    {
+      "path": "full_tables/full_basket_rules.csv",
+      "sha256": "ab33a384982d1150e8f8c2bf4eac4fd3f487e3ba6905e5010fab921e927f4310"
+    },
+    {
+      "path": "full_tables/full_basket_rules.md",
+      "sha256": "2e4bc1a9688f49ba4af3fe976d24bb71697239860d9add8ac1373237af4b6dd6"
+    },
+    {
+      "path": "full_tables/full_behavior_kmeans_scores.csv",
+      "sha256": "3cef2cada3ca3fbd91016cf7e51545309f129dbd87634719072d769a9bfc62d7"
+    },
+    {
+      "path": "full_tables/full_behavior_kmeans_scores.md",
+      "sha256": "a507ccdac4f83a1888c306a4a1aaf6ca9b50239f94cd4903788a930ce320fd73"
+    },
+    {
+      "path": "full_tables/full_behavior_kmeans_summary.csv",
+      "sha256": "2bb55922013f39d567af1097e88d7c44d5261d073db0f491f4583c400f5a6935"
+    },
+    {
+      "path": "full_tables/full_behavior_kmeans_summary.md",
+      "sha256": "d7a8ff31b4246019414d4dc34d30dd5e1a20a142fd8aa3fe297b76841cd2a7cf"
+    },
+    {
+      "path": "full_tables/full_cleaning_summary.csv",
+      "sha256": "129acd9f00dadbe3bf0d1fc62d83a84b1ac3796b1d0fc327a3de7d1d75fa1dba"
+    },
+    {
+      "path": "full_tables/full_cleaning_summary.md",
+      "sha256": "34a781c2dad9e0ffac63ac79171fd6969e159a9b7ae850b45322772779c31217"
+    },
+    {
+      "path": "full_tables/full_conversion_by_date.csv",
+      "sha256": "c52763abb102417e72e54e7da4298c789561f014ae48cde72c3fd5b58e41ccb2"
+    },
+    {
+      "path": "full_tables/full_conversion_by_date.md",
+      "sha256": "f06936444adb1ab5ce374ddb610fca6b38789d40f00c7ed575ed4a1fe8da012f"
+    },
+    {
+      "path": "full_tables/full_conversion_by_hour.csv",
+      "sha256": "ffa256b42380a8ee42e0324e66d669676d755c37ce94edeefcbc136917358532"
+    },
+    {
+      "path": "full_tables/full_conversion_by_hour.md",
+      "sha256": "16d0701af7458eaf685eb7c8e4cef3622d29445feabfcd2596736738baa11c5f"
+    },
+    {
+      "path": "full_tables/full_dashboard_metrics.csv",
+      "sha256": "3b1bc8a68636c1c5e3506482801840a7b9fe11de59f938d663282b5f28f145de"
+    },
+    {
+      "path": "full_tables/full_dashboard_metrics.md",
+      "sha256": "564620f37f4e17d873b10862b8193630e35d84c2ab6a7c706ce63c5af5dbbcf8"
+    },
+    {
+      "path": "full_tables/full_data_overview.csv",
+      "sha256": "b2054eb8ba1d2d1567f2b48a278579e476e0cd9062fd326ec945afc4834af33c"
+    },
+    {
+      "path": "full_tables/full_data_overview.md",
+      "sha256": "844eefcf6e6f1f4710ff78db23a1138a6689def84bb18c4f775c661ad152e0bb"
+    },
+    {
+      "path": "full_tables/full_event_counts.csv",
+      "sha256": "ee9eec7e2d47fa9d796e6b10448032513ed397d2ec6f431031457ee5382efb41"
+    },
+    {
+      "path": "full_tables/full_event_counts.md",
+      "sha256": "1c15d2108cc2d371837dcc1262975169a1b22a87fda500e6b6906aa40a38938d"
+    },
+    {
+      "path": "full_tables/full_kmeans_business_summary.csv",
+      "sha256": "fd4827cf1018758e059553ea72d5240a41702978fdabdd4b1269e552396fddbb"
+    },
+    {
+      "path": "full_tables/full_kmeans_business_summary.md",
+      "sha256": "b7c54db267714a473ad5b3c40942f9c3870cbb52cf08b0060616a8f4c758ebf3"
+    },
+    {
+      "path": "full_tables/full_kmeans_microsegments.csv",
+      "sha256": "7f47117bb028c823c694e255dd4faa026423ce3b8e9a2d50dbbd366db3d938f4"
+    },
+    {
+      "path": "full_tables/full_kmeans_microsegments.md",
+      "sha256": "4f7cf0b0d6a8f1c871aa9e7c01e96613aaac6f66064ad490048d9fbc002aff46"
+    },
+    {
+      "path": "full_tables/full_kmeans_scores.csv",
+      "sha256": "ff571b5dd4225f5d4d24e54ab02b07d4a5e01b7671a01e6b427bb2b279ad402e"
+    },
+    {
+      "path": "full_tables/full_kmeans_scores.md",
+      "sha256": "b99d37766a42eda8e9d2f5a080635c38e97416440c27387d063deb66685f2757"
+    },
+    {
+      "path": "full_tables/full_kmeans_summary.csv",
+      "sha256": "fd4827cf1018758e059553ea72d5240a41702978fdabdd4b1269e552396fddbb"
+    },
+    {
+      "path": "full_tables/full_kmeans_summary.md",
+      "sha256": "b7c54db267714a473ad5b3c40942f9c3870cbb52cf08b0060616a8f4c758ebf3"
+    },
+    {
+      "path": "full_tables/full_missing_values.csv",
+      "sha256": "ef3ff4f9417b4a94680946f0edbb22f1fd130231143e6aab787f68a54aa0d8b6"
+    },
+    {
+      "path": "full_tables/full_missing_values.md",
+      "sha256": "ee604d33946891fc0190b2ace4d02433aeeb86f737089cc3b97297f70fb56141"
+    },
+    {
+      "path": "full_tables/full_revenue_concentration.csv",
+      "sha256": "eaefe0b2797b4d9e603eaed1e7e6e5ddf5d7bc574e3afe5b89130de9b1d0ce14"
+    },
+    {
+      "path": "full_tables/full_revenue_concentration.md",
+      "sha256": "f6558c25dbc861c2ecd3ba0ad570bd0e91095ed5f8d448a04005e5c44909b87c"
+    },
+    {
+      "path": "full_tables/full_rfm_category_summary.csv",
+      "sha256": "4f195a97eef76cc58565b91ad68dfab2087f3b81d95c12863fc014f4322ea969"
+    },
+    {
+      "path": "full_tables/full_rfm_category_summary.md",
+      "sha256": "92bc07dbb66551eef435b6728a6d041c729269fd9ad184cc4c7066a9a0ce5af6"
+    },
+    {
+      "path": "full_tables/full_rfm_segment_share.csv",
+      "sha256": "abcb983a4f30870ec62798c9d24a9c15d326a165c1c36aa719831e0e5484bfea"
+    },
+    {
+      "path": "full_tables/full_rfm_segment_share.md",
+      "sha256": "3c67fb72a9ffe444ed0d3a4f71624735d3af8be3f1296ce84de29c2e40b51a63"
+    },
+    {
+      "path": "full_tables/full_rfm_summary.csv",
+      "sha256": "e8f6d9330895ffac4a63dd540614428b4106e5500666805ee3a0430cb3066a87"
+    },
+    {
+      "path": "full_tables/full_rfm_summary.md",
+      "sha256": "f48d6596e7e1a7e37facf9a91956a37f6b58504f9daf3288849ae9b301471530"
+    },
+    {
+      "path": "full_tables/full_segment_profiles.csv",
+      "sha256": "34d31eacd00d87ae60bda8beedddc4e9472d8a646f8dd4b3fd0dbb2e21c4efb5"
+    },
+    {
+      "path": "full_tables/full_segment_profiles.md",
+      "sha256": "fa0b0199d8986ebaa4d7a1b6830615b34de6b2897783cdcc3b63fa32c7622756"
+    },
+    {
+      "path": "full_tables/full_time_patterns.csv",
+      "sha256": "119fa24807eb67ea2ed04fbcf99ff7ff2b2ee9009d622035fd7c6096626092ba"
+    },
+    {
+      "path": "full_tables/full_time_patterns.md",
+      "sha256": "aa32bccb3f66727da09463ce829796c4fe88211938ac68f0d958dc4976b68638"
+    },
+    {
+      "path": "full_tables/full_top_brands.csv",
+      "sha256": "9673c5d1aa0c5ae84ec8a0c8ada439b351221e2b1c1b1eb993263a0c9a2ee1d7"
+    },
+    {
+      "path": "full_tables/full_top_brands.md",
+      "sha256": "68b35c9bb5d26a7dc07de2bfbb5422a2820ae9b7660b5e1fd48df573dad8df82"
+    },
+    {
+      "path": "full_tables/full_top_products.csv",
+      "sha256": "f04bc2178395a1e4ac6173948f315da42594c1939cabe2ee35b94153c5e2e037"
+    },
+    {
+      "path": "full_tables/full_top_products.md",
+      "sha256": "bad25fc84348b9fd7af3772410e96a04b31f0e2a55d29533f06714f98dbe589d"
+    },
+    {
+      "path": "full_tables/full_unique_values.csv",
+      "sha256": "8412ff39eaa6442ced7fe39e20dffc5184a80cab27d2b92d2e328f66a10f29ed"
+    },
+    {
+      "path": "full_tables/full_unique_values.md",
+      "sha256": "63ce898faed305d77eaab1e7794c10837b89a83843f046de609a09cdef8f0e80"
+    },
+    {
+      "path": "notebooks/brand_apriori.csv",
+      "sha256": "b31e02bda60ec3dc508c47cb8dcc620d22827a769d2a417f198b43815eed9425"
+    },
+    {
+      "path": "notebooks/brand_associationRules.csv",
+      "sha256": "425fee9869cc29b8c39e64258401d1556e798c38179680c38ea036ee9cc751b3"
+    },
+    {
+      "path": "notebooks/category_id_apriori.csv",
+      "sha256": "8b656260cd9374513f77494c135208a22cb886776cae8fcea3308e84f37324dc"
+    },
+    {
+      "path": "notebooks/category_id_associationRules.csv",
+      "sha256": "7c692d0d42e78c5872a5da0f7075a610ad07a0dd76c8379f6fe3581cd2d2ed4b"
+    },
+    {
+      "path": "notebooks/interactive-notebook.qmd",
+      "sha256": "5e503c648f5095154cb7765799902fbfd25e8c5f44acb5052337c12bc0b179e1"
+    },
+    {
+      "path": "reports/customer-segmentation.qmd",
+      "sha256": "e36f799021fdc5ab32c861bb61e5788a2467625440d4fb9f49308fde2f3ef096"
+    },
+    {
+      "path": "reports/market-basket-analysis.qmd",
+      "sha256": "3a6f0750e425eb0e62ca700ab94c4f8354b32ceda2f48080ebbd6618f22ea02e"
+    },
+    {
+      "path": "tables/basket_rules.csv",
+      "sha256": "d35a248ac164a465908e440679e0595e25ca87a6785fd7034c0966dfc0ae2611"
+    },
+    {
+      "path": "tables/basket_rules.md",
+      "sha256": "8acf8c63b9765b09064e6636dfb19b0ebe42060910b6bcd0057bc401599dc9aa"
+    },
+    {
+      "path": "tables/campaign_recommendations.md",
+      "sha256": "d450e9896910fe03868c3086c482a00904dd588119027387f4a0548244e2d716"
+    },
+    {
+      "path": "tables/dashboard_metrics.csv",
+      "sha256": "8eee300f22c7f08e7b2cf42f410eca75b977eb6d1170de5bc004d74bdcc38aa4"
+    },
+    {
+      "path": "tables/dashboard_metrics.md",
+      "sha256": "ae536eaefe3c312a75a26efbb2329ba165f050a3db1a08b94ceac4175c2d9e7d"
+    },
+    {
+      "path": "tables/kmeans_summary.csv",
+      "sha256": "1e4f1c8ff04e43b3d9aa0bc4bd439b082f2525a7c8eb75265fbafa1d572652e9"
+    },
+    {
+      "path": "tables/kmeans_summary.md",
+      "sha256": "caf4f012ddf140e5ea9becb94a458ea01e9730ea5f3be842aed60c0ed1dd1e47"
+    },
+    {
+      "path": "tables/rfm_summary.csv",
+      "sha256": "b02572eeb376b856a68ac62758a081f63f1d50a3dc2b0d66980836a5e2e3b25d"
+    },
+    {
+      "path": "tables/rfm_summary.md",
+      "sha256": "971be04b057bd4b486131d2b6bd1aed6e5726e8082b29bac9ac8cda9c1ecc9a0"
+    },
+    {
+      "path": "technical/appendix.qmd",
+      "sha256": "2f78d52371e83e855741b821fe7ad64b649f586674838ce436af423eabcf8f20"
+    },
+    {
+      "path": "technical/dalszy-rozwoj.qmd",
+      "sha256": "f93600ad17f028110c982c851cc9773dc96ad579864f17acb6d6f396cbdda6bb"
+    },
+    {
+      "path": "technical/reproducibility.qmd",
+      "sha256": "6d7acfed035e39e653e3429678b8a207e452501a5ed772e73d949eb9d7528ae1"
+    }
+  ],
+  "notebook_snapshot": {
+    "path": "_site/notebooks/interactive-notebook.html",
+    "sha256": "d3e65ba2a07e20ad0ded15fb3d7e58dfe82e09c01c6bcd57624dff06195c90e5",
+    "code_cells_verified": 21,
+    "images": 24
+  }
+}

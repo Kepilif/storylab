@@ -1,0 +1,6 @@
+Segment,Klienci,Udział klientów,Recency,Frequency,Monetary,Przychód,Interpretacja
+Klaster 0,34811,31.5,88.49,7.28,41.71,1451816.57,Profil pośredni; wymaga testów kampanii i obserwacji stabilności.
+Klaster 1,33398,30.22,84.97,2.73,14.66,489575.0,Profil niskowartościowy lub okazjonalny; zalecane tanie kanały automatyczne.
+Klaster 2,19719,17.84,75.52,23.27,105.17,2073778.49,"Profil wartościowy historycznie, ale wymagający działań retencyjnych."
+Klaster 3,15067,13.63,11.95,6.08,32.79,493975.78,Profil świeży; dobry kandydat do onboardingu i drugiego zakupu.
+Klaster 4,7523,6.81,15.71,52.04,244.94,1842684.45,"Najbardziej wartościowy profil: świeży, częsty i wysokowartościowy."

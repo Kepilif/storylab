@@ -1,0 +1,54 @@
+---
+title: "NBA Scouting Patterns"
+---
+
+::: {.callout-tip appearance="simple"}
+**Rozdziały projektu:** **Start** | [Historia](story.qmd) | [Metodologia](methodology.qmd) | [Warsztat](portfolio.qmd) | [Dalszy rozwój](roadmap.qmd)
+:::
+
+## Project snapshot
+
+NBA Scouting Patterns to case study portfolio o tym, jak analizowac rozwoj kariery graczy NBA z perspektywy scoutingu, draftu i komunikacji wynikow.
+
+## At a glance
+
+- Stakeholder: czlonek zespolu scoutingowego klubu NBA
+- Problem: jakie profile fizyczne i jakie sciezki pochodzenia sa powiazane z rozwojem kariery zawodnikow
+- Current status: Iteration 2 completed, Iteration 3 next
+- Main output: warstwa storytellingowa i struktura portfolio projektu
+- Next focus: metodologia, SQL i model danych `player-career`
+
+## Why this project exists
+
+Punktem wyjscia jest pytanie scoutingowe: czy wzrost, masa ciala, wiek, kraj i uczelnia sa zwiazane z przebiegiem kariery zawodnikow NBA i czy da sie z tych wzorcow wydobywac sygnaly przydatne przed draftem.
+
+Projekt nie ma byc tylko przegladem statystyk NBA. Docelowo ma pokazywac, jak z otwartego problemu biznesowego przejsc do warstwy analitycznej, metodologicznej i portfolio-ready narracji.
+
+## What is already delivered
+
+- uporzadkowana struktura projektu Quarto
+- pierwsza publikowalna warstwa storytellingowa
+- jasny podzial na story, methodology, portfolio i roadmap
+- eksport raportu do HTML, DOCX i PDF
+- log iteracji i kierunek rozwoju projektu
+
+## How to read this project
+
+- [Historia](story.qmd) pokazuje glowna opowiesc i pierwsze wnioski
+- [Metodologia](methodology.qmd) opisuje dane, ograniczenia, model analityczny i plan warstwy SQL
+- [Warsztat](portfolio.qmd) pokazuje, jakie kompetencje demonstruje ten case study
+- [Dalszy rozwój](roadmap.qmd) zbiera iteracje, backlog i kolejne kierunki rozwoju
+
+## Project role inside StoryLab
+
+W ramach StoryLab ten projekt pelni role portfolio case study z obszaru sports analytics. Ma byc przykladem tego, jak laczyc:
+
+- data storytelling
+- SQL i modelowanie warstwy analitycznej
+- mysl metodologiczna
+- iteracyjny workflow projektowy
+
+
+::: {.sl-note}
+**Czytaj także:** [Historia na blogu](story.qmd) · [Pozostałe projekty](../../projects.qmd). Analiza opisuje obserwacje zawodnik–sezon; model całej kariery i warstwa prognostyczna pozostają planem rozwoju.
+:::

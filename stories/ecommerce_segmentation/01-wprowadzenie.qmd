@@ -1,0 +1,39 @@
+---
+title: "Wprowadzenie"
+---
+
+## Problem biznesowy
+
+Zespół marketingowy w e-commerce potrzebuje szybkiego sposobu, żeby przełożyć dane o zdarzeniach użytkowników na decyzje kampanijne. Surowe logi zakupów są trudne do interpretacji bez dodatkowego przetworzenia: pokazują pojedyncze zdarzenia, ale nie mówią od razu, którzy klienci są wartościowi, co warto rekomendować ani które grupy wymagają działań retencyjnych.
+
+Ten case study odpowiada na pytanie:
+
+> Jak z danych zdarzeniowych e-commerce zbudować prosty, powtarzalny proces
+> segmentacji klientów i rekomendacji marketingowych?
+
+## Narracja liczbowa
+
+Punkt wyjścia jest szeroki: **20 692 840 zdarzeń** zapisanych w pięciu miesięcznych plikach kosmetycznych. W tych zdarzeniach pojawia się **1 639 358 użytkowników**, ale tylko **110 518 klientów** faktycznie dokonało zakupu.
+
+To oznacza, że większość danych opisuje aktywność przedzakupową: wyświetlenia, dodania do koszyka i usunięcia z koszyka. Analiza marketingowa musi więc odróżnić ruch od wartości. Sam fakt aktywności użytkownika nie wystarcza; trzeba sprawdzić, kto kupuje, jak często i jaką wartość wnosi.
+
+Po czyszczeniu technicznym zostaje **1 286 881 pozycji zakupowych** i **6,35 mln jednostek wartości sprzedaży**. Średnia wartość pozycji zakupowej wynosi **4,94**, ale średnia nie mówi całej historii, bo wartość jest silnie skoncentrowana:
+
+{{< include full_tables/full_revenue_concentration.md >}}
+
+Najważniejszy wniosek na start: **11,1 tys. najlepszych klientów kupujących generuje 43,0% przychodu**. To nie jest jeszcze koncentracja typu 10/90, ale wystarcza, żeby uzasadnić segmentację i priorytetyzację budżetu marketingowego.
+
+## Zakres analizy
+
+Projekt obejmuje cztery przepływy analityczne:
+
+- dashboard sprzedażowy,
+- analizę koszykową,
+- scoring RFM,
+- segmentację KMeans.
+
+Każdy przepływ ma osobną rolę. Dashboard daje kontekst, analiza koszykowa pokazuje relacje między produktami, RFM porządkuje klientów według wartości i aktywności, a KMeans grupuje podobne profile klientów.
+
+## Wynik końcowy
+
+Wynikiem nie jest tylko raport, ale także aplikacja Streamlit, która pozwala odtworzyć przepływ na pliku CSV wgranym przez użytkownika. Dzięki temu projekt może być pokazany zarówno jako analiza, jak i jako działające narzędzie.

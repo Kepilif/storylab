@@ -1,0 +1,27 @@
+---
+title: "Profile segmentów"
+---
+
+## Cel
+
+Ten rozdział jest pomostem między modelem a rekomendacjami marketingowymi. Zamiast prezentować tylko etykiety klastrów, opisuje, co segmenty oznaczają dla biznesu.
+
+## Profile z pełnych danych
+
+{{< include full_tables/full_kmeans_summary.md >}}
+
+Przed nadaniem etykiet biznesowych tabela powinna zostać przeczytana wprost: który klaster ma najwyższe `Monetary`, który ma największe `Frequency`, który jest najbardziej świeży, a który ma niski poziom obu wymiarów. Dopiero taka obserwacja uzasadnia przejście od numeru klastra do profilu marketingowego.
+
+## Nazwy biznesowe i działania
+
+Numery klastrów są techniczne i mogą zmienić się po ponownym trenowaniu modelu. Dlatego działania marketingowe należy przypisywać na podstawie profilu widocznego w tabeli: liczby klientów, udziału w bazie, świeżości zakupu, częstotliwości i wartości.
+
+**Profil wysokiej wartości.** Segment z najwyższym `Frequency` i `Monetary` powinien być traktowany jako grupa retencyjna: program lojalnościowy, wcześniejszy dostęp, rekomendacje komplementarne i ostrożność z rabatami, które mogłyby obniżać marżę.
+
+**Profil wartościowy, ale mniej intensywny.** Segment z istotnym `Monetary`, lecz niższym `Frequency`, nadaje się do kampanii zwiększających kolejny zakup: przypomnień, cross-sellu i ofert dopasowanych do poprzednich marek.
+
+**Profil średniej wartości.** Segment o umiarkowanych wartościach RFM nadaje się do testów automatyzacji: rekomendacji po zakupie, pakietów oraz komunikacji budującej kolejną pozycję lub sesję zakupową.
+
+**Profile okazjonalne lub niskowartościowe.** Segmenty o niskim `Frequency` i `Monetary` powinny być obsługiwane kosztowo efektywniej: tanimi kanałami automatycznymi, rekomendacjami organicznymi i ostrożnymi testami promocji. Bez danych o marży i kosztach kampanii jest to hipoteza alokacji budżetu, nie dowód opłacalności.
+
+Takie profile zmieniają KMeans z tabeli technicznej w decyzję marketingową: segmenty wysokiej wartości chronimy, segmenty pośrednie rozwijamy, a segmenty niskowartościowe obsługujemy taniej.

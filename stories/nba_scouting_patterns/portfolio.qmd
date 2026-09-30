@@ -1,0 +1,68 @@
+---
+title: "Warsztat analityczny"
+---
+
+::: {.callout-tip appearance="simple"}
+**Rozdziały projektu:** [Start](index.qmd) | [Historia](story.qmd) | [Metodologia](methodology.qmd) | **Warsztat** | [Dalszy rozwój](roadmap.qmd)
+:::
+
+## What this project demonstrates
+
+Ta strona sluzy rekruterowi jako przewodnik po tym, co projekt pokazuje o sposobie pracy, umiejetnosciach i decyzjach projektowych.
+
+## Business thinking
+
+Projekt pokazuje:
+
+- przekladanie otwartego tematu sportowego na konkretne pytanie decyzyjne
+- definiowanie stakeholdera i wartosci analizy
+- odroznianie insightu od ciekawostki
+- umiejetnosc ustawienia projektu nie tylko jako analizy, ale tez jako artefaktu portfolio
+
+## Analytical thinking
+
+Projekt pokazuje:
+
+- EDA i selekcje sensownych wskaznikow
+- rozumienie jednostki analizy: sezon kontra kariera
+- interpretacje korelacji i ograniczen danych
+- projektowanie przyszlych metryk sukcesu zawodnika
+- swiadome odkladanie zbyt mocnych wnioskow tam, gdzie dane jeszcze ich nie wspieraja
+
+## Technical execution
+
+Projekt pokazuje:
+
+- Quarto jako warstwe publikacji portfolio i raportu
+- SQL jako planowana warstwe audytu i feature engineeringu
+- uporzadkowanie pracy w iteracjach, branchach i commitach
+- laczenie roboczych materialow z finalna warstwa publikacyjna
+
+## Communication and storytelling
+
+Projekt pokazuje:
+
+- budowanie narracji od pytania biznesowego do wniosku
+- oddzielenie warstwy narracyjnej od technicznej
+- dbalosc o UX wykresow, podpisy i czytelnosc raportu
+- umiejetnosc przygotowania projektu tak, aby rozni odbiorcy mogli wejsc na roznych poziomach szczegolowosci
+
+## Evidence in this case study
+
+Najmocniejsze artefakty projektu to:
+
+- [index.qmd](index.qmd) jako karta projektu
+- [story.qmd](story.qmd) jako glowny raport narracyjny
+- [methodology.qmd](methodology.qmd) jako warstwa warsztatowa
+- [roadmap.qmd](roadmap.qmd) jako plan iteracyjnego rozwoju
+- `docs/PROJECT_LOG.md` jako sladowanie wykonanej pracy
+- bieżąca narracja HTML oraz archiwalny raport PDF w `archive/analiza_nba_JF.pdf`
+
+## Reading flow
+
+Najbardziej naturalna sciezka czytania jest taka:
+
+1. [index.qmd](index.qmd) dla szybkiego zrozumienia projektu
+2. [story.qmd](story.qmd) dla glownych wnioskow i narracji
+3. [methodology.qmd](methodology.qmd) dla metod, ograniczen i logiki analitycznej
+4. [roadmap.qmd](roadmap.qmd) dla dalszych iteracji i kierunku rozwoju

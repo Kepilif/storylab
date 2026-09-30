@@ -1,0 +1,8 @@
+lang: pl
+toc: true
+number-sections: false
+execute:
+  echo: false
+format:
+  html:
+    include-after-body: _portfolio-links.html

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Dalszy rozwój analizy – StoryLab</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-b77ad8b8fd8f04bd21044df5c5bf7d25.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Brak wyników",
+    "search-matching-documents-text": "dopasowane dokumenty",
+    "search-copy-link-title": "Kopiuj link do wyszukiwania",
+    "search-hide-matches-text": "Ukryj dodatkowe dopasowania",
+    "search-more-match-text": "więcej dopasowań w tym dokumencie",
+    "search-more-matches-text": "więcej dopasowań w tym dokumencie",
+    "search-clear-button-title": "Wyczyść",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Anuluj",
+    "search-submit-button-title": "Zatwierdź",
+    "search-label": "Szukaj"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../assets/storylab.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">StoryLab</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Szukaj"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Przełącz nawigację" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../projects.html"> 
+<span class="menu-text">Projekty</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../wizualizacje.html"> 
+<span class="menu-text">Wizualizacje</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">O mnie</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../stories/ecommerce_segmentation/technical/appendix.html">Dokumentacja techniczna</a></li><li class="breadcrumb-item"><a href="../../../stories/ecommerce_segmentation/technical/dalszy-rozwoj.html">Dalszy rozwój analizy</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Przełącz pasek boczny" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Segmentacja klientów e-commerce</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Podsumowanie i decyzje</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/business/executive-report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Executive Report</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/10-rekomendacje.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rekomendacje marketingowe</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">prezentacja</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Wyniki analizy</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/01-wprowadzenie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wprowadzenie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/02-dane.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dane</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/03-eda-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">EDA i dashboard opisowy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/04-zachowania-w-czasie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zachowania zakupowe w czasie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/reports/customer-segmentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customer Segmentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/reports/market-basket-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Market Basket Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Metody i przebieg analizy</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/05-analiza-koszykowa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analiza koszykowa</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/06-rfm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RFM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/07-kmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KMeans i dobór liczby klastrów</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/08-segmentacja-zachowan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Segmentacja zachowań użytkowników</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/09-profile-segmentow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Profile segmentów</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Dokumentacja techniczna</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/technical/appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technical Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/technical/reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reproducibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/technical/dalszy-rozwoj.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Dalszy rozwój analizy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/notebooks/interactive-notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notatnik analityczny</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/12-ograniczenia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ograniczenia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Aplikacja</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Przełącz sekcję">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../stories/ecommerce_segmentation/11-aplikacja-streamlit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Aplikacja Streamlit</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Na tej stronie</h2>
+   
+  <ul>
+  <li><a href="#cel-rozwoju" id="toc-cel-rozwoju" class="nav-link active" data-scroll-target="#cel-rozwoju">Cel rozwoju</a></li>
+  <li><a href="#rozszerzenie-danych" id="toc-rozszerzenie-danych" class="nav-link" data-scroll-target="#rozszerzenie-danych">Rozszerzenie danych</a></li>
+  <li><a href="#rozwój-segmentacji" id="toc-rozwój-segmentacji" class="nav-link" data-scroll-target="#rozwój-segmentacji">Rozwój segmentacji</a></li>
+  <li><a href="#modele-predykcyjne" id="toc-modele-predykcyjne" class="nav-link" data-scroll-target="#modele-predykcyjne">Modele predykcyjne</a></li>
+  <li><a href="#analiza-przyczynowa-i-eksperymenty" id="toc-analiza-przyczynowa-i-eksperymenty" class="nav-link" data-scroll-target="#analiza-przyczynowa-i-eksperymenty">Analiza przyczynowa i eksperymenty</a></li>
+  <li><a href="#rozwój-analizy-koszykowej" id="toc-rozwój-analizy-koszykowej" class="nav-link" data-scroll-target="#rozwój-analizy-koszykowej">Rozwój analizy koszykowej</a></li>
+  <li><a href="#stack-danych-i-pipeline" id="toc-stack-danych-i-pipeline" class="nav-link" data-scroll-target="#stack-danych-i-pipeline">Stack danych i pipeline</a></li>
+  <li><a href="#akceleracja-obliczeń" id="toc-akceleracja-obliczeń" class="nav-link" data-scroll-target="#akceleracja-obliczeń">Akceleracja obliczeń</a></li>
+  <li><a href="#produkcyjne-wdrożenie-modeli" id="toc-produkcyjne-wdrożenie-modeli" class="nav-link" data-scroll-target="#produkcyjne-wdrożenie-modeli">Produkcyjne wdrożenie modeli</a></li>
+  <li><a href="#warstwa-decyzyjna" id="toc-warstwa-decyzyjna" class="nav-link" data-scroll-target="#warstwa-decyzyjna">Warstwa decyzyjna</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../stories/ecommerce_segmentation/technical/appendix.html">Dokumentacja techniczna</a></li><li class="breadcrumb-item"><a href="../../../stories/ecommerce_segmentation/technical/dalszy-rozwoj.html">Dalszy rozwój analizy</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Dalszy rozwój analizy</h1>
+<p class="subtitle lead">Jak przesunąć projekt od eksploracji do systemu decyzyjnego</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cel-rozwoju" class="level2">
+<h2 class="anchored" data-anchor-id="cel-rozwoju">Cel rozwoju</h2>
+<p>Obecny projekt odpowiada przede wszystkim na pytania opisowe i segmentacyjne: kto kupuje, jak zachowują się użytkownicy, które marki współwystępują w koszykach i gdzie pojawia się różnica między aktywnością a finalizacją zakupu.</p>
+<p>Dalszy rozwój powinien przesunąć analizę w stronę predykcji, eksperymentów i decyzji ekonomicznych. Oznacza to przejście od pytania „co widać w danych?” do pytań: „co prawdopodobnie wydarzy się dalej?”, „które działanie wygeneruje przyrostowy efekt?” oraz „czy rekomendacja jest opłacalna po uwzględnieniu kosztu?”.</p>
+</section>
+<section id="rozszerzenie-danych" class="level2">
+<h2 class="anchored" data-anchor-id="rozszerzenie-danych">Rozszerzenie danych</h2>
+<p>Największym ograniczeniem obecnej analizy jest brak danych ekonomicznych i marketingowych. Dane zdarzeniowe pozwalają mierzyć przychód obserwowany jako sumę <code>price</code>, ale nie pozwalają jeszcze mówić o zysku, marży ani inkrementalnym efekcie kampanii.</p>
+<p>Najbardziej wartościowe rozszerzenia danych:</p>
+<ul>
+<li>marża, koszt produktu i koszt dostawy,</li>
+<li>koszt kampanii, kanał pozyskania i źródło sesji,</li>
+<li>ekspozycje kampanii, kupony, rabaty i historia kontaktów marketingowych,</li>
+<li>stany magazynowe, dostępność produktu i lead time dostawy,</li>
+<li>kalendarz promocji, święta, sezonowość i zdarzenia zewnętrzne,</li>
+<li>dane geograficzne lub demograficzne, jeżeli są legalnie dostępne i zgodne z polityką prywatności,</li>
+<li>identyfikator zamówienia, który pozwoli odróżnić liczbę pozycji zakupowych od liczby transakcji.</li>
+</ul>
+<p>Te dane zmieniłyby charakter rekomendacji. Przykładowo, segment o wysokim przychodzie nie musi być najlepszym celem kampanii, jeśli ma niską marżę, wysoką skłonność do zakupów bez rabatu albo drogi koszt dotarcia.</p>
+</section>
+<section id="rozwój-segmentacji" class="level2">
+<h2 class="anchored" data-anchor-id="rozwój-segmentacji">Rozwój segmentacji</h2>
+<p>RFM i KMeans są dobrym punktem startowym, bo są interpretowalne i łatwe do pokazania w portfolio. Kolejnym krokiem byłoby sprawdzenie, czy segmenty są stabilne, powtarzalne i użyteczne w decyzjach marketingowych.</p>
+<p>Możliwe kierunki:</p>
+<ul>
+<li>porównanie RFM, KMeans, Gaussian Mixture Models, HDBSCAN i segmentacji hierarchicznej,</li>
+<li>analiza stabilności segmentów w czasie, np. miesiąc do miesiąca,</li>
+<li>segmentacja dynamiczna, w której klient może migrować między segmentami,</li>
+<li>ocena segmentów nie tylko przez separację matematyczną, ale też przez przychód, marżę, retencję i reakcję na kampanie,</li>
+<li>profile segmentów liczone osobno dla marek, kategorii albo kohort pozyskania.</li>
+</ul>
+<p>Ważne jest, aby segment nie był tylko etykietą modelu. Segment powinien mieć interpretację biznesową, przewidywać różnice w zachowaniu i pomagać wybrać inne działanie marketingowe.</p>
+</section>
+<section id="modele-predykcyjne" class="level2">
+<h2 class="anchored" data-anchor-id="modele-predykcyjne">Modele predykcyjne</h2>
+<p>Naturalnym rozwinięciem projektu jest predykcja zachowań klientów w kolejnym oknie czasu. Wariant MVP mógłby przewidywać przychód klienta w kolejnych 30 dniach na podstawie wcześniejszego RFM, liczby sesji, historii zakupów i aktywności koszykowej.</p>
+<p>Przykładowe cele modelowania:</p>
+<ul>
+<li><code>revenue_next_30d</code>: przychód klienta w kolejnym oknie 30 dni,</li>
+<li>prawdopodobieństwo ponownego zakupu,</li>
+<li>ryzyko nieaktywności lub churn,</li>
+<li>customer lifetime value,</li>
+<li>next best brand lub next best offer,</li>
+<li>prawdopodobieństwo przejścia z koszyka do zakupu.</li>
+</ul>
+<p>Technicznie można zacząć od modeli tabularnych, takich jak regresja regularyzowana, Random Forest, XGBoost albo LightGBM. Przy danych sekwencyjnych warto rozważyć modele RNN, GRU, LSTM albo architektury transformerowe dla sekwencji zdarzeń użytkownika. Taki model mógłby uczyć się nie tylko zagregowanych cech RFM, ale także kolejności zdarzeń: <code>view -&gt; cart -&gt; remove_from_cart -&gt; purchase</code>.</p>
+<p>Modele sekwencyjne mają sens dopiero wtedy, gdy celem jest wykorzystanie porządku zdarzeń. Jeżeli decyzja opiera się głównie na agregatach klienta, prostsze modele tabularne będą łatwiejsze do walidacji i wyjaśnienia.</p>
+</section>
+<section id="analiza-przyczynowa-i-eksperymenty" class="level2">
+<h2 class="anchored" data-anchor-id="analiza-przyczynowa-i-eksperymenty">Analiza przyczynowa i eksperymenty</h2>
+<p>Obecna analiza pokazuje korelacje i wzorce. Nie dowodzi jednak, że konkretna kampania, rekomendacja albo rabat spowoduje wzrost sprzedaży.</p>
+<p>Do oceny wpływu działań potrzebna byłaby warstwa eksperymentalna:</p>
+<ul>
+<li>A/B testy kampanii i rekomendacji,</li>
+<li>grupy kontrolne,</li>
+<li>uplift modeling,</li>
+<li>pomiar inkrementalnego przychodu,</li>
+<li>rozdzielenie efektu kampanii od naturalnej skłonności klienta do zakupu,</li>
+<li>analiza heterogenicznego efektu kampanii per segment.</li>
+</ul>
+<p>Dopiero taka warstwa pozwala odpowiedzieć na pytanie, czy warto inwestować w dany segment. Bez niej można mówić o potencjale i korelacjach, ale nie o przyczynowym efekcie działania.</p>
+</section>
+<section id="rozwój-analizy-koszykowej" class="level2">
+<h2 class="anchored" data-anchor-id="rozwój-analizy-koszykowej">Rozwój analizy koszykowej</h2>
+<p>Analiza koszykowa może zostać rozwinięta w stronę bardziej użytecznych rekomendacji produktowych. Obecnie reguły pokazują współwystępowanie marek lub kategorii, ale nie uwzględniają marży, stanów magazynowych ani różnic między segmentami klientów.</p>
+<p>Kolejne kroki:</p>
+<ul>
+<li>reguły asocjacyjne liczone osobno per segment RFM lub KMeans,</li>
+<li>reguły per okres, sezon albo kampania,</li>
+<li>filtrowanie reguł po marży, wolumenie i dostępności produktu,</li>
+<li>porównanie Apriori z FP-Growth dla większych koszyków,</li>
+<li>rekomendacje pakietów cross-sell i bundle,</li>
+<li>testowanie reguł w kampanii z grupą kontrolną.</li>
+</ul>
+<p>W praktyce reguła o wysokim lift nie wystarczy. Rekomendacja powinna być jeszcze dostępna, opłacalna i zgodna z kontekstem zakupowym klienta.</p>
+</section>
+<section id="stack-danych-i-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="stack-danych-i-pipeline">Stack danych i pipeline</h2>
+<p>Jeżeli projekt miałby przejść z portfolio do regularnie odświeżanego procesu, potrzebna byłaby warstwa pipeline’u danych. Obecne skrypty są wystarczające do odtworzenia artefaktów, ale nie pełnią jeszcze roli produkcyjnego systemu transformacji.</p>
+<p>Możliwe rozszerzenia techniczne:</p>
+<ul>
+<li><code>dbt</code> do wersjonowanych transformacji SQL, testów jakości i dokumentacji modelu danych,</li>
+<li>DuckDB albo Polars do szybkiego lokalnego przetwarzania plików kolumnowych,</li>
+<li>Apache Parquet zamiast dużych CSV jako format roboczy,</li>
+<li>Great Expectations, Pandera albo testy <code>dbt</code> do kontroli jakości danych,</li>
+<li>Airflow, Prefect albo Dagster do orkiestracji pipeline’ów,</li>
+<li>MLflow do wersjonowania modeli, metryk i artefaktów,</li>
+<li>DVC albo lakeFS do wersjonowania danych i reprodukowalności eksperymentów,</li>
+<li>Feast albo inna warstwa feature store, jeżeli cechy miałyby zasilać modele predykcyjne online.</li>
+</ul>
+<p>W takim układzie Quarto pozostaje warstwą raportową, Streamlit warstwą eksploracyjną, a pipeline danych odpowiada za powtarzalne odświeżanie artefaktów.</p>
+</section>
+<section id="akceleracja-obliczeń" class="level2">
+<h2 class="anchored" data-anchor-id="akceleracja-obliczeń">Akceleracja obliczeń</h2>
+<p>Przy pełnych danych rzędu dziesiątek milionów zdarzeń warto rozważyć optymalizację wydajności, zanim projekt zostanie rozbudowany o cięższe modele.</p>
+<p>Możliwe ścieżki:</p>
+<ul>
+<li>NVIDIA RAPIDS <code>cuDF</code> do akceleracji operacji podobnych do pandas na GPU,</li>
+<li><code>cuML</code> do wybranych algorytmów uczenia maszynowego na GPU, np. KMeans,</li>
+<li>Polars jako szybka alternatywa CPU dla transformacji kolumnowych,</li>
+<li>DuckDB do zapytań analitycznych bez stawiania pełnej hurtowni,</li>
+<li>Spark albo Dask, jeżeli dane przestaną mieścić się wygodnie na jednej maszynie,</li>
+<li>formaty kolumnowe, partycjonowanie po czasie i cache pośrednich artefaktów.</li>
+</ul>
+<p>GPU nie powinno być pierwszym wyborem tylko dlatego, że jest szybsze. Najpierw warto ograniczyć zbędne odczyty CSV, przejść na Parquet, zoptymalizować agregacje i rozdzielić artefakty robocze od finalnych.</p>
+</section>
+<section id="produkcyjne-wdrożenie-modeli" class="level2">
+<h2 class="anchored" data-anchor-id="produkcyjne-wdrożenie-modeli">Produkcyjne wdrożenie modeli</h2>
+<p>Obecny artefakt KMeans jest samym modelem, a nie pełnym pipeline’em transformacji. Produkcyjne podejście powinno zapisywać cały proces: czyszczenie, transformację <code>log1p</code>, skalowanie, model i mapowanie etykiet na interpretacje biznesowe.</p>
+<p>Docelowy proces modelowy powinien obejmować:</p>
+<ul>
+<li>pełny pipeline <code>scikit-learn</code> lub równoważny pipeline produkcyjny,</li>
+<li>walidację wejściowego schematu danych,</li>
+<li>wersjonowanie modelu i danych treningowych,</li>
+<li>monitoring driftu cech i stabilności segmentów,</li>
+<li>testy regresji dla metryk segmentów,</li>
+<li>jasne rozdzielenie treningu, scoringu i raportowania,</li>
+<li>dokumentację tego, kiedy model powinien zostać przetrenowany.</li>
+</ul>
+<p>Wdrożenie nie musi oznaczać serwisu online. Dla wielu zastosowań marketingowych wystarczy batch scoring, np. codzienne lub tygodniowe odświeżenie segmentów i rekomendacji.</p>
+</section>
+<section id="warstwa-decyzyjna" class="level2">
+<h2 class="anchored" data-anchor-id="warstwa-decyzyjna">Warstwa decyzyjna</h2>
+<p>Ostatecznym celem nie jest większa liczba modeli, tylko lepsza decyzja marketingowa. Dlatego kolejne iteracje powinny łączyć wynik modelu z kosztem działania, spodziewanym przychodem, marżą i ryzykiem błędnej decyzji.</p>
+<p>Przykładowy dojrzały output analizy:</p>
+<ul>
+<li>segment klienta,</li>
+<li>oczekiwany przychód w kolejnym oknie czasu,</li>
+<li>rekomendowane działanie,</li>
+<li>koszt kontaktu,</li>
+<li>oczekiwany efekt inkrementalny,</li>
+<li>ograniczenia interpretacji,</li>
+<li>rekomendacja testu lub wdrożenia.</li>
+</ul>
+<p>Taka warstwa pozwoliłaby przejść od statycznego case study do systemu wspierającego decyzje: kogo aktywizować, komu rekomendować pakiet, gdzie nie używać rabatu i które segmenty wymagają osobnego eksperymentu.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Skopiowano!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Skopiowano!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/kepilif\.github\.io\/storylab\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>StoryLab · Historie oparte na danych</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="mailto:jacek.filipek@gmail.com">
+<p>E-mail</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://github.com/Kepilif/">
+<p>GitHub</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/kepilif/">
+<p>LinkedIn</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://public.tableau.com/app/profile/jacek.filipek/">
+<p>Tableau Public</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://gitlab.com/kepilif/">
+<p>GitLab</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

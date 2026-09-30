@@ -1,0 +1,49 @@
+{
+  "sources": [
+    {
+      "path": "data\\Environment_Temperature_change_E_All_Data_NOFLAG.csv",
+      "sha256": "0e3016bb5cca6c1e7700d59df024b526845cdd05c166e4453e0fecf77c3ed4e7",
+      "vintage": "historical",
+      "years": [
+        1961,
+        2019
+      ],
+      "definition": "World / Temperature change; °C versus 1951–1980"
+    },
+    {
+      "path": "data\\faostat_latest.zip",
+      "sha256": "1acf303d3d9463e498231b74fe82c2a13ef26547d37880e10b4e5a6a25870991",
+      "vintage": "updated",
+      "years": [
+        1961,
+        2025
+      ],
+      "definition": "World / Temperature change; °C versus 1951–1980"
+    }
+  ],
+  "analysis_years": [
+    1961,
+    2019
+  ],
+  "aggregation_status": "Candidate rules only; no source equivalence established",
+  "common_complete_meteorological_years": [
+    1962,
+    2019
+  ],
+  "forecast_cutoff": "2019-11-30; exclude December 2019",
+  "variability_windows": [
+    [
+      1961,
+      1979
+    ],
+    [
+      1981,
+      1999
+    ],
+    [
+      2001,
+      2019
+    ]
+  ],
+  "inference": "Descriptive; no significance claims or model selection"
+}

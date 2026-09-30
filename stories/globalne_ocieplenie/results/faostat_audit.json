@@ -1,0 +1,18 @@
+{
+  "download_date": "2026-09-22",
+  "url": "https://bulks-faostat.fao.org/production/Environment_Temperature_change_E_All_Data_(Normalized).zip",
+  "rows_in_archive": 590512,
+  "definition": "World / Meteorological year / Temperature change; °C; 1951–1980 baseline",
+  "methodology_status": "Same series codes and published conceptual definition; full vintage-to-vintage algorithm equivalence not established.",
+  "revised_years": 58,
+  "mean_revision": -0.0020338983050847462,
+  "max_absolute_revision": 0.069,
+  "MAE": 0.295965657369332,
+  "RMSE": 0.3701078659953134,
+  "bias": -0.2798296487284824,
+  "coverage95": 5,
+  "sha256": {
+    "data\\faostat_latest.zip": "1acf303d3d9463e498231b74fe82c2a13ef26547d37880e10b4e5a6a25870991",
+    "data\\Environment_Temperature_change_E_All_Data_NOFLAG.csv": "0e3016bb5cca6c1e7700d59df024b526845cdd05c166e4453e0fecf77c3ed4e7"
+  }
+}

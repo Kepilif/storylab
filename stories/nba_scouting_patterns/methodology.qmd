@@ -1,0 +1,76 @@
+---
+title: "Dane, metody i ograniczenia"
+---
+
+::: {.callout-tip appearance="simple"}
+**Rozdziały projektu:** [Start](index.qmd) | [Historia](story.qmd) | **Metodologia** | [Warsztat](portfolio.qmd) | [Dalszy rozwój](roadmap.qmd)
+:::
+
+## Methodology overview
+
+Ta warstwa sluzy do pokazania, jak projekt przechodzi z EDA do bardziej rygorystycznej analizy i modelu danych przydatnego dla scoutingu.
+
+## Data scope
+
+Podstawowym zrodlem jest zbior `all_seasons.csv` z Kaggle. Dane maja charakter `player-season`, co oznacza, ze ten sam zawodnik wystepuje wielokrotnie w kolejnych sezonach.
+
+To prowadzi do kluczowego rozroznienia:
+
+- analiza trendow ligowych moze pracowac na poziomie sezonowym
+- analiza sukcesu i rozwoju kariery wymaga zbudowania warstwy `player-career`
+
+## Analytical model
+
+Docelowo projekt powinien miec dwie warstwy analityczne:
+
+### 1. Player-season
+
+Warstwa do pytan o lige i zmiany w czasie:
+- trendy wieku, wzrostu, masy ciala
+- zmiany w punktach, asystach i zbiorkach
+- relacje miedzy metrykami wydajnosci
+- geografia i uczelnie jako warstwa opisowa
+
+### 2. Player-career
+
+Warstwa do pytan scoutingowych i predykcyjnych:
+- dlugosc kariery
+- stabilnosc obecnosci w lidze
+- peak performance
+- draft outcome vs career outcome
+- archetyp zawodnika i sciezka rozwoju
+
+## Current SQL plan
+
+Docelowo warto rozdzielic zapytania na moduly:
+
+- `sql/01_data_audit.sql`
+- `sql/02_league_trends.sql`
+- `sql/03_player_career_features.sql`
+- `sql/04_geography_and_college.sql`
+- `sql/05_statistical_checks.sql`
+
+Ten podzial ma oddzielic audyt danych, logike feature engineeringu i warstwe interpretacyjna od jednego duzego roboczego pliku SQL.
+
+## Statistical layer
+
+Planowana rozbudowa warstwy statystycznej obejmuje:
+
+- przedzialy ufnosci dla wybranych metryk
+- porownanie grup graczy wedlug profilu fizycznego
+- korelacje z komentarzem interpretacyjnym
+- proste modele regresyjne i analiza wrazliwosci
+- analize kariery jako procesu w czasie
+
+## Limits and risks
+
+Najwazniejsze ograniczenia obecnego zbioru:
+
+- `country` wymaga walidacji przed interpretowaniem jako birthplace
+- dane nie zawieraja pelnej historii draftowej i biograficznej
+- proste srednie moga maskowac role zawodnikow i zmiany stylu gry
+- przyszla sekcja ML musi unikac leakage i nie moze korzystac z informacji z przyszlosci
+
+## Current status
+
+Na ten moment warstwa metodologiczna jest szkieletem pod Iteracje 3. Ma juz zdefiniowany kierunek, ale wymaga dopelnienia konkretnymi transformacjami, logika SQL i pierwsza wersja modelu `player-career`.
